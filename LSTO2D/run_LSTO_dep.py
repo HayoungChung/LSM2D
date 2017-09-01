@@ -7,7 +7,7 @@ from openmdao.api import Problem, view_model, ScipyOptimizer
 from fem2d import PyFEMSolver
 from forces import get_forces
 
-from lsm2d_SLP_Group import LSM2D_slpGroup
+from lsm2d_SLP_Group_v0 import LSM2D_slpGroup
 from lsm_classes import PyLSMSolver
 
 from ls_sensitivity import _LeastSquare

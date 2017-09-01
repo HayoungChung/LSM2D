@@ -3,6 +3,9 @@ from openmdao.api import ExplicitComponent
 # from leastSquare_vec import leastSquare_vec # TODO
 
 from lsm_classes import PyLSMSolver
+
+'''
+these are deprecated part (some preliminary works present, and results are meaningless
 '''
 class ComplSens_Comp(ExplicitComponent): 
     def initialize(self):
@@ -128,18 +131,21 @@ class UnscaleComp(ExplicitComponent):
         pass
     def setup(self):
         self.add_input('')
+
+'''
+these are used for run_LSTO.py
 '''
 
 class DistanceComp(ExplicitComponent):
     def initialize(self): 
         self.metadata.declare('lsm_solver', type_=PyLSMSolver, required=True)
-        self.metadata.declare('num_dvs', type_=int, required=True)
         self.metadata.declare('num_bpts', type_=int, required=True)
+        self.metadata.declare('num_dvs', type_=int, required=True)
         
     def setup(self):
         self.lsm_solver = self.metadata['lsm_solver']
-        num_dvs = self.metadata['num_dvs']
         num_bpts = self.metadata['num_bpts']
+        num_dvs = self.metadata['num_dvs']
         self.add_input('lambdas', shape = num_dvs)
         self.add_output('distances', shape = num_bpts)
     def compute(self, inputs, outputs):
@@ -149,7 +155,6 @@ class ConstraintComp(ExplicitComponent):
     def initialze(self):
         self.metadata.declare('lsm_solver', type_=PyLSMSolver, required=True)
         self.metadata.declare('num_bpts', type_=int, required=True)
-        pass
     def setup(self):
         self.lsm_solver = self.metadata['lsm_solver']
         num_bpts = self.metadata['num_bpts']
@@ -163,7 +168,6 @@ class ObjectiveComp(ExplicitComponent):
     def initialize(self): 
         self.metadata.declare('lsm_solver', type_=PyLSMSolver, required=True)
         self.metadata.declare('num_bpts', type_=int, required=True)
-        pass
     def setup(self):
         self.lsm_solver = self.metadata['lsm_solver']
         num_bpts = self.metadata['num_bpts']
