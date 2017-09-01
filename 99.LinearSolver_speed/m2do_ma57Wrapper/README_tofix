@@ -1,0 +1,14 @@
+[8월 23일] 
+
+c++ wrapper가 정확한 결과를 내는 것은 확인하였으나,
+Cython 으로 python expose 시키는 것은 성공하지 못하였음
+
+importError: undefined symbol Metis_nodend_ 
+
+에러가 발생하며, 아마 static library를 setup.py로 컴파일 하는데에서 
+문제가 생기는 것으로 생각됨. 
+
+-- 추후 확인할 것 --
+1. static library linking cython
+2. 다른 툴들은 metis를 어떻게 링킹했는지
+

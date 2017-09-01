@@ -1,0 +1,38 @@
+from openmdao.api import Problem
+from openode.api import ExplicitTMIntegrator, ForwardEuler
+from ODEfunction import MyODEFunction
+import numpy as np
+from optim_refact import OptimRefact
+
+
+num = 2
+
+optim = OptimRefact()
+optim.get_phis(optim.phi)
+system_init_kwargs = {'optim': optim}
+initial_phi = optim.phi
+ode_function = MyODEFunction(system_init_kwargs)
+
+
+
+comp = ode_function._system_class(optim=optim)
+prob = Problem(comp)
+prob.setup()
+
+exit()
+
+
+
+
+integrator = ExplicitTMIntegrator(
+    ode_function=ode_function, 
+    scheme=ForwardEuler(),
+    initial_conditions={'phi': initial_phi}, time_spacing=np.arange(num),
+    start_time=0.,
+    end_time=100.,
+)
+
+prob = Problem(integrator)
+print('1')
+prob.setup()
+prob.run_model()

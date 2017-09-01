@@ -1,0 +1,8 @@
+NOTE
+
+cython 이용시에 null constructor 가 없으면 stacking 이 되지 않음
+    -> pointer로 우선 정의해놓아야 쓸 수 있음
+
+reference로 input 주는 것 실패. 
+    -> constructor를 pointer로 변경해야.
+    : (Mesh& mesh_): mesh(mesh_) => : (Mesh* mesh_): mesh(*mesh_)

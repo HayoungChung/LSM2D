@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "array": "cpp",
+        "slist": "cpp",
+        "initializer_list": "cpp",
+        "utility": "cpp",
+        "*.ipp": "cpp",
+        "fstream": "cpp",
+        "*.tcc": "cpp"
+    }
+}
