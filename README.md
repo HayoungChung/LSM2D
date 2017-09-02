@@ -5,7 +5,7 @@ to get cythonized library of level-set toolbox,
 
 ```bash
 ./lib/lsm2d_classwise
-sh ./run_setup (case of bash shell)
+sh ./run_setup.sh (case of bash shell)
 cp ./build/lib*/lsm_classes.so ./../../LSTO2D
 ```
 
