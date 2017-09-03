@@ -152,7 +152,7 @@ class DistanceComp(ExplicitComponent):
         outputs['distances'] = self.lsm_solver.computeDisplacements(inputs['lambdas'])
     
 class ConstraintComp(ExplicitComponent):
-    def initialze(self):
+    def initialize(self):
         self.metadata.declare('lsm_solver', type_=PyLSMSolver, required=True)
         self.metadata.declare('num_bpts', type_=int, required=True)
     def setup(self):
