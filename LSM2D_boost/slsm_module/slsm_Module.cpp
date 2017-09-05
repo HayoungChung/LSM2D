@@ -59,7 +59,7 @@ BOOST_PYTHON_MODULE(slsm_Module){
         .add_property("elements",&slsm::Mesh::elements)
         ;
     
-    class_<slsm::LevelSet>("LevelSet",init<slsm::Mesh&, std::vector<slsm::Hole>&, double, unsigned int, bool>())
+    class_<slsm::LevelSet>("LevelSet",init<slsm::Mesh&>()) //, std::vector<slsm::Hole>&, double, unsigned int, bool>())
 		.def("ComputeGradients",&slsm::LevelSet::computeGradients)
 		.def("update",&slsm::LevelSet::update)
 		.def("computeVelocities",static_cast< void(slsm::LevelSet::*)(const std::vector<slsm::BoundaryPoint>&)>

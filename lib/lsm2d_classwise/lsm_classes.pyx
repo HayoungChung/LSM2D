@@ -55,15 +55,19 @@ cdef extern from "optimise_noNLOPT.h":
         void computeConstraintDistances()
         void computeGradients(vector[double]&, vector[double]&, unsigned int)
         void computeDisplacements(vector[double]&)
-        # double computeFunction(int)
+        double computeFunction(int)
         double computeFunction(vector[double]&, int)
         double rescaleDisplacements()
 
         vector[double] scaleFactors
+        vector[double] constraintDistances
+        vector[double] constraintDistancesScaled
         vector[double] negativeLambdaLimits
         vector[double] positiveLambdaLimits
         vector[unsigned int] indexMap
         vector[double] displacements
+
+        double callback(const vector[double]&, vector[double]&, unsigned int)
 
 
 cdef class PyLSMSolver:
@@ -76,6 +80,7 @@ cdef class PyLSMSolver:
     cdef double targetArea
     cdef int nBpts
     # cdef vector[BoundaryPoint]
+    cdef vector[double] lambdas
 
     def __cinit__(self, int num_nodes_x, int num_nodes_y, double minArea):
         self.meshptr = new Mesh(num_nodes_x-1,num_nodes_y-1,False)
@@ -116,9 +121,10 @@ cdef class PyLSMSolver:
         
     # this is a temporary fix =======================================
     def preprocess(self, double movelimit, np.ndarray[double] BptsSensitivity):
-        cdef vector[double] lambdas
-        lambdas.push_back(0.0)
-        lambdas.push_back(0.0)
+        # cdef vector[double] lambdas
+        self.lambdas.push_back(0.0)
+        self.lambdas.push_back(0.0)
+        # self. lambdas = lambdas
         
         for ii in range(0, self.boundaryptr.nPoints):
             self.boundaryptr.points[ii].sensitivities[0] = BptsSensitivity[ii]
@@ -126,9 +132,10 @@ cdef class PyLSMSolver:
         
         cdef vector[double] constraintDistances 
         constraintDistances.push_back(self.targetArea-self.boundaryptr.area)
+        # print (self.targetArea, self.boundaryptr.area, constraintDistances)
 
         self.optimiseptr = new Optimise(
-            self.boundaryptr.points, constraintDistances, lambdas, np.abs(lambdas[0]), movelimit)
+            self.boundaryptr.points, constraintDistances, self.lambdas, np.abs(self.lambdas[0]), movelimit)
 
         self.optimiseptr.computeConstraintDistances();
 
@@ -141,20 +148,37 @@ cdef class PyLSMSolver:
         
         # // Compute scaled constraint change distances and remove inactive
         # // inequality constraints.
-        # self.optimiseptr.computeConstraintDistances()
+        #self.optimiseptr.computeConstraintDistances()
+
+    # def get_constraintDistances(self):
+    #     return (self.optimiseptr.constraintDistances, self.optimiseptr.constraintDistancesScaled )
+    
+    def callback(self, np.ndarray[double] lambdas, unsigned int index):
+        cdef vector[double] lambda_v
+        lambda_v.push_back(lambdas[0])
+        lambda_v.push_back(lambdas[1])
+        cdef vector[double] vector__double__
+        return self.optimiseptr.callback(lambda_v, vector__double__, index)
+
+    def callback_dp(self, np.ndarray[double] lambdas, unsigned int index):
+        self.optimiseptr.computeDisplacements(lambdas)
+        return self.optimiseptr.computeFunction(index), self.optimiseptr.displacements
+
 
     def get_bounds(self):        
         return (self.optimiseptr.positiveLambdaLimits, self.optimiseptr.negativeLambdaLimits)
 
     def computeDisplacements(self, np.ndarray[double] lambdas):
-        cdef vector[double] lambda_v
-        lambda_v.push_back(lambdas[0])
-        lambda_v.push_back(lambdas[1])
-        self.optimiseptr.computeDisplacements(lambda_v)
+        self.optimiseptr.computeDisplacements(lambdas)
         return self.optimiseptr.displacements
 
     def computeFunction(self,np.ndarray[double] displacement, int index):
-        return self.optimiseptr.computeFunction(displacement, index)
+        f1 = self.optimiseptr.computeFunction(index)    
+        f2 = self.optimiseptr.computeFunction(displacement, index)    
+        return (f1, f2)
+
+    # def computeFunction(self, int index):
+    #     return self.optimiseptr.computeFunction(index)
         
     def computeGradients(self, np.ndarray[double] lambdas,unsigned int index):
         ndvs = lambdas.shape[0]
@@ -164,10 +188,10 @@ cdef class PyLSMSolver:
 
     def postprocess(self,np.ndarray[double] lambdas):
         # // Compute the optimum displacement vector.
-        cdef vector[double] lambda_v
-        lambda_v.push_back(lambdas[0])
-        lambda_v.push_back(lambdas[1])
-        self.optimiseptr.computeDisplacements(lambda_v)
+        # cdef vector[double] lambda_v
+        # lambda_v.push_back(lambdas[0])
+        # lambda_v.push_back(lambdas[1])
+        self.optimiseptr.computeDisplacements(lambdas)
         
         # return gradient        
 
@@ -175,13 +199,14 @@ cdef class PyLSMSolver:
         self.optimiseptr.rescaleDisplacements()
         # # // Calculate the unscaled lambda values.
         for ii in range(0,2):
-            lambda_v[ii] *= self.optimiseptr.scaleFactors[ii];
+            lambdas[ii] *= self.optimiseptr.scaleFactors[ii];
 
         # # // Effective time step.
-        timeStep = -(lambda_v[0])
+        timeStep = -(lambdas[0])
         # # // Calculate boundary point velocities.
         for ii in range(0, self.nBpts):
             self.boundaryptr.points[ii].velocity = self.optimiseptr.displacements[ii] / timeStep
+            # print(self.boundaryptr.points[ii].velocity)
         # print("?")
         # return self.boundaryptr.points # ERROR: pointer issue
         # ======================================================================================

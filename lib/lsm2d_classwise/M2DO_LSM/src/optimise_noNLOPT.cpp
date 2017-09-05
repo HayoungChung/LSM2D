@@ -81,18 +81,18 @@ exit(EXIT_FAILURE);
 }
 
 
-// double Optimise::callback(const std::vector<double>& lambda, std::vector<double>& gradient, unsigned int index)
-// {
-//     // Calculate the boundary displacement vector.
-//     computeDisplacements(lambda);
+double Optimise::callback(const std::vector<double>& lambda, std::vector<double>& gradient, unsigned int index)
+{
+    // Calculate the boundary displacement vector.
+    computeDisplacements(lambda);   
+    
+    // Compute the gradients.
+    // if (!gradient.empty())
+    //     computeGradients(lambda, gradient, index);
 
-//     // Compute the gradients.
-//     if (!gradient.empty())
-//         computeGradients(lambda, gradient, index);
-
-//     // Return the function value.
-//     return computeFunction(index);
-// }
+    // Return the function value.
+    return computeFunction(index);
+}
 
 // double Optimise::solve()
 // {
@@ -314,7 +314,6 @@ void Optimise::computeScaleFactors()
         // Scale by diagonal gradient entry (absolute value).
         scaleFactors[i] *= (1.0 / std::abs(gradient[i]));
     }
-    //HAC std::cout << "end loop of scalefactor #2" << "\n";
 }
 
 void Optimise::computeConstraintDistances()
@@ -436,6 +435,8 @@ void Optimise::computeConstraintDistances()
         // Reduce the number of constraints.
         nConstraints = nActive;
     }
+    // std::cout << "computeContstraints = " << constraintDistances[0] << "and scaled:" <<
+    // constraintDistancesScaled[0] << "\n";
 }
 
 void Optimise::computeLambdaLimits()

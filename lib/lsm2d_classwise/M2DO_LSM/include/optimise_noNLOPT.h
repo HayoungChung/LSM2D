@@ -90,6 +90,8 @@ public:
     /// Scaled constraint distances.
     std::vector<double> constraintDistancesScaled;
 
+    double callback(const std::vector<double>&, std::vector<double>&, unsigned int);
+    
     //! Compute scale factors.
     void computeScaleFactors();
 

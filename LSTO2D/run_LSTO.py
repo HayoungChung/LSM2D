@@ -13,6 +13,8 @@ from lsm_classes import PyLSMSolver
 from ls_sensitivity import _LeastSquare
 
 import matplotlib.pyplot as plt 
+import scipy.optimize as sp_optim
+
 # FEM Mesh
 num_nodes_x = 161
 num_nodes_y = 81
@@ -48,13 +50,18 @@ radius = 2
 movelimit = 0.1
 
 # LSM initialize (swisscheese config)
-lsm_solver = PyLSMSolver(num_nodes_x, num_nodes_y, 0.1) 
+
+lsm_solver = PyLSMSolver(num_nodes_x, num_nodes_y, 0.5) 
 
 # HJ loop
-max_loop = 1
+max_loop = 100
 for i_HJ in range(0,max_loop):
     # 0. discretize
     (bpts_xy, areafraction, segmentLength) = lsm_solver.discretize()
+    if i_HJ == 0:
+        bpts_xy0 = bpts_xy
+        areafraction0 = areafraction
+
     
     plt.plot(bpts_xy[:,0],bpts_xy[:,1],'o')
     plt.show()
@@ -92,33 +99,55 @@ for i_HJ in range(0,max_loop):
     (ub, lb) = lsm_solver.get_bounds()
 
     # ## start of the slp suboptimization    
-    model = LSM2D_slpGroup(
-        lsm_solver = lsm_solver,
-        bpts_xy = bpts_xy, # boundary points
-        lb = lb, ub = ub,
-    )
-    
 
-    prob = Problem(model)
-    prob.setup()
-    if (i_HJ == 0):
-        view_model(prob)   
-    
-    prob.driver = ScipyOptimizer()
-    prob.driver.options['optimizer'] = 'SLSQP'
-    prob.driver.options['tol'] = 1e-9
-    prob.driver.options['disp'] = True
+    if 1:
+        def objF_nocallback(x):
+            # report: produces nan after 1st iteration
+            displacement = lsm_solver.computeDisplacements(x)
+            displacement_np = np.asarray(displacement)
+            return  lsm_solver.computeFunction(displacement_np, 0)[0]
+            
+        def conF_nocallback(x):
+            displacement = lsm_solver.computeDisplacements(x)
+            displacement_np = np.asarray(displacement)
+            return  lsm_solver.computeFunction(displacement_np, 1)[1]
 
-    prob.run_driver()
+        cons = ({'type' : 'eq', 'fun': lambda x: conF_nocallback(x)})
+        res = sp_optim.minimize(objF_nocallback, np.zeros(2), method='SLSQP', options={'disp': True}, \
+                    bounds=((lb[0],ub[0]),(lb[1],ub[1])),\
+                    constraints = cons)
+
+        lambdas = res.x
+        print(lambdas)
+
+    if 0:
+        model = LSM2D_slpGroup(
+            lsm_solver = lsm_solver,
+            bpts_xy = bpts_xy, # boundary points
+            lb = lb, ub = ub,
+        )
+        model.approx_total_derivs(method = 'fd')
+
+        prob = Problem(model)
+        prob.setup()
+        
+        prob.driver = ScipyOptimizer()
+        prob.driver.options['optimizer'] = 'SLSQP'
+        prob.driver.options['tol'] = 1e-20
+        prob.driver.options['disp'] = True
+
+        prob.run_driver()
+
+        lambdas = prob['inputs_comp.lambdas']
+        print (lambdas)
 
     # after sub-optimization    
-    lambdas = prob['inputs_comp.lambdas']
 
     lsm_solver.postprocess(lambdas)
     lsm_solver.computeVelocities()
     phi = lsm_solver.update(np.abs(lambdas[0]))
     lsm_solver.reinitialise()
 
-    print (lambdas)
+    # totals = prob.compute_total_derivs(['objective_comp.objective'], ['inputs_comp.lambdas'])
 
 

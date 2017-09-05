@@ -1,5 +1,7 @@
 {
     "files.associations": {
+        "*.pyx": "python",
+        "*.tpp": "cpp",
         "cctype": "cpp",
         "cmath": "cpp",
         "csignal": "cpp",
@@ -14,6 +16,7 @@
         "iosfwd": "cpp",
         "typeinfo": "cpp",
         "*.tcc": "cpp",
-        "array": "cpp"
+        "array": "cpp",
+        "*.ipp": "cpp"
     }
 }
