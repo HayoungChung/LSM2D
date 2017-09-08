@@ -47,14 +47,14 @@ num_gpts = num_elems*Order_gpts**2
 
 # LSM properties 
 radius = 2
-movelimit = 0.1
+movelimit = 0.5
 
 # LSM initialize (swisscheese config)
 
 lsm_solver = PyLSMSolver(num_nodes_x, num_nodes_y, 0.5) 
 
 # HJ loop
-max_loop = 1
+max_loop = 100
 for i_HJ in range(0,max_loop):
     # 0. discretize
     (bpts_xy, areafraction, segmentLength) = lsm_solver.discretize()
@@ -62,9 +62,10 @@ for i_HJ in range(0,max_loop):
         bpts_xy0 = bpts_xy
         areafraction0 = areafraction
 
-    
-    # plt.plot(bpts_xy[:,0],bpts_xy[:,1],'o')
-    # plt.show()
+    plt.clf()
+    plt.plot(bpts_xy[:,0],bpts_xy[:,1],'o')
+    plt.savefig('plots/bpts_%d.png'%i_HJ)
+
 
     num_sparse = num_elems * 64 * 4 + 2 * 2 * num_nodes_y
     irs = np.zeros(num_sparse, dtype=np.int32)
@@ -95,25 +96,26 @@ for i_HJ in range(0,max_loop):
                 fixedGpts_sens, areafraction, radius)
     bpts_sens = leastsquare.get_sens_compliance()
 
-    lsm_solver.preprocess(movelimit, bpts_sens)
+    lambdas = np.zeros(2)
+    lambdas = lsm_solver.preprocess(lambdas, movelimit, bpts_sens)
     (ub, lb) = lsm_solver.get_bounds()
-    (a,b,c,d) = lsm_solver.get_optimPars()
-    print (a,b,c,d)
+    # (a,b,c,d) = lsm_solver.get_optimPars()
+    # print (a,b,c,d)
     # ## start of the slp suboptimization    
 
     if 1:
         def objF_nocallback(x):
             # report: produces nan after 1st iteration
             displacement = lsm_solver.computeDisplacements(x)
-            print('objF')
-            print(displacement)
+            # print('objF')
+            # print(displacement)
             displacement_np = np.asarray(displacement)
             return  lsm_solver.computeFunction(displacement_np, 0)[0]
             
         def conF_nocallback(x):
             displacement = lsm_solver.computeDisplacements(x)
-            print('conF')
-            print(displacement)
+            # print('conF')
+            # print(displacement)
             displacement_np = np.asarray(displacement)
             return  lsm_solver.computeFunction(displacement_np, 1)[1]
 
@@ -147,19 +149,27 @@ for i_HJ in range(0,max_loop):
         print (lambdas)
 
     # after sub-optimization    
-    print ('loop %d is finished & postprocessing starts' % i_HJ)
-    lsm_solver.postprocess(lambdas)
-    print ('computing velocities')
+    # print ('loop %d is finished & postprocessing starts' % i_HJ)
+    lambdas = lsm_solver.postprocess(lambdas)
+    print(lambdas)
+    # print ('computing velocities')
     lsm_solver.computeVelocities()
-    print ('starts updating')
+    print(lambdas)
+    # print ('starts updating')
     phi = lsm_solver.update(np.abs(lambdas[0]))
-    print ('reinitialiing')
-    lsm_solver.reinitialise()
-    (a,b,c,d) = lsm_solver.get_optimPars()
-    print (a,b,c,d)
-    lsm_solver.del_optim()
+    plt.clf()
+    plt.plot(phi,'o')
+    plt.savefig('plots/phi_%d.png'%i_HJ)
 
-    print ('all finished')
+    # print ('reinitialiing')
+    lsm_solver.reinitialise()
+    # (a,b,c,d) = lsm_solver.get_optimPars()
+    # print (a,b,c,d)
+    # lsm_solver.del_optim()
+
+    # print ('all finished')
+    print ('loop %d is finished' % i_HJ)
+
 
     # totals = prob.compute_total_derivs(['objective_comp.objective'], ['inputs_comp.lambdas'])
 

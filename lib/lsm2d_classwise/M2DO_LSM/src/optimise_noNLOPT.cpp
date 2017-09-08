@@ -533,7 +533,7 @@ void Optimise::computeDisplacements(const std::vector<double>& lambda)
             // Initialise component for objective.
             displacements[i] = scaleFactors[0] * lambda[0] * boundaryPoints[i].sensitivities[0];
             
-            std::cout << "(" << i << "): " << displacements[i] << "\n";
+            // std::cout << "(" << i << "): " << displacements[i] << "\n";
             // Add components for active constraints.
             for (unsigned int j=1;j<nConstraints+1;j++)
             {
@@ -737,7 +737,7 @@ void Optimise::computeGradients(const std::vector<double>& lambda, std::vector<d
     }
 }
 
-double Optimise::rescaleDisplacements()
+double Optimise::rescaleDisplacements(std::vector<double>& lambdas)
 {
     // Check for CFL violation and rescale the displacments
     // and lambda values if necessary.

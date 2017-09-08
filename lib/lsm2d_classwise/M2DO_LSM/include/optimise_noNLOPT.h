@@ -131,7 +131,7 @@ public:
     /*! \return
             The scale factor.
      */
-    double rescaleDisplacements();
+    double rescaleDisplacements(std::vector<double>& lambdas);
 
     //! Apply Laplacian smoothing to computed displacements and rescale them to the CFL condition.
     void LaplacianDisplacementsFilter(int);

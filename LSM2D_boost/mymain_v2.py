@@ -152,7 +152,7 @@ for iIter in range(0,Max_Iter):
         BoundaryPoints[ii,1] = boundary.points[ii].coord.y #VERIFIED
         
     plt.plot(BoundaryPoints[:,0],BoundaryPoints[:,1],'o')
-    plt.show()
+    plt.savefig('plots/%d.png' %iIter)
 #    t = clock_t.time()
     BoundarySensitivities = CSensitivities.Compliance(BoundaryPoints, Weights, Radius, WeightFlag, AllowedAreaFraction)
 #    print("bpt sensitivity calculation takes %d sec\n",clock_t.time()-t)
@@ -261,4 +261,4 @@ node_f = CMesh.Nodes + U2
 idE = CMesh.Elements[:,[0,1,2,3,0]].flatten(order='C').astype(int)
 xorder = node_f[idE,0].reshape(int(len(idE)/(CMesh._npe+1)),CMesh._npe+1)
 yorder = node_f[idE,1].reshape(int(len(idE)/(CMesh._npe+1)),CMesh._npe+1)
-plt.plot(xorder.transpose(),yorder.transpose(),'b-')
+#plt.plot(xorder.transpose(),yorder.transpose(),'b-')
