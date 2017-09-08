@@ -152,6 +152,9 @@ cdef class PyLSMSolver:
 
     # def get_constraintDistances(self):
     #     return (self.optimiseptr.constraintDistances, self.optimiseptr.constraintDistancesScaled )
+
+    def get_phi(self):
+        return self.levelsetptr.signedDistance
     
     def callback(self, np.ndarray[double] lambdas, unsigned int index):
         cdef vector[double] lambda_v
@@ -222,5 +225,11 @@ cdef class PyLSMSolver:
 
     def update(self,double t):
         self.levelsetptr.update(t)
+        del self.optimiseptr
+
         return self.levelsetptr.signedDistance
+
+    def get_optimPars(self):
+        return (self.optimiseptr.scaleFactors, self.optimisept.constraintDistances,
+    self.optimiseptr.constraintDistances, self.optimiseptr.indexMap, self.optimiseptr.displacements)
 
