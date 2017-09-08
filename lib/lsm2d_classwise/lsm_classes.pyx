@@ -123,7 +123,7 @@ cdef class PyLSMSolver:
     def preprocess(self, double movelimit, np.ndarray[double] BptsSensitivity):
         # cdef vector[double] lambdas
         self.lambdas.push_back(0.0)
-        self.lambdas.push_back(0.0)
+        self.lambdas.push_back(0.0) # TAG_lambdaAsSelf
         # self. lambdas = lambdas
         
         for ii in range(0, self.boundaryptr.nPoints):

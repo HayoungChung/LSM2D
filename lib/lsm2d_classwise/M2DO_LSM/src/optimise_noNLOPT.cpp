@@ -66,7 +66,7 @@ constraintDistancesScaled = constraintDistances;
 nPoints = boundaryPoints.size();
 indexMap.clear();
 indexMap.push_back(0);
-indexMap.push_back(1);
+indexMap.push_back(1); // FIXTHIS: TAG_indexmap
 
 displacements.resize(nPoints);
 isSideLimit.resize(nPoints);
@@ -412,7 +412,7 @@ void Optimise::computeConstraintDistances()
             isEquality[nActive] = isEquality[i];
 
             // Map the constraint index: active --> original
-            indexMap.push_back(i+1);
+            indexMap.push_back(i+1); // FIXTHIS: TAG_indexmap
 
             // Incremement the number of active constraints.
             nActive++;
@@ -439,7 +439,7 @@ void Optimise::computeConstraintDistances()
     // constraintDistancesScaled[0] << "\n";
 }
 
-void Optimise::computeLambdaLimits()
+void Optimise::computeLambdaLimits() // FIXTHIS: TAG_lambdas
 {
     /* The lambda limits are set by computing the minimum displacement
     that violates the CFL condition independently for each function, i.e.
@@ -532,7 +532,8 @@ void Optimise::computeDisplacements(const std::vector<double>& lambda)
 
             // Initialise component for objective.
             displacements[i] = scaleFactors[0] * lambda[0] * boundaryPoints[i].sensitivities[0];
-
+            
+            std::cout << "(" << i << "): " << displacements[i] << "\n";
             // Add components for active constraints.
             for (unsigned int j=1;j<nConstraints+1;j++)
             {
@@ -778,7 +779,7 @@ double Optimise::rescaleDisplacements()
             lambdas[i] *= scale;
 
         // Recompute the displacement vector.
-        computeDisplacements(lambdas);
+        computeDisplacements(lambdas); // FIXTHIS: TAG_lambdas
 
         // Return the scale factor.
         return scale;

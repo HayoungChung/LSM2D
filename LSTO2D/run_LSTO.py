@@ -54,7 +54,7 @@ movelimit = 0.1
 lsm_solver = PyLSMSolver(num_nodes_x, num_nodes_y, 0.5) 
 
 # HJ loop
-max_loop = 2
+max_loop = 1
 for i_HJ in range(0,max_loop):
     # 0. discretize
     (bpts_xy, areafraction, segmentLength) = lsm_solver.discretize()
@@ -72,7 +72,7 @@ for i_HJ in range(0,max_loop):
     data = np.zeros(num_sparse)
 
     fem_solver.get_stiffness_matrix_LSTO(areafraction, data, irs, jcs)
-
+    
     # 1. get stiffness matrix & solve (LU decomposition)
     mtx = scipy.sparse.csc_matrix((data, (irs, jcs)), shape=(num_dofs, num_dofs))
     lumtx = scipy.sparse.linalg.splu(mtx)
@@ -105,11 +105,15 @@ for i_HJ in range(0,max_loop):
         def objF_nocallback(x):
             # report: produces nan after 1st iteration
             displacement = lsm_solver.computeDisplacements(x)
+            print('objF')
+            print(displacement)
             displacement_np = np.asarray(displacement)
             return  lsm_solver.computeFunction(displacement_np, 0)[0]
             
         def conF_nocallback(x):
             displacement = lsm_solver.computeDisplacements(x)
+            print('conF')
+            print(displacement)
             displacement_np = np.asarray(displacement)
             return  lsm_solver.computeFunction(displacement_np, 1)[1]
 
@@ -143,15 +147,19 @@ for i_HJ in range(0,max_loop):
         print (lambdas)
 
     # after sub-optimization    
-
+    print ('loop %d is finished & postprocessing starts' % i_HJ)
     lsm_solver.postprocess(lambdas)
+    print ('computing velocities')
     lsm_solver.computeVelocities()
+    print ('starts updating')
     phi = lsm_solver.update(np.abs(lambdas[0]))
+    print ('reinitialiing')
     lsm_solver.reinitialise()
     (a,b,c,d) = lsm_solver.get_optimPars()
     print (a,b,c,d)
     lsm_solver.del_optim()
 
+    print ('all finished')
 
     # totals = prob.compute_total_derivs(['objective_comp.objective'], ['inputs_comp.lambdas'])
 
