@@ -54,7 +54,7 @@ movelimit = 0.1
 lsm_solver = PyLSMSolver(num_nodes_x, num_nodes_y, 0.5) 
 
 # HJ loop
-max_loop = 100
+max_loop = 2
 for i_HJ in range(0,max_loop):
     # 0. discretize
     (bpts_xy, areafraction, segmentLength) = lsm_solver.discretize()
@@ -63,8 +63,8 @@ for i_HJ in range(0,max_loop):
         areafraction0 = areafraction
 
     
-    plt.plot(bpts_xy[:,0],bpts_xy[:,1],'o')
-    plt.show()
+    # plt.plot(bpts_xy[:,0],bpts_xy[:,1],'o')
+    # plt.show()
 
     num_sparse = num_elems * 64 * 4 + 2 * 2 * num_nodes_y
     irs = np.zeros(num_sparse, dtype=np.int32)
@@ -97,7 +97,8 @@ for i_HJ in range(0,max_loop):
 
     lsm_solver.preprocess(movelimit, bpts_sens)
     (ub, lb) = lsm_solver.get_bounds()
-
+    (a,b,c,d) = lsm_solver.get_optimPars()
+    print (a,b,c,d)
     # ## start of the slp suboptimization    
 
     if 1:
@@ -147,6 +148,10 @@ for i_HJ in range(0,max_loop):
     lsm_solver.computeVelocities()
     phi = lsm_solver.update(np.abs(lambdas[0]))
     lsm_solver.reinitialise()
+    (a,b,c,d) = lsm_solver.get_optimPars()
+    print (a,b,c,d)
+    lsm_solver.del_optim()
+
 
     # totals = prob.compute_total_derivs(['objective_comp.objective'], ['inputs_comp.lambdas'])
 

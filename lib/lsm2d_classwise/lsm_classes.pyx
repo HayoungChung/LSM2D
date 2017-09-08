@@ -48,7 +48,7 @@ cdef extern from "boundary.h":
 
 cdef extern from "optimise_noNLOPT.h":
     cdef cppclass Optimise:
-        Optimise(vector[BoundaryPoint]&, vector[double]&, vector[double]&, double&, double)
+        Optimise(vector[BoundaryPoint]&, vector[double]&, vector[double]&, double&, double) except +
 
         void computeScaleFactors()
         void computeLambdaLimits()
@@ -60,7 +60,7 @@ cdef extern from "optimise_noNLOPT.h":
         double rescaleDisplacements()
 
         vector[double] scaleFactors
-        vector[double] constraintDistances
+        vector[double]& constraintDistances
         vector[double] constraintDistancesScaled
         vector[double] negativeLambdaLimits
         vector[double] positiveLambdaLimits
@@ -137,7 +137,7 @@ cdef class PyLSMSolver:
         self.optimiseptr = new Optimise(
             self.boundaryptr.points, constraintDistances, self.lambdas, np.abs(self.lambdas[0]), movelimit)
 
-        self.optimiseptr.computeConstraintDistances();
+        self.optimiseptr.computeConstraintDistances()
 
         # // Initializing index map making all constraints to be active.
         # // Compute the scale factors for the objective and constraints.
@@ -202,7 +202,7 @@ cdef class PyLSMSolver:
         self.optimiseptr.rescaleDisplacements()
         # # // Calculate the unscaled lambda values.
         for ii in range(0,2):
-            lambdas[ii] *= self.optimiseptr.scaleFactors[ii];
+            lambdas[ii] *= self.optimiseptr.scaleFactors[ii]
 
         # # // Effective time step.
         timeStep = -(lambdas[0])
@@ -225,11 +225,12 @@ cdef class PyLSMSolver:
 
     def update(self,double t):
         self.levelsetptr.update(t)
-        del self.optimiseptr
 
         return self.levelsetptr.signedDistance
 
+    def del_optim(self):
+        del self.optimiseptr
+        
     def get_optimPars(self):
-        return (self.optimiseptr.scaleFactors, self.optimisept.constraintDistances,
-    self.optimiseptr.constraintDistances, self.optimiseptr.indexMap, self.optimiseptr.displacements)
+        return (self.optimiseptr.scaleFactors, self.optimiseptr.constraintDistancesScaled, self.optimiseptr.indexMap, self.optimiseptr.displacements)
 
