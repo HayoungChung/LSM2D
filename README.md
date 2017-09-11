@@ -2,6 +2,7 @@
 
 ## introduction
 to get cythonized library of level-set toolbox, 
+only ./lib/ and ./LSTO2D are required herein
 
 ```bash
 ./lib/lsm2d_classwise
