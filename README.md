@@ -9,7 +9,7 @@ sh ./run_setup.sh
 cp ./build/lib*/lsm_classes.so ./../../LSTO2D
 ./../fem2d
 ./run_setup.sh
-cp fem2d/fem2d.so ./../../LSTO2D/
+cp ./fem2d/fem2d.so ./../../LSTO2D/
 ``` 
 
 ```iPython
