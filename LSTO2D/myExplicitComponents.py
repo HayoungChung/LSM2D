@@ -191,8 +191,12 @@ class Callback_objF(ExplicitComponent):
         self.lsm_solver = self.metadata['lsm_solver']
         self.add_input('lambdas', shape = 2)
         self.add_output('objective')
+	self.approx_partials('*','*')
     def compute(self, inputs, outputs):
-        outputs['objective'] = self.lsm_solver.callback(inputs['lambdas'],0)
+        #outputs['objective'] = self.lsm_solver.callback(inputs['lambdas'],0)
+        displacement = self.lsm_solver.computeDisplacements(inputs['lambdas'])
+        displacement_np = np.asarray(displacement)
+        outputs['objective'] = self.lsm_solver.computeFunction(displacement_np, 0)[0]
 
 class Callback_conF(ExplicitComponent):
     def initialize(self):
@@ -201,8 +205,12 @@ class Callback_conF(ExplicitComponent):
         self.lsm_solver = self.metadata['lsm_solver']
         self.add_input('lambdas', shape = 2)
         self.add_output('constraint')
+	self.approx_partials('*','*')
     def compute(self, inputs, outputs):
-        outputs['constraint'] = self.lsm_solver.callback(inputs['lambdas'],1)
+        #outputs['constraint'] = self.lsm_solver.callback(inputs['lambdas'],1)
+        displacement = self.lsm_solver.computeDisplacements(inputs['lambdas'])
+        displacement_np = np.asarray(displacement)
+        outputs['constraint'] = self.lsm_solver.computeFunction(displacement_np, 1)[1]
         
 
         

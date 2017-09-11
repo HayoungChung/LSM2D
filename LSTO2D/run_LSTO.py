@@ -103,7 +103,7 @@ for i_HJ in range(0,max_loop):
     # print (a,b,c,d)
     # ## start of the slp suboptimization    
 
-    if 0:
+    if 1:
         def objF_nocallback(x):
             # report: produces nan after 1st iteration
             displacement = lsm_solver.computeDisplacements(x)
@@ -127,7 +127,7 @@ for i_HJ in range(0,max_loop):
         lambdas = res.x
         print(lambdas)
 
-    if 1:
+    if 0:
         model = LSM2D_slpGroup(
             lsm_solver = lsm_solver,
             bpts_xy = bpts_xy, # boundary points
@@ -154,8 +154,8 @@ for i_HJ in range(0,max_loop):
     # print(lambdas)
     # print ('computing velocities')
     lsm_solver.computeVelocities()
-    # print(lambdas)
-    # print ('starts updating')
+    print(lambdas)
+    print ('starts updating')
     phi = lsm_solver.update(np.abs(lambdas[0]))
     plt.clf()
     plt.plot(phi,'o')
