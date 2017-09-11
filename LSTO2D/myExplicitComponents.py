@@ -136,55 +136,53 @@ from lsm_classes import PyLSMSolver
 # these are used for run_LSTO.py
 # '''
 
-# class DistanceComp(ExplicitComponent):
-#     def initialize(self): 
-#         self.metadata.declare('lsm_solver', type_=PyLSMSolver, required=True)
-#         self.metadata.declare('num_bpts', type_=int, required=True)
-#         self.metadata.declare('num_dvs', type_=int, required=True)
+class DisplacementComp(ExplicitComponent):
+    def initialize(self): 
+        self.metadata.declare('lsm_solver', type_=PyLSMSolver, required=True)
+        self.metadata.declare('num_bpts', type_=int, required=True)
+        self.metadata.declare('num_dvs', type_=int, required=True)
         
-#     def setup(self):
-#         self.lsm_solver = self.metadata['lsm_solver']
-#         num_bpts = self.metadata['num_bpts']
-#         num_dvs = self.metadata['num_dvs']
-#         self.add_input('lambdas', shape = num_dvs)
-#         self.add_output('displacements', shape = num_bpts)
-#         # self.approx_partials('*','*')
+    def setup(self):
+        self.lsm_solver = self.metadata['lsm_solver']
+        num_bpts = self.metadata['num_bpts']
+        num_dvs = self.metadata['num_dvs']
+        self.add_input('lambdas', shape = num_dvs)
+        self.add_output('displacements', shape = num_bpts)
+        self.approx_partials('*','*')
         
-#     def compute(self, inputs, outputs):
-#         displacements =  self.lsm_solver.computeDisplacements(inputs['lambdas'])
-#         outputs['displacements'] = np.asarray(displacements)
+    def compute(self, inputs, outputs):
+        displacements =  self.lsm_solver.computeDisplacements(inputs['lambdas'])
+        outputs['displacements'] = np.asarray(displacements)
 
     
-# class ConstraintComp(ExplicitComponent):
-#     def initialize(self):
-#         self.metadata.declare('lsm_solver', type_=PyLSMSolver, required=True)
-#         self.metadata.declare('num_bpts', type_=int, required=True)
-#     def setup(self):
-#         self.lsm_solver = self.metadata['lsm_solver']
-#         num_bpts = self.metadata['num_bpts']
+class ConstraintComp(ExplicitComponent):
+    def initialize(self):
+        self.metadata.declare('lsm_solver', type_=PyLSMSolver, required=True)
+        self.metadata.declare('num_bpts', type_=int, required=True)
+    def setup(self):
+        self.lsm_solver = self.metadata['lsm_solver']
+        num_bpts = self.metadata['num_bpts']
 
-#         self.add_input('displacements', shape = num_bpts)
-#         self.add_output('constraint', shape = 1)
-#         # self.approx_partials('*','*')
-#     def compute(self, inputs, outputs):
-#         outputs['constraint'] = self.lsm_solver.computeFunction(inputs['displacements'],1)[0]
+        self.add_input('displacements', shape = num_bpts)
+        self.add_output('constraint', shape = 1)
+        self.approx_partials('*','*')
+    def compute(self, inputs, outputs):
+        outputs['constraint'] = self.lsm_solver.computeFunction(inputs['displacements'],1)[1]
 
 
-# class ObjectiveComp(ExplicitComponent):
-#     def initialize(self): 
-#         self.metadata.declare('lsm_solver', type_=PyLSMSolver, required=True)
-#         self.metadata.declare('num_bpts', type_=int, required=True)
-#     def setup(self):
-#         self.lsm_solver = self.metadata['lsm_solver']
-#         num_bpts = self.metadata['num_bpts']
+class ObjectiveComp(ExplicitComponent):
+    def initialize(self): 
+        self.metadata.declare('lsm_solver', type_=PyLSMSolver, required=True)
+        self.metadata.declare('num_bpts', type_=int, required=True)
+    def setup(self):
+        self.lsm_solver = self.metadata['lsm_solver']
+        num_bpts = self.metadata['num_bpts']
 
-#         self.add_input('displacements', shape = num_bpts)
-#         self.add_output('objective', shape = 1)
-#         self.approx_partials('*','*')
-#     def compute(self, inputs, outputs):
-#         outputs['objective'] = self.lsm_solver.computeFunction(inputs['displacements'],0)[0]
-
-# ''' this is the simplist one '''
+        self.add_input('displacements', shape = num_bpts)
+        self.add_output('objective', shape = 1)
+        self.approx_partials('*','*')
+    def compute(self, inputs, outputs):
+        outputs['objective'] = self.lsm_solver.computeFunction(inputs['displacements'],0)[0]
 
 class Callback_objF(ExplicitComponent):
     def initialize(self):
