@@ -148,7 +148,7 @@ class DisplacementComp(ExplicitComponent):
         num_dvs = self.metadata['num_dvs']
         self.add_input('lambdas', shape = num_dvs)
         self.add_output('displacements', shape = num_bpts)
-        self.approx_partials('*','*')
+        # self.approx_partials('*','*')
         
     def compute(self, inputs, outputs):
         displacements =  self.lsm_solver.computeDisplacements(inputs['lambdas'])
@@ -165,7 +165,7 @@ class ConstraintComp(ExplicitComponent):
 
         self.add_input('displacements', shape = num_bpts)
         self.add_output('constraint', shape = 1)
-        self.approx_partials('*','*')
+        # self.approx_partials('*','*')
     def compute(self, inputs, outputs):
         outputs['constraint'] = self.lsm_solver.computeFunction(inputs['displacements'],1)[1]
 
@@ -180,7 +180,7 @@ class ObjectiveComp(ExplicitComponent):
 
         self.add_input('displacements', shape = num_bpts)
         self.add_output('objective', shape = 1)
-        self.approx_partials('*','*')
+        # self.approx_partials('*','*')
     def compute(self, inputs, outputs):
         outputs['objective'] = self.lsm_solver.computeFunction(inputs['displacements'],0)[0]
 
