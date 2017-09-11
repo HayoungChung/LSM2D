@@ -102,10 +102,8 @@ for i_HJ in range(0,max_loop):
     # (a,b,c,d) = lsm_solver.get_optimPars()
     # print (a,b,c,d)
     # ## start of the slp suboptimization    
-
-    if 1:
+    if 0:
         def objF_nocallback(x):
-            # report: produces nan after 1st iteration
             displacement = lsm_solver.computeDisplacements(x)
             # print('objF')
             # print(displacement)
@@ -127,20 +125,22 @@ for i_HJ in range(0,max_loop):
         lambdas = res.x
         print(lambdas)
 
-    if 0:
+    if 1:
         model = LSM2D_slpGroup(
             lsm_solver = lsm_solver,
             bpts_xy = bpts_xy, # boundary points
             lb = lb, ub = ub,
         )
-        model.approx_total_derivs(method = 'fd')
+        #model.approx_total_derivs(method = 'fd')
 
         prob = Problem(model)
         prob.setup()
-        
+
+	if (i_HJ==0):
+	    view_model(prob)
+
         prob.driver = ScipyOptimizer()
         prob.driver.options['optimizer'] = 'SLSQP'
-        prob.driver.options['tol'] = 1e-20
         prob.driver.options['disp'] = True
 
         prob.run_driver()

@@ -40,7 +40,7 @@ class LSM2D_slpGroup(Group):
                 
         # constraint setup
         comp = Callback_conF(lsm_solver = lsm_solver,)# num_bpts = num_bpts)
-        comp.add_constraint('constraint')
+        comp.add_constraint('constraint', upper = 0.0)
         self.add_subsystem('con_comp', comp)
 
         
