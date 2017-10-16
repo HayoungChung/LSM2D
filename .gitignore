@@ -1,0 +1,8 @@
+*.png
+*.log
+*.txt
+
+*.js
+*.so
+*.pyc
+*.html
