@@ -231,7 +231,7 @@ void FEMSolver::get_stiffness_matrix(double *data, int *rows, int *cols)
   }
 }
 
-void FEMSolver::get_stiffness_matrix(double *multipliers, double *data, int *rows, int *cols)
+void FEMSolver::get_stiffness_matrix(double *multipliers, double *data, int *rows, int *cols, bool isNodal)
 {
   int index = 0;
 
@@ -243,25 +243,50 @@ void FEMSolver::get_stiffness_matrix(double *multipliers, double *data, int *row
       {
         for (int imat_y = 0; imat_y < 8; imat_y++)
         {
-          data[index] = Ke0[imat_x][imat_y] * multipliers[(ielem_x + 0) * num_nodes_y + (ielem_y + 0)];
-          rows[index] = elems[ielem_x][ielem_y][imat_x];
-          cols[index] = elems[ielem_x][ielem_y][imat_y];
-          index += 1;
+          if (isNodal == true)
+          {
+            data[index] = Ke0[imat_x][imat_y] * multipliers[(ielem_x + 0) * num_nodes_y + (ielem_y + 0)];
+            rows[index] = elems[ielem_x][ielem_y][imat_x];
+            cols[index] = elems[ielem_x][ielem_y][imat_y];
+            index += 1;
 
-          data[index] = Ke1[imat_x][imat_y] * multipliers[(ielem_x + 1) * num_nodes_y + (ielem_y + 0)];
-          rows[index] = elems[ielem_x][ielem_y][imat_x];
-          cols[index] = elems[ielem_x][ielem_y][imat_y];
-          index += 1;
+            data[index] = Ke1[imat_x][imat_y] * multipliers[(ielem_x + 1) * num_nodes_y + (ielem_y + 0)];
+            rows[index] = elems[ielem_x][ielem_y][imat_x];
+            cols[index] = elems[ielem_x][ielem_y][imat_y];
+            index += 1;
 
-          data[index] = Ke2[imat_x][imat_y] * multipliers[(ielem_x + 1) * num_nodes_y + (ielem_y + 1)];
-          rows[index] = elems[ielem_x][ielem_y][imat_x];
-          cols[index] = elems[ielem_x][ielem_y][imat_y];
-          index += 1;
+            data[index] = Ke2[imat_x][imat_y] * multipliers[(ielem_x + 1) * num_nodes_y + (ielem_y + 1)];
+            rows[index] = elems[ielem_x][ielem_y][imat_x];
+            cols[index] = elems[ielem_x][ielem_y][imat_y];
+            index += 1;
 
-          data[index] = Ke3[imat_x][imat_y] * multipliers[(ielem_x + 0) * num_nodes_y + (ielem_y + 1)];
-          rows[index] = elems[ielem_x][ielem_y][imat_x];
-          cols[index] = elems[ielem_x][ielem_y][imat_y];
-          index += 1;
+            data[index] = Ke3[imat_x][imat_y] * multipliers[(ielem_x + 0) * num_nodes_y + (ielem_y + 1)];
+            rows[index] = elems[ielem_x][ielem_y][imat_x];
+            cols[index] = elems[ielem_x][ielem_y][imat_y];
+            index += 1;
+          }
+          else
+          {
+            data[index] = Ke0[imat_x][imat_y] * multipliers[ielem_x * (num_nodes_y - 1) + ielem_y];
+            rows[index] = elems[ielem_x][ielem_y][imat_x];
+            cols[index] = elems[ielem_x][ielem_y][imat_y];
+            index += 1;
+
+            data[index] = Ke1[imat_x][imat_y] * multipliers[ielem_x * (num_nodes_y - 1) + ielem_y];
+            rows[index] = elems[ielem_x][ielem_y][imat_x];
+            cols[index] = elems[ielem_x][ielem_y][imat_y];
+            index += 1;
+
+            data[index] = Ke2[imat_x][imat_y] * multipliers[ielem_x * (num_nodes_y - 1) + ielem_y];
+            rows[index] = elems[ielem_x][ielem_y][imat_x];
+            cols[index] = elems[ielem_x][ielem_y][imat_y];
+            index += 1;
+
+            data[index] = Ke3[imat_x][imat_y] * multipliers[ielem_x * (num_nodes_y - 1) + ielem_y];
+            rows[index] = elems[ielem_x][ielem_y][imat_x];
+            cols[index] = elems[ielem_x][ielem_y][imat_y];
+            index += 1;
+          }
         }
       }
     }
@@ -291,7 +316,8 @@ void FEMSolver::get_stiffness_matrix(double *multipliers, double *data, int *row
   }
 }
 
-void FEMSolver::get_stiffness_matrix_derivs(double *states, double *data, int *rows, int *cols)
+void FEMSolver::get_stiffness_matrix_derivs(double *states, double *data, int *rows, int *cols, bool isNodal)
+// (rows, cols) = (of, wrt)
 {
   int index = 0;
 
@@ -303,25 +329,35 @@ void FEMSolver::get_stiffness_matrix_derivs(double *states, double *data, int *r
       {
         for (int imat_y = 0; imat_y < 8; imat_y++)
         {
-          data[index] = Ke0[imat_x][imat_y] * states[elems[ielem_x][ielem_y][imat_y]];
-          rows[index] = elems[ielem_x][ielem_y][imat_x];
-          cols[index] = (ielem_x + 0) * num_nodes_y + (ielem_y + 0);
-          index += 1;
+          if (isNodal == true)
+          {
+            data[index] = Ke0[imat_x][imat_y] * states[elems[ielem_x][ielem_y][imat_y]];
+            rows[index] = elems[ielem_x][ielem_y][imat_x];
+            cols[index] = (ielem_x + 0) * num_nodes_y + (ielem_y + 0);
+            index += 1;
 
-          data[index] = Ke1[imat_x][imat_y] * states[elems[ielem_x][ielem_y][imat_y]];
-          rows[index] = elems[ielem_x][ielem_y][imat_x];
-          cols[index] = (ielem_x + 1) * num_nodes_y + (ielem_y + 0);
-          index += 1;
+            data[index] = Ke1[imat_x][imat_y] * states[elems[ielem_x][ielem_y][imat_y]];
+            rows[index] = elems[ielem_x][ielem_y][imat_x];
+            cols[index] = (ielem_x + 1) * num_nodes_y + (ielem_y + 0);
+            index += 1;
 
-          data[index] = Ke2[imat_x][imat_y] * states[elems[ielem_x][ielem_y][imat_y]];
-          rows[index] = elems[ielem_x][ielem_y][imat_x];
-          cols[index] = (ielem_x + 1) * num_nodes_y + (ielem_y + 1);
-          index += 1;
+            data[index] = Ke2[imat_x][imat_y] * states[elems[ielem_x][ielem_y][imat_y]];
+            rows[index] = elems[ielem_x][ielem_y][imat_x];
+            cols[index] = (ielem_x + 1) * num_nodes_y + (ielem_y + 1);
+            index += 1;
 
-          data[index] = Ke3[imat_x][imat_y] * states[elems[ielem_x][ielem_y][imat_y]];
-          rows[index] = elems[ielem_x][ielem_y][imat_x];
-          cols[index] = (ielem_x + 0) * num_nodes_y + (ielem_y + 1);
-          index += 1;
+            data[index] = Ke3[imat_x][imat_y] * states[elems[ielem_x][ielem_y][imat_y]];
+            rows[index] = elems[ielem_x][ielem_y][imat_x];
+            cols[index] = (ielem_x + 0) * num_nodes_y + (ielem_y + 1);
+            index += 1;
+          }
+          else
+          {
+            data[index] = Ke[imat_x][imat_y] * states[elems[ielem_x][ielem_y][imat_y]];
+            rows[index] = elems[ielem_x][ielem_y][imat_x];
+            cols[index] = (ielem_x) * (num_nodes_y - 1) + (ielem_y);
+            index += 1;
+          }
         }
       }
     }
