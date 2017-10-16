@@ -992,7 +992,7 @@ typedef npy_clongdouble __pyx_t_5numpy_clongdouble_t;
  */
 typedef npy_cdouble __pyx_t_5numpy_complex_t;
 
-/* "fem2d/fem2d.pyx":16
+/* "fem2d/fem2d.pyx":19
  *     void get_sensitivity_LSTO(double* u, double* xpos, double* ypos, double* sens);
  * 
  * cdef class PyFEMSolver:             # <<<<<<<<<<<<<<
@@ -1550,6 +1550,8 @@ static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 /* Module declarations from 'libcpp.vector' */
 
+/* Module declarations from 'libcpp' */
+
 /* Module declarations from 'cpython.version' */
 
 /* Module declarations from '__builtin__' */
@@ -1680,6 +1682,7 @@ static const char __pyx_k_numpy[] = "numpy";
 static const char __pyx_k_range[] = "range";
 static const char __pyx_k_import[] = "__import__";
 static const char __pyx_k_states[] = "states";
+static const char __pyx_k_isNodal[] = "isNodal";
 static const char __pyx_k_length_x[] = "length_x";
 static const char __pyx_k_length_y[] = "length_y";
 static const char __pyx_k_ValueError[] = "ValueError";
@@ -1710,6 +1713,7 @@ static PyObject *__pyx_n_s_areafraction;
 static PyObject *__pyx_n_s_cols;
 static PyObject *__pyx_n_s_data;
 static PyObject *__pyx_n_s_import;
+static PyObject *__pyx_n_s_isNodal;
 static PyObject *__pyx_n_s_length_x;
 static PyObject *__pyx_n_s_length_y;
 static PyObject *__pyx_n_s_main;
@@ -1735,9 +1739,12 @@ static PyObject *__pyx_n_s_ypos;
 static int __pyx_pf_5fem2d_5fem2d_11PyFEMSolver___cinit__(struct __pyx_obj_5fem2d_5fem2d_PyFEMSolver *__pyx_v_self, int __pyx_v_num_nodes_x, int __pyx_v_num_nodes_y, double __pyx_v_length_x, double __pyx_v_length_y, double __pyx_v_E, double __pyx_v_nu); /* proto */
 static void __pyx_pf_5fem2d_5fem2d_11PyFEMSolver_2__dealloc__(struct __pyx_obj_5fem2d_5fem2d_PyFEMSolver *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_4get_stiffness_matrix(struct __pyx_obj_5fem2d_5fem2d_PyFEMSolver *__pyx_v_self, PyArrayObject *__pyx_v_multipliers, PyArrayObject *__pyx_v_data, PyArrayObject *__pyx_v_rows, PyArrayObject *__pyx_v_cols); /* proto */
-static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_6get_stiffness_matrix_derivs(struct __pyx_obj_5fem2d_5fem2d_PyFEMSolver *__pyx_v_self, PyArrayObject *__pyx_v_states, PyArrayObject *__pyx_v_data, PyArrayObject *__pyx_v_rows, PyArrayObject *__pyx_v_cols); /* proto */
-static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_8get_stiffness_matrix_LSTO(struct __pyx_obj_5fem2d_5fem2d_PyFEMSolver *__pyx_v_self, PyArrayObject *__pyx_v_areafraction, PyArrayObject *__pyx_v_data, PyArrayObject *__pyx_v_rows, PyArrayObject *__pyx_v_cols); /* proto */
-static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_10get_sensitivity_LSTO(struct __pyx_obj_5fem2d_5fem2d_PyFEMSolver *__pyx_v_self, PyArrayObject *__pyx_v_u, PyArrayObject *__pyx_v_xpos, PyArrayObject *__pyx_v_ypos, PyArrayObject *__pyx_v_sens); /* proto */
+static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_6get_stiffness_matrix(struct __pyx_obj_5fem2d_5fem2d_PyFEMSolver *__pyx_v_self, PyArrayObject *__pyx_v_multipliers, PyArrayObject *__pyx_v_data, PyArrayObject *__pyx_v_rows, PyArrayObject *__pyx_v_cols, bool __pyx_v_isNodal); /* proto */
+static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_8get_stiffness_matrix(struct __pyx_obj_5fem2d_5fem2d_PyFEMSolver *__pyx_v_self, PyArrayObject *__pyx_v_data, PyArrayObject *__pyx_v_rows, PyArrayObject *__pyx_v_cols); /* proto */
+static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_10get_stiffness_matrix_derivs(struct __pyx_obj_5fem2d_5fem2d_PyFEMSolver *__pyx_v_self, PyArrayObject *__pyx_v_states, PyArrayObject *__pyx_v_data, PyArrayObject *__pyx_v_rows, PyArrayObject *__pyx_v_cols); /* proto */
+static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_12get_stiffness_matrix_derivs(struct __pyx_obj_5fem2d_5fem2d_PyFEMSolver *__pyx_v_self, PyArrayObject *__pyx_v_states, PyArrayObject *__pyx_v_data, PyArrayObject *__pyx_v_rows, PyArrayObject *__pyx_v_cols, bool __pyx_v_isNodal); /* proto */
+static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_14get_stiffness_matrix_LSTO(struct __pyx_obj_5fem2d_5fem2d_PyFEMSolver *__pyx_v_self, PyArrayObject *__pyx_v_areafraction, PyArrayObject *__pyx_v_data, PyArrayObject *__pyx_v_rows, PyArrayObject *__pyx_v_cols); /* proto */
+static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_16get_sensitivity_LSTO(struct __pyx_obj_5fem2d_5fem2d_PyFEMSolver *__pyx_v_self, PyArrayObject *__pyx_v_u, PyArrayObject *__pyx_v_xpos, PyArrayObject *__pyx_v_ypos, PyArrayObject *__pyx_v_sens); /* proto */
 static int __pyx_pf_7cpython_5array_5array___getbuffer__(arrayobject *__pyx_v_self, Py_buffer *__pyx_v_info, CYTHON_UNUSED int __pyx_v_flags); /* proto */
 static void __pyx_pf_7cpython_5array_5array_2__releasebuffer__(CYTHON_UNUSED arrayobject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
@@ -1753,7 +1760,7 @@ static PyObject *__pyx_tuple__7;
 static PyObject *__pyx_tuple__8;
 static PyObject *__pyx_tuple__9;
 
-/* "fem2d/fem2d.pyx":19
+/* "fem2d/fem2d.pyx":22
  * 
  *     cdef FEMSolver *thisptr
  *     def __cinit__(self, int num_nodes_x, int num_nodes_y, double length_x, double length_y,             # <<<<<<<<<<<<<<
@@ -1797,31 +1804,31 @@ static int __pyx_pw_5fem2d_5fem2d_11PyFEMSolver_1__cinit__(PyObject *__pyx_v_sel
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_num_nodes_y)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 6, 6, 1); __PYX_ERR(0, 19, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 6, 6, 1); __PYX_ERR(0, 22, __pyx_L3_error)
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_length_x)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 6, 6, 2); __PYX_ERR(0, 19, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 6, 6, 2); __PYX_ERR(0, 22, __pyx_L3_error)
         }
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_length_y)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 6, 6, 3); __PYX_ERR(0, 19, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 6, 6, 3); __PYX_ERR(0, 22, __pyx_L3_error)
         }
         case  4:
         if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_E)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 6, 6, 4); __PYX_ERR(0, 19, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 6, 6, 4); __PYX_ERR(0, 22, __pyx_L3_error)
         }
         case  5:
         if (likely((values[5] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_nu)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 6, 6, 5); __PYX_ERR(0, 19, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 6, 6, 5); __PYX_ERR(0, 22, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) __PYX_ERR(0, 19, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) __PYX_ERR(0, 22, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 6) {
       goto __pyx_L5_argtuple_error;
@@ -1833,16 +1840,16 @@ static int __pyx_pw_5fem2d_5fem2d_11PyFEMSolver_1__cinit__(PyObject *__pyx_v_sel
       values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
       values[5] = PyTuple_GET_ITEM(__pyx_args, 5);
     }
-    __pyx_v_num_nodes_x = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_num_nodes_x == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 19, __pyx_L3_error)
-    __pyx_v_num_nodes_y = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_num_nodes_y == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 19, __pyx_L3_error)
-    __pyx_v_length_x = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_length_x == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 19, __pyx_L3_error)
-    __pyx_v_length_y = __pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_length_y == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 19, __pyx_L3_error)
-    __pyx_v_E = __pyx_PyFloat_AsDouble(values[4]); if (unlikely((__pyx_v_E == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 20, __pyx_L3_error)
-    __pyx_v_nu = __pyx_PyFloat_AsDouble(values[5]); if (unlikely((__pyx_v_nu == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 20, __pyx_L3_error)
+    __pyx_v_num_nodes_x = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_num_nodes_x == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 22, __pyx_L3_error)
+    __pyx_v_num_nodes_y = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_num_nodes_y == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 22, __pyx_L3_error)
+    __pyx_v_length_x = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_length_x == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 22, __pyx_L3_error)
+    __pyx_v_length_y = __pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_length_y == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 22, __pyx_L3_error)
+    __pyx_v_E = __pyx_PyFloat_AsDouble(values[4]); if (unlikely((__pyx_v_E == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 23, __pyx_L3_error)
+    __pyx_v_nu = __pyx_PyFloat_AsDouble(values[5]); if (unlikely((__pyx_v_nu == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 23, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 6, 6, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 19, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 6, 6, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 22, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("fem2d.fem2d.PyFEMSolver.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -1861,7 +1868,7 @@ static int __pyx_pf_5fem2d_5fem2d_11PyFEMSolver___cinit__(struct __pyx_obj_5fem2
   FEMSolver *__pyx_t_1;
   __Pyx_RefNannySetupContext("__cinit__", 0);
 
-  /* "fem2d/fem2d.pyx":22
+  /* "fem2d/fem2d.pyx":25
  *             double E, double nu,
  *         ):
  *         self.thisptr = new FEMSolver(num_nodes_x, num_nodes_y, length_x, length_y, E, nu)             # <<<<<<<<<<<<<<
@@ -1872,11 +1879,11 @@ static int __pyx_pf_5fem2d_5fem2d_11PyFEMSolver___cinit__(struct __pyx_obj_5fem2
     __pyx_t_1 = new FEMSolver(__pyx_v_num_nodes_x, __pyx_v_num_nodes_y, __pyx_v_length_x, __pyx_v_length_y, __pyx_v_E, __pyx_v_nu);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 22, __pyx_L1_error)
+    __PYX_ERR(0, 25, __pyx_L1_error)
   }
   __pyx_v_self->thisptr = __pyx_t_1;
 
-  /* "fem2d/fem2d.pyx":19
+  /* "fem2d/fem2d.pyx":22
  * 
  *     cdef FEMSolver *thisptr
  *     def __cinit__(self, int num_nodes_x, int num_nodes_y, double length_x, double length_y,             # <<<<<<<<<<<<<<
@@ -1895,7 +1902,7 @@ static int __pyx_pf_5fem2d_5fem2d_11PyFEMSolver___cinit__(struct __pyx_obj_5fem2
   return __pyx_r;
 }
 
-/* "fem2d/fem2d.pyx":23
+/* "fem2d/fem2d.pyx":26
  *         ):
  *         self.thisptr = new FEMSolver(num_nodes_x, num_nodes_y, length_x, length_y, E, nu)
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -1918,7 +1925,7 @@ static void __pyx_pf_5fem2d_5fem2d_11PyFEMSolver_2__dealloc__(struct __pyx_obj_5
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__", 0);
 
-  /* "fem2d/fem2d.pyx":24
+  /* "fem2d/fem2d.pyx":27
  *         self.thisptr = new FEMSolver(num_nodes_x, num_nodes_y, length_x, length_y, E, nu)
  *     def __dealloc__(self):
  *         del self.thisptr             # <<<<<<<<<<<<<<
@@ -1927,7 +1934,7 @@ static void __pyx_pf_5fem2d_5fem2d_11PyFEMSolver_2__dealloc__(struct __pyx_obj_5
  */
   delete __pyx_v_self->thisptr;
 
-  /* "fem2d/fem2d.pyx":23
+  /* "fem2d/fem2d.pyx":26
  *         ):
  *         self.thisptr = new FEMSolver(num_nodes_x, num_nodes_y, length_x, length_y, E, nu)
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -1939,7 +1946,7 @@ static void __pyx_pf_5fem2d_5fem2d_11PyFEMSolver_2__dealloc__(struct __pyx_obj_5
   __Pyx_RefNannyFinishContext();
 }
 
-/* "fem2d/fem2d.pyx":25
+/* "fem2d/fem2d.pyx":28
  *     def __dealloc__(self):
  *         del self.thisptr
  *     def get_stiffness_matrix(             # <<<<<<<<<<<<<<
@@ -1979,21 +1986,21 @@ static PyObject *__pyx_pw_5fem2d_5fem2d_11PyFEMSolver_5get_stiffness_matrix(PyOb
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_data)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("get_stiffness_matrix", 1, 4, 4, 1); __PYX_ERR(0, 25, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("get_stiffness_matrix", 1, 4, 4, 1); __PYX_ERR(0, 28, __pyx_L3_error)
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_rows)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("get_stiffness_matrix", 1, 4, 4, 2); __PYX_ERR(0, 25, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("get_stiffness_matrix", 1, 4, 4, 2); __PYX_ERR(0, 28, __pyx_L3_error)
         }
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_cols)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("get_stiffness_matrix", 1, 4, 4, 3); __PYX_ERR(0, 25, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("get_stiffness_matrix", 1, 4, 4, 3); __PYX_ERR(0, 28, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "get_stiffness_matrix") < 0)) __PYX_ERR(0, 25, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "get_stiffness_matrix") < 0)) __PYX_ERR(0, 28, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 4) {
       goto __pyx_L5_argtuple_error;
@@ -2010,16 +2017,16 @@ static PyObject *__pyx_pw_5fem2d_5fem2d_11PyFEMSolver_5get_stiffness_matrix(PyOb
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("get_stiffness_matrix", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 25, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("get_stiffness_matrix", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 28, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("fem2d.fem2d.PyFEMSolver.get_stiffness_matrix", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_multipliers), __pyx_ptype_5numpy_ndarray, 1, "multipliers", 0))) __PYX_ERR(0, 26, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_data), __pyx_ptype_5numpy_ndarray, 1, "data", 0))) __PYX_ERR(0, 27, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_rows), __pyx_ptype_5numpy_ndarray, 1, "rows", 0))) __PYX_ERR(0, 27, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_cols), __pyx_ptype_5numpy_ndarray, 1, "cols", 0))) __PYX_ERR(0, 27, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_multipliers), __pyx_ptype_5numpy_ndarray, 1, "multipliers", 0))) __PYX_ERR(0, 29, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_data), __pyx_ptype_5numpy_ndarray, 1, "data", 0))) __PYX_ERR(0, 30, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_rows), __pyx_ptype_5numpy_ndarray, 1, "rows", 0))) __PYX_ERR(0, 30, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_cols), __pyx_ptype_5numpy_ndarray, 1, "cols", 0))) __PYX_ERR(0, 30, __pyx_L1_error)
   __pyx_r = __pyx_pf_5fem2d_5fem2d_11PyFEMSolver_4get_stiffness_matrix(((struct __pyx_obj_5fem2d_5fem2d_PyFEMSolver *)__pyx_v_self), __pyx_v_multipliers, __pyx_v_data, __pyx_v_rows, __pyx_v_cols);
 
   /* function exit code */
@@ -2066,31 +2073,31 @@ static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_4get_stiffness_matrix(stru
   __pyx_pybuffernd_cols.rcbuffer = &__pyx_pybuffer_cols;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_multipliers.rcbuffer->pybuffer, (PyObject*)__pyx_v_multipliers, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 25, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_multipliers.rcbuffer->pybuffer, (PyObject*)__pyx_v_multipliers, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 28, __pyx_L1_error)
   }
   __pyx_pybuffernd_multipliers.diminfo[0].strides = __pyx_pybuffernd_multipliers.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_multipliers.diminfo[0].shape = __pyx_pybuffernd_multipliers.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_data.rcbuffer->pybuffer, (PyObject*)__pyx_v_data, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 25, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_data.rcbuffer->pybuffer, (PyObject*)__pyx_v_data, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 28, __pyx_L1_error)
   }
   __pyx_pybuffernd_data.diminfo[0].strides = __pyx_pybuffernd_data.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_data.diminfo[0].shape = __pyx_pybuffernd_data.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_rows.rcbuffer->pybuffer, (PyObject*)__pyx_v_rows, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 25, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_rows.rcbuffer->pybuffer, (PyObject*)__pyx_v_rows, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 28, __pyx_L1_error)
   }
   __pyx_pybuffernd_rows.diminfo[0].strides = __pyx_pybuffernd_rows.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_rows.diminfo[0].shape = __pyx_pybuffernd_rows.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_cols.rcbuffer->pybuffer, (PyObject*)__pyx_v_cols, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 25, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_cols.rcbuffer->pybuffer, (PyObject*)__pyx_v_cols, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 28, __pyx_L1_error)
   }
   __pyx_pybuffernd_cols.diminfo[0].strides = __pyx_pybuffernd_cols.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_cols.diminfo[0].shape = __pyx_pybuffernd_cols.rcbuffer->pybuffer.shape[0];
 
-  /* "fem2d/fem2d.pyx":28
+  /* "fem2d/fem2d.pyx":31
  *             self, np.ndarray[double] multipliers,
  *             np.ndarray[double] data, np.ndarray[int] rows, np.ndarray[int] cols):
  *         self.thisptr.get_stiffness_matrix(&multipliers[0], &data[0], &rows[0], &cols[0])             # <<<<<<<<<<<<<<
- *     def get_stiffness_matrix_derivs(
- *             self, np.ndarray[double] states,
+ *     def get_stiffness_matrix(
+ *             self, np.ndarray[double] multipliers,
  */
   __pyx_t_1 = 0;
   __pyx_t_2 = -1;
@@ -2100,7 +2107,7 @@ static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_4get_stiffness_matrix(stru
   } else if (unlikely(__pyx_t_1 >= __pyx_pybuffernd_multipliers.diminfo[0].shape)) __pyx_t_2 = 0;
   if (unlikely(__pyx_t_2 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_2);
-    __PYX_ERR(0, 28, __pyx_L1_error)
+    __PYX_ERR(0, 31, __pyx_L1_error)
   }
   __pyx_t_3 = 0;
   __pyx_t_2 = -1;
@@ -2110,7 +2117,7 @@ static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_4get_stiffness_matrix(stru
   } else if (unlikely(__pyx_t_3 >= __pyx_pybuffernd_data.diminfo[0].shape)) __pyx_t_2 = 0;
   if (unlikely(__pyx_t_2 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_2);
-    __PYX_ERR(0, 28, __pyx_L1_error)
+    __PYX_ERR(0, 31, __pyx_L1_error)
   }
   __pyx_t_4 = 0;
   __pyx_t_2 = -1;
@@ -2120,7 +2127,7 @@ static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_4get_stiffness_matrix(stru
   } else if (unlikely(__pyx_t_4 >= __pyx_pybuffernd_rows.diminfo[0].shape)) __pyx_t_2 = 0;
   if (unlikely(__pyx_t_2 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_2);
-    __PYX_ERR(0, 28, __pyx_L1_error)
+    __PYX_ERR(0, 31, __pyx_L1_error)
   }
   __pyx_t_5 = 0;
   __pyx_t_2 = -1;
@@ -2130,11 +2137,11 @@ static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_4get_stiffness_matrix(stru
   } else if (unlikely(__pyx_t_5 >= __pyx_pybuffernd_cols.diminfo[0].shape)) __pyx_t_2 = 0;
   if (unlikely(__pyx_t_2 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_2);
-    __PYX_ERR(0, 28, __pyx_L1_error)
+    __PYX_ERR(0, 31, __pyx_L1_error)
   }
   __pyx_v_self->thisptr->get_stiffness_matrix((&(*__Pyx_BufPtrStrided1d(double *, __pyx_pybuffernd_multipliers.rcbuffer->pybuffer.buf, __pyx_t_1, __pyx_pybuffernd_multipliers.diminfo[0].strides))), (&(*__Pyx_BufPtrStrided1d(double *, __pyx_pybuffernd_data.rcbuffer->pybuffer.buf, __pyx_t_3, __pyx_pybuffernd_data.diminfo[0].strides))), (&(*__Pyx_BufPtrStrided1d(int *, __pyx_pybuffernd_rows.rcbuffer->pybuffer.buf, __pyx_t_4, __pyx_pybuffernd_rows.diminfo[0].strides))), (&(*__Pyx_BufPtrStrided1d(int *, __pyx_pybuffernd_cols.rcbuffer->pybuffer.buf, __pyx_t_5, __pyx_pybuffernd_cols.diminfo[0].strides))));
 
-  /* "fem2d/fem2d.pyx":25
+  /* "fem2d/fem2d.pyx":28
  *     def __dealloc__(self):
  *         del self.thisptr
  *     def get_stiffness_matrix(             # <<<<<<<<<<<<<<
@@ -2169,17 +2176,452 @@ static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_4get_stiffness_matrix(stru
   return __pyx_r;
 }
 
-/* "fem2d/fem2d.pyx":29
+/* "fem2d/fem2d.pyx":32
  *             np.ndarray[double] data, np.ndarray[int] rows, np.ndarray[int] cols):
  *         self.thisptr.get_stiffness_matrix(&multipliers[0], &data[0], &rows[0], &cols[0])
+ *     def get_stiffness_matrix(             # <<<<<<<<<<<<<<
+ *             self, np.ndarray[double] multipliers,
+ *             np.ndarray[double] data, np.ndarray[int] rows, np.ndarray[int] cols, bool isNodal):
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5fem2d_5fem2d_11PyFEMSolver_7get_stiffness_matrix(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_5fem2d_5fem2d_11PyFEMSolver_7get_stiffness_matrix(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyArrayObject *__pyx_v_multipliers = 0;
+  PyArrayObject *__pyx_v_data = 0;
+  PyArrayObject *__pyx_v_rows = 0;
+  PyArrayObject *__pyx_v_cols = 0;
+  bool __pyx_v_isNodal;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("get_stiffness_matrix (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_multipliers,&__pyx_n_s_data,&__pyx_n_s_rows,&__pyx_n_s_cols,&__pyx_n_s_isNodal,0};
+    PyObject* values[5] = {0,0,0,0,0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  5: values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
+        case  4: values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
+        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_multipliers)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        case  1:
+        if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_data)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("get_stiffness_matrix", 1, 5, 5, 1); __PYX_ERR(0, 32, __pyx_L3_error)
+        }
+        case  2:
+        if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_rows)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("get_stiffness_matrix", 1, 5, 5, 2); __PYX_ERR(0, 32, __pyx_L3_error)
+        }
+        case  3:
+        if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_cols)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("get_stiffness_matrix", 1, 5, 5, 3); __PYX_ERR(0, 32, __pyx_L3_error)
+        }
+        case  4:
+        if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_isNodal)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("get_stiffness_matrix", 1, 5, 5, 4); __PYX_ERR(0, 32, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "get_stiffness_matrix") < 0)) __PYX_ERR(0, 32, __pyx_L3_error)
+      }
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 5) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+      values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+      values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
+      values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
+    }
+    __pyx_v_multipliers = ((PyArrayObject *)values[0]);
+    __pyx_v_data = ((PyArrayObject *)values[1]);
+    __pyx_v_rows = ((PyArrayObject *)values[2]);
+    __pyx_v_cols = ((PyArrayObject *)values[3]);
+    __pyx_v_isNodal = __Pyx_PyObject_IsTrue(values[4]); if (unlikely((__pyx_v_isNodal == ((bool)-1)) && PyErr_Occurred())) __PYX_ERR(0, 34, __pyx_L3_error)
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("get_stiffness_matrix", 1, 5, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 32, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("fem2d.fem2d.PyFEMSolver.get_stiffness_matrix", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_multipliers), __pyx_ptype_5numpy_ndarray, 1, "multipliers", 0))) __PYX_ERR(0, 33, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_data), __pyx_ptype_5numpy_ndarray, 1, "data", 0))) __PYX_ERR(0, 34, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_rows), __pyx_ptype_5numpy_ndarray, 1, "rows", 0))) __PYX_ERR(0, 34, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_cols), __pyx_ptype_5numpy_ndarray, 1, "cols", 0))) __PYX_ERR(0, 34, __pyx_L1_error)
+  __pyx_r = __pyx_pf_5fem2d_5fem2d_11PyFEMSolver_6get_stiffness_matrix(((struct __pyx_obj_5fem2d_5fem2d_PyFEMSolver *)__pyx_v_self), __pyx_v_multipliers, __pyx_v_data, __pyx_v_rows, __pyx_v_cols, __pyx_v_isNodal);
+
+  /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_6get_stiffness_matrix(struct __pyx_obj_5fem2d_5fem2d_PyFEMSolver *__pyx_v_self, PyArrayObject *__pyx_v_multipliers, PyArrayObject *__pyx_v_data, PyArrayObject *__pyx_v_rows, PyArrayObject *__pyx_v_cols, bool __pyx_v_isNodal) {
+  __Pyx_LocalBuf_ND __pyx_pybuffernd_cols;
+  __Pyx_Buffer __pyx_pybuffer_cols;
+  __Pyx_LocalBuf_ND __pyx_pybuffernd_data;
+  __Pyx_Buffer __pyx_pybuffer_data;
+  __Pyx_LocalBuf_ND __pyx_pybuffernd_multipliers;
+  __Pyx_Buffer __pyx_pybuffer_multipliers;
+  __Pyx_LocalBuf_ND __pyx_pybuffernd_rows;
+  __Pyx_Buffer __pyx_pybuffer_rows;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  Py_ssize_t __pyx_t_1;
+  int __pyx_t_2;
+  Py_ssize_t __pyx_t_3;
+  Py_ssize_t __pyx_t_4;
+  Py_ssize_t __pyx_t_5;
+  __Pyx_RefNannySetupContext("get_stiffness_matrix", 0);
+  __pyx_pybuffer_multipliers.pybuffer.buf = NULL;
+  __pyx_pybuffer_multipliers.refcount = 0;
+  __pyx_pybuffernd_multipliers.data = NULL;
+  __pyx_pybuffernd_multipliers.rcbuffer = &__pyx_pybuffer_multipliers;
+  __pyx_pybuffer_data.pybuffer.buf = NULL;
+  __pyx_pybuffer_data.refcount = 0;
+  __pyx_pybuffernd_data.data = NULL;
+  __pyx_pybuffernd_data.rcbuffer = &__pyx_pybuffer_data;
+  __pyx_pybuffer_rows.pybuffer.buf = NULL;
+  __pyx_pybuffer_rows.refcount = 0;
+  __pyx_pybuffernd_rows.data = NULL;
+  __pyx_pybuffernd_rows.rcbuffer = &__pyx_pybuffer_rows;
+  __pyx_pybuffer_cols.pybuffer.buf = NULL;
+  __pyx_pybuffer_cols.refcount = 0;
+  __pyx_pybuffernd_cols.data = NULL;
+  __pyx_pybuffernd_cols.rcbuffer = &__pyx_pybuffer_cols;
+  {
+    __Pyx_BufFmt_StackElem __pyx_stack[1];
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_multipliers.rcbuffer->pybuffer, (PyObject*)__pyx_v_multipliers, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 32, __pyx_L1_error)
+  }
+  __pyx_pybuffernd_multipliers.diminfo[0].strides = __pyx_pybuffernd_multipliers.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_multipliers.diminfo[0].shape = __pyx_pybuffernd_multipliers.rcbuffer->pybuffer.shape[0];
+  {
+    __Pyx_BufFmt_StackElem __pyx_stack[1];
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_data.rcbuffer->pybuffer, (PyObject*)__pyx_v_data, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 32, __pyx_L1_error)
+  }
+  __pyx_pybuffernd_data.diminfo[0].strides = __pyx_pybuffernd_data.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_data.diminfo[0].shape = __pyx_pybuffernd_data.rcbuffer->pybuffer.shape[0];
+  {
+    __Pyx_BufFmt_StackElem __pyx_stack[1];
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_rows.rcbuffer->pybuffer, (PyObject*)__pyx_v_rows, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 32, __pyx_L1_error)
+  }
+  __pyx_pybuffernd_rows.diminfo[0].strides = __pyx_pybuffernd_rows.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_rows.diminfo[0].shape = __pyx_pybuffernd_rows.rcbuffer->pybuffer.shape[0];
+  {
+    __Pyx_BufFmt_StackElem __pyx_stack[1];
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_cols.rcbuffer->pybuffer, (PyObject*)__pyx_v_cols, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 32, __pyx_L1_error)
+  }
+  __pyx_pybuffernd_cols.diminfo[0].strides = __pyx_pybuffernd_cols.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_cols.diminfo[0].shape = __pyx_pybuffernd_cols.rcbuffer->pybuffer.shape[0];
+
+  /* "fem2d/fem2d.pyx":35
+ *             self, np.ndarray[double] multipliers,
+ *             np.ndarray[double] data, np.ndarray[int] rows, np.ndarray[int] cols, bool isNodal):
+ *         self.thisptr.get_stiffness_matrix(&multipliers[0], &data[0], &rows[0], &cols[0], isNodal)             # <<<<<<<<<<<<<<
+ *     def get_stiffness_matrix(
+ *             self, np.ndarray[double] data, np.ndarray[int] rows, np.ndarray[int] cols):
+ */
+  __pyx_t_1 = 0;
+  __pyx_t_2 = -1;
+  if (__pyx_t_1 < 0) {
+    __pyx_t_1 += __pyx_pybuffernd_multipliers.diminfo[0].shape;
+    if (unlikely(__pyx_t_1 < 0)) __pyx_t_2 = 0;
+  } else if (unlikely(__pyx_t_1 >= __pyx_pybuffernd_multipliers.diminfo[0].shape)) __pyx_t_2 = 0;
+  if (unlikely(__pyx_t_2 != -1)) {
+    __Pyx_RaiseBufferIndexError(__pyx_t_2);
+    __PYX_ERR(0, 35, __pyx_L1_error)
+  }
+  __pyx_t_3 = 0;
+  __pyx_t_2 = -1;
+  if (__pyx_t_3 < 0) {
+    __pyx_t_3 += __pyx_pybuffernd_data.diminfo[0].shape;
+    if (unlikely(__pyx_t_3 < 0)) __pyx_t_2 = 0;
+  } else if (unlikely(__pyx_t_3 >= __pyx_pybuffernd_data.diminfo[0].shape)) __pyx_t_2 = 0;
+  if (unlikely(__pyx_t_2 != -1)) {
+    __Pyx_RaiseBufferIndexError(__pyx_t_2);
+    __PYX_ERR(0, 35, __pyx_L1_error)
+  }
+  __pyx_t_4 = 0;
+  __pyx_t_2 = -1;
+  if (__pyx_t_4 < 0) {
+    __pyx_t_4 += __pyx_pybuffernd_rows.diminfo[0].shape;
+    if (unlikely(__pyx_t_4 < 0)) __pyx_t_2 = 0;
+  } else if (unlikely(__pyx_t_4 >= __pyx_pybuffernd_rows.diminfo[0].shape)) __pyx_t_2 = 0;
+  if (unlikely(__pyx_t_2 != -1)) {
+    __Pyx_RaiseBufferIndexError(__pyx_t_2);
+    __PYX_ERR(0, 35, __pyx_L1_error)
+  }
+  __pyx_t_5 = 0;
+  __pyx_t_2 = -1;
+  if (__pyx_t_5 < 0) {
+    __pyx_t_5 += __pyx_pybuffernd_cols.diminfo[0].shape;
+    if (unlikely(__pyx_t_5 < 0)) __pyx_t_2 = 0;
+  } else if (unlikely(__pyx_t_5 >= __pyx_pybuffernd_cols.diminfo[0].shape)) __pyx_t_2 = 0;
+  if (unlikely(__pyx_t_2 != -1)) {
+    __Pyx_RaiseBufferIndexError(__pyx_t_2);
+    __PYX_ERR(0, 35, __pyx_L1_error)
+  }
+  __pyx_v_self->thisptr->get_stiffness_matrix((&(*__Pyx_BufPtrStrided1d(double *, __pyx_pybuffernd_multipliers.rcbuffer->pybuffer.buf, __pyx_t_1, __pyx_pybuffernd_multipliers.diminfo[0].strides))), (&(*__Pyx_BufPtrStrided1d(double *, __pyx_pybuffernd_data.rcbuffer->pybuffer.buf, __pyx_t_3, __pyx_pybuffernd_data.diminfo[0].strides))), (&(*__Pyx_BufPtrStrided1d(int *, __pyx_pybuffernd_rows.rcbuffer->pybuffer.buf, __pyx_t_4, __pyx_pybuffernd_rows.diminfo[0].strides))), (&(*__Pyx_BufPtrStrided1d(int *, __pyx_pybuffernd_cols.rcbuffer->pybuffer.buf, __pyx_t_5, __pyx_pybuffernd_cols.diminfo[0].strides))), __pyx_v_isNodal);
+
+  /* "fem2d/fem2d.pyx":32
+ *             np.ndarray[double] data, np.ndarray[int] rows, np.ndarray[int] cols):
+ *         self.thisptr.get_stiffness_matrix(&multipliers[0], &data[0], &rows[0], &cols[0])
+ *     def get_stiffness_matrix(             # <<<<<<<<<<<<<<
+ *             self, np.ndarray[double] multipliers,
+ *             np.ndarray[double] data, np.ndarray[int] rows, np.ndarray[int] cols, bool isNodal):
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  { PyObject *__pyx_type, *__pyx_value, *__pyx_tb;
+    __Pyx_PyThreadState_declare
+    __Pyx_PyThreadState_assign
+    __Pyx_ErrFetch(&__pyx_type, &__pyx_value, &__pyx_tb);
+    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_cols.rcbuffer->pybuffer);
+    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_data.rcbuffer->pybuffer);
+    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_multipliers.rcbuffer->pybuffer);
+    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_rows.rcbuffer->pybuffer);
+  __Pyx_ErrRestore(__pyx_type, __pyx_value, __pyx_tb);}
+  __Pyx_AddTraceback("fem2d.fem2d.PyFEMSolver.get_stiffness_matrix", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  goto __pyx_L2;
+  __pyx_L0:;
+  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_cols.rcbuffer->pybuffer);
+  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_data.rcbuffer->pybuffer);
+  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_multipliers.rcbuffer->pybuffer);
+  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_rows.rcbuffer->pybuffer);
+  __pyx_L2:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "fem2d/fem2d.pyx":36
+ *             np.ndarray[double] data, np.ndarray[int] rows, np.ndarray[int] cols, bool isNodal):
+ *         self.thisptr.get_stiffness_matrix(&multipliers[0], &data[0], &rows[0], &cols[0], isNodal)
+ *     def get_stiffness_matrix(             # <<<<<<<<<<<<<<
+ *             self, np.ndarray[double] data, np.ndarray[int] rows, np.ndarray[int] cols):
+ *         self.thisptr.get_stiffness_matrix(&data[0], &rows[0], &cols[0])
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5fem2d_5fem2d_11PyFEMSolver_9get_stiffness_matrix(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_5fem2d_5fem2d_11PyFEMSolver_9get_stiffness_matrix(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyArrayObject *__pyx_v_data = 0;
+  PyArrayObject *__pyx_v_rows = 0;
+  PyArrayObject *__pyx_v_cols = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("get_stiffness_matrix (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_data,&__pyx_n_s_rows,&__pyx_n_s_cols,0};
+    PyObject* values[3] = {0,0,0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_data)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        case  1:
+        if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_rows)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("get_stiffness_matrix", 1, 3, 3, 1); __PYX_ERR(0, 36, __pyx_L3_error)
+        }
+        case  2:
+        if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_cols)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("get_stiffness_matrix", 1, 3, 3, 2); __PYX_ERR(0, 36, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "get_stiffness_matrix") < 0)) __PYX_ERR(0, 36, __pyx_L3_error)
+      }
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+      values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+    }
+    __pyx_v_data = ((PyArrayObject *)values[0]);
+    __pyx_v_rows = ((PyArrayObject *)values[1]);
+    __pyx_v_cols = ((PyArrayObject *)values[2]);
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("get_stiffness_matrix", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 36, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("fem2d.fem2d.PyFEMSolver.get_stiffness_matrix", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_data), __pyx_ptype_5numpy_ndarray, 1, "data", 0))) __PYX_ERR(0, 37, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_rows), __pyx_ptype_5numpy_ndarray, 1, "rows", 0))) __PYX_ERR(0, 37, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_cols), __pyx_ptype_5numpy_ndarray, 1, "cols", 0))) __PYX_ERR(0, 37, __pyx_L1_error)
+  __pyx_r = __pyx_pf_5fem2d_5fem2d_11PyFEMSolver_8get_stiffness_matrix(((struct __pyx_obj_5fem2d_5fem2d_PyFEMSolver *)__pyx_v_self), __pyx_v_data, __pyx_v_rows, __pyx_v_cols);
+
+  /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_8get_stiffness_matrix(struct __pyx_obj_5fem2d_5fem2d_PyFEMSolver *__pyx_v_self, PyArrayObject *__pyx_v_data, PyArrayObject *__pyx_v_rows, PyArrayObject *__pyx_v_cols) {
+  __Pyx_LocalBuf_ND __pyx_pybuffernd_cols;
+  __Pyx_Buffer __pyx_pybuffer_cols;
+  __Pyx_LocalBuf_ND __pyx_pybuffernd_data;
+  __Pyx_Buffer __pyx_pybuffer_data;
+  __Pyx_LocalBuf_ND __pyx_pybuffernd_rows;
+  __Pyx_Buffer __pyx_pybuffer_rows;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  Py_ssize_t __pyx_t_1;
+  int __pyx_t_2;
+  Py_ssize_t __pyx_t_3;
+  Py_ssize_t __pyx_t_4;
+  __Pyx_RefNannySetupContext("get_stiffness_matrix", 0);
+  __pyx_pybuffer_data.pybuffer.buf = NULL;
+  __pyx_pybuffer_data.refcount = 0;
+  __pyx_pybuffernd_data.data = NULL;
+  __pyx_pybuffernd_data.rcbuffer = &__pyx_pybuffer_data;
+  __pyx_pybuffer_rows.pybuffer.buf = NULL;
+  __pyx_pybuffer_rows.refcount = 0;
+  __pyx_pybuffernd_rows.data = NULL;
+  __pyx_pybuffernd_rows.rcbuffer = &__pyx_pybuffer_rows;
+  __pyx_pybuffer_cols.pybuffer.buf = NULL;
+  __pyx_pybuffer_cols.refcount = 0;
+  __pyx_pybuffernd_cols.data = NULL;
+  __pyx_pybuffernd_cols.rcbuffer = &__pyx_pybuffer_cols;
+  {
+    __Pyx_BufFmt_StackElem __pyx_stack[1];
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_data.rcbuffer->pybuffer, (PyObject*)__pyx_v_data, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 36, __pyx_L1_error)
+  }
+  __pyx_pybuffernd_data.diminfo[0].strides = __pyx_pybuffernd_data.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_data.diminfo[0].shape = __pyx_pybuffernd_data.rcbuffer->pybuffer.shape[0];
+  {
+    __Pyx_BufFmt_StackElem __pyx_stack[1];
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_rows.rcbuffer->pybuffer, (PyObject*)__pyx_v_rows, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 36, __pyx_L1_error)
+  }
+  __pyx_pybuffernd_rows.diminfo[0].strides = __pyx_pybuffernd_rows.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_rows.diminfo[0].shape = __pyx_pybuffernd_rows.rcbuffer->pybuffer.shape[0];
+  {
+    __Pyx_BufFmt_StackElem __pyx_stack[1];
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_cols.rcbuffer->pybuffer, (PyObject*)__pyx_v_cols, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 36, __pyx_L1_error)
+  }
+  __pyx_pybuffernd_cols.diminfo[0].strides = __pyx_pybuffernd_cols.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_cols.diminfo[0].shape = __pyx_pybuffernd_cols.rcbuffer->pybuffer.shape[0];
+
+  /* "fem2d/fem2d.pyx":38
+ *     def get_stiffness_matrix(
+ *             self, np.ndarray[double] data, np.ndarray[int] rows, np.ndarray[int] cols):
+ *         self.thisptr.get_stiffness_matrix(&data[0], &rows[0], &cols[0])             # <<<<<<<<<<<<<<
+ * 
+ *     def get_stiffness_matrix_derivs(
+ */
+  __pyx_t_1 = 0;
+  __pyx_t_2 = -1;
+  if (__pyx_t_1 < 0) {
+    __pyx_t_1 += __pyx_pybuffernd_data.diminfo[0].shape;
+    if (unlikely(__pyx_t_1 < 0)) __pyx_t_2 = 0;
+  } else if (unlikely(__pyx_t_1 >= __pyx_pybuffernd_data.diminfo[0].shape)) __pyx_t_2 = 0;
+  if (unlikely(__pyx_t_2 != -1)) {
+    __Pyx_RaiseBufferIndexError(__pyx_t_2);
+    __PYX_ERR(0, 38, __pyx_L1_error)
+  }
+  __pyx_t_3 = 0;
+  __pyx_t_2 = -1;
+  if (__pyx_t_3 < 0) {
+    __pyx_t_3 += __pyx_pybuffernd_rows.diminfo[0].shape;
+    if (unlikely(__pyx_t_3 < 0)) __pyx_t_2 = 0;
+  } else if (unlikely(__pyx_t_3 >= __pyx_pybuffernd_rows.diminfo[0].shape)) __pyx_t_2 = 0;
+  if (unlikely(__pyx_t_2 != -1)) {
+    __Pyx_RaiseBufferIndexError(__pyx_t_2);
+    __PYX_ERR(0, 38, __pyx_L1_error)
+  }
+  __pyx_t_4 = 0;
+  __pyx_t_2 = -1;
+  if (__pyx_t_4 < 0) {
+    __pyx_t_4 += __pyx_pybuffernd_cols.diminfo[0].shape;
+    if (unlikely(__pyx_t_4 < 0)) __pyx_t_2 = 0;
+  } else if (unlikely(__pyx_t_4 >= __pyx_pybuffernd_cols.diminfo[0].shape)) __pyx_t_2 = 0;
+  if (unlikely(__pyx_t_2 != -1)) {
+    __Pyx_RaiseBufferIndexError(__pyx_t_2);
+    __PYX_ERR(0, 38, __pyx_L1_error)
+  }
+  __pyx_v_self->thisptr->get_stiffness_matrix((&(*__Pyx_BufPtrStrided1d(double *, __pyx_pybuffernd_data.rcbuffer->pybuffer.buf, __pyx_t_1, __pyx_pybuffernd_data.diminfo[0].strides))), (&(*__Pyx_BufPtrStrided1d(int *, __pyx_pybuffernd_rows.rcbuffer->pybuffer.buf, __pyx_t_3, __pyx_pybuffernd_rows.diminfo[0].strides))), (&(*__Pyx_BufPtrStrided1d(int *, __pyx_pybuffernd_cols.rcbuffer->pybuffer.buf, __pyx_t_4, __pyx_pybuffernd_cols.diminfo[0].strides))));
+
+  /* "fem2d/fem2d.pyx":36
+ *             np.ndarray[double] data, np.ndarray[int] rows, np.ndarray[int] cols, bool isNodal):
+ *         self.thisptr.get_stiffness_matrix(&multipliers[0], &data[0], &rows[0], &cols[0], isNodal)
+ *     def get_stiffness_matrix(             # <<<<<<<<<<<<<<
+ *             self, np.ndarray[double] data, np.ndarray[int] rows, np.ndarray[int] cols):
+ *         self.thisptr.get_stiffness_matrix(&data[0], &rows[0], &cols[0])
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  { PyObject *__pyx_type, *__pyx_value, *__pyx_tb;
+    __Pyx_PyThreadState_declare
+    __Pyx_PyThreadState_assign
+    __Pyx_ErrFetch(&__pyx_type, &__pyx_value, &__pyx_tb);
+    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_cols.rcbuffer->pybuffer);
+    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_data.rcbuffer->pybuffer);
+    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_rows.rcbuffer->pybuffer);
+  __Pyx_ErrRestore(__pyx_type, __pyx_value, __pyx_tb);}
+  __Pyx_AddTraceback("fem2d.fem2d.PyFEMSolver.get_stiffness_matrix", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  goto __pyx_L2;
+  __pyx_L0:;
+  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_cols.rcbuffer->pybuffer);
+  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_data.rcbuffer->pybuffer);
+  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_rows.rcbuffer->pybuffer);
+  __pyx_L2:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "fem2d/fem2d.pyx":40
+ *         self.thisptr.get_stiffness_matrix(&data[0], &rows[0], &cols[0])
+ * 
  *     def get_stiffness_matrix_derivs(             # <<<<<<<<<<<<<<
  *             self, np.ndarray[double] states,
  *             np.ndarray[double] data, np.ndarray[int] rows, np.ndarray[int] cols):
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5fem2d_5fem2d_11PyFEMSolver_7get_stiffness_matrix_derivs(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_pw_5fem2d_5fem2d_11PyFEMSolver_7get_stiffness_matrix_derivs(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5fem2d_5fem2d_11PyFEMSolver_11get_stiffness_matrix_derivs(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_5fem2d_5fem2d_11PyFEMSolver_11get_stiffness_matrix_derivs(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyArrayObject *__pyx_v_states = 0;
   PyArrayObject *__pyx_v_data = 0;
   PyArrayObject *__pyx_v_rows = 0;
@@ -2209,21 +2651,21 @@ static PyObject *__pyx_pw_5fem2d_5fem2d_11PyFEMSolver_7get_stiffness_matrix_deri
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_data)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("get_stiffness_matrix_derivs", 1, 4, 4, 1); __PYX_ERR(0, 29, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("get_stiffness_matrix_derivs", 1, 4, 4, 1); __PYX_ERR(0, 40, __pyx_L3_error)
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_rows)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("get_stiffness_matrix_derivs", 1, 4, 4, 2); __PYX_ERR(0, 29, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("get_stiffness_matrix_derivs", 1, 4, 4, 2); __PYX_ERR(0, 40, __pyx_L3_error)
         }
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_cols)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("get_stiffness_matrix_derivs", 1, 4, 4, 3); __PYX_ERR(0, 29, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("get_stiffness_matrix_derivs", 1, 4, 4, 3); __PYX_ERR(0, 40, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "get_stiffness_matrix_derivs") < 0)) __PYX_ERR(0, 29, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "get_stiffness_matrix_derivs") < 0)) __PYX_ERR(0, 40, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 4) {
       goto __pyx_L5_argtuple_error;
@@ -2240,17 +2682,17 @@ static PyObject *__pyx_pw_5fem2d_5fem2d_11PyFEMSolver_7get_stiffness_matrix_deri
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("get_stiffness_matrix_derivs", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 29, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("get_stiffness_matrix_derivs", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 40, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("fem2d.fem2d.PyFEMSolver.get_stiffness_matrix_derivs", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_states), __pyx_ptype_5numpy_ndarray, 1, "states", 0))) __PYX_ERR(0, 30, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_data), __pyx_ptype_5numpy_ndarray, 1, "data", 0))) __PYX_ERR(0, 31, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_rows), __pyx_ptype_5numpy_ndarray, 1, "rows", 0))) __PYX_ERR(0, 31, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_cols), __pyx_ptype_5numpy_ndarray, 1, "cols", 0))) __PYX_ERR(0, 31, __pyx_L1_error)
-  __pyx_r = __pyx_pf_5fem2d_5fem2d_11PyFEMSolver_6get_stiffness_matrix_derivs(((struct __pyx_obj_5fem2d_5fem2d_PyFEMSolver *)__pyx_v_self), __pyx_v_states, __pyx_v_data, __pyx_v_rows, __pyx_v_cols);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_states), __pyx_ptype_5numpy_ndarray, 1, "states", 0))) __PYX_ERR(0, 41, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_data), __pyx_ptype_5numpy_ndarray, 1, "data", 0))) __PYX_ERR(0, 42, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_rows), __pyx_ptype_5numpy_ndarray, 1, "rows", 0))) __PYX_ERR(0, 42, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_cols), __pyx_ptype_5numpy_ndarray, 1, "cols", 0))) __PYX_ERR(0, 42, __pyx_L1_error)
+  __pyx_r = __pyx_pf_5fem2d_5fem2d_11PyFEMSolver_10get_stiffness_matrix_derivs(((struct __pyx_obj_5fem2d_5fem2d_PyFEMSolver *)__pyx_v_self), __pyx_v_states, __pyx_v_data, __pyx_v_rows, __pyx_v_cols);
 
   /* function exit code */
   goto __pyx_L0;
@@ -2261,7 +2703,7 @@ static PyObject *__pyx_pw_5fem2d_5fem2d_11PyFEMSolver_7get_stiffness_matrix_deri
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_6get_stiffness_matrix_derivs(struct __pyx_obj_5fem2d_5fem2d_PyFEMSolver *__pyx_v_self, PyArrayObject *__pyx_v_states, PyArrayObject *__pyx_v_data, PyArrayObject *__pyx_v_rows, PyArrayObject *__pyx_v_cols) {
+static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_10get_stiffness_matrix_derivs(struct __pyx_obj_5fem2d_5fem2d_PyFEMSolver *__pyx_v_self, PyArrayObject *__pyx_v_states, PyArrayObject *__pyx_v_data, PyArrayObject *__pyx_v_rows, PyArrayObject *__pyx_v_cols) {
   __Pyx_LocalBuf_ND __pyx_pybuffernd_cols;
   __Pyx_Buffer __pyx_pybuffer_cols;
   __Pyx_LocalBuf_ND __pyx_pybuffernd_data;
@@ -2296,31 +2738,31 @@ static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_6get_stiffness_matrix_deri
   __pyx_pybuffernd_cols.rcbuffer = &__pyx_pybuffer_cols;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_states.rcbuffer->pybuffer, (PyObject*)__pyx_v_states, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 29, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_states.rcbuffer->pybuffer, (PyObject*)__pyx_v_states, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 40, __pyx_L1_error)
   }
   __pyx_pybuffernd_states.diminfo[0].strides = __pyx_pybuffernd_states.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_states.diminfo[0].shape = __pyx_pybuffernd_states.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_data.rcbuffer->pybuffer, (PyObject*)__pyx_v_data, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 29, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_data.rcbuffer->pybuffer, (PyObject*)__pyx_v_data, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 40, __pyx_L1_error)
   }
   __pyx_pybuffernd_data.diminfo[0].strides = __pyx_pybuffernd_data.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_data.diminfo[0].shape = __pyx_pybuffernd_data.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_rows.rcbuffer->pybuffer, (PyObject*)__pyx_v_rows, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 29, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_rows.rcbuffer->pybuffer, (PyObject*)__pyx_v_rows, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 40, __pyx_L1_error)
   }
   __pyx_pybuffernd_rows.diminfo[0].strides = __pyx_pybuffernd_rows.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_rows.diminfo[0].shape = __pyx_pybuffernd_rows.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_cols.rcbuffer->pybuffer, (PyObject*)__pyx_v_cols, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 29, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_cols.rcbuffer->pybuffer, (PyObject*)__pyx_v_cols, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 40, __pyx_L1_error)
   }
   __pyx_pybuffernd_cols.diminfo[0].strides = __pyx_pybuffernd_cols.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_cols.diminfo[0].shape = __pyx_pybuffernd_cols.rcbuffer->pybuffer.shape[0];
 
-  /* "fem2d/fem2d.pyx":32
+  /* "fem2d/fem2d.pyx":43
  *             self, np.ndarray[double] states,
  *             np.ndarray[double] data, np.ndarray[int] rows, np.ndarray[int] cols):
  *         self.thisptr.get_stiffness_matrix_derivs(&states[0], &data[0], &rows[0], &cols[0])             # <<<<<<<<<<<<<<
- *     def get_stiffness_matrix_LSTO(
- *             self, np.ndarray[double] areafraction, np.ndarray[double] data,
+ *     def get_stiffness_matrix_derivs(
+ *             self, np.ndarray[double] states,
  */
   __pyx_t_1 = 0;
   __pyx_t_2 = -1;
@@ -2330,7 +2772,7 @@ static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_6get_stiffness_matrix_deri
   } else if (unlikely(__pyx_t_1 >= __pyx_pybuffernd_states.diminfo[0].shape)) __pyx_t_2 = 0;
   if (unlikely(__pyx_t_2 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_2);
-    __PYX_ERR(0, 32, __pyx_L1_error)
+    __PYX_ERR(0, 43, __pyx_L1_error)
   }
   __pyx_t_3 = 0;
   __pyx_t_2 = -1;
@@ -2340,7 +2782,7 @@ static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_6get_stiffness_matrix_deri
   } else if (unlikely(__pyx_t_3 >= __pyx_pybuffernd_data.diminfo[0].shape)) __pyx_t_2 = 0;
   if (unlikely(__pyx_t_2 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_2);
-    __PYX_ERR(0, 32, __pyx_L1_error)
+    __PYX_ERR(0, 43, __pyx_L1_error)
   }
   __pyx_t_4 = 0;
   __pyx_t_2 = -1;
@@ -2350,7 +2792,7 @@ static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_6get_stiffness_matrix_deri
   } else if (unlikely(__pyx_t_4 >= __pyx_pybuffernd_rows.diminfo[0].shape)) __pyx_t_2 = 0;
   if (unlikely(__pyx_t_2 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_2);
-    __PYX_ERR(0, 32, __pyx_L1_error)
+    __PYX_ERR(0, 43, __pyx_L1_error)
   }
   __pyx_t_5 = 0;
   __pyx_t_2 = -1;
@@ -2360,13 +2802,13 @@ static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_6get_stiffness_matrix_deri
   } else if (unlikely(__pyx_t_5 >= __pyx_pybuffernd_cols.diminfo[0].shape)) __pyx_t_2 = 0;
   if (unlikely(__pyx_t_2 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_2);
-    __PYX_ERR(0, 32, __pyx_L1_error)
+    __PYX_ERR(0, 43, __pyx_L1_error)
   }
   __pyx_v_self->thisptr->get_stiffness_matrix_derivs((&(*__Pyx_BufPtrStrided1d(double *, __pyx_pybuffernd_states.rcbuffer->pybuffer.buf, __pyx_t_1, __pyx_pybuffernd_states.diminfo[0].strides))), (&(*__Pyx_BufPtrStrided1d(double *, __pyx_pybuffernd_data.rcbuffer->pybuffer.buf, __pyx_t_3, __pyx_pybuffernd_data.diminfo[0].strides))), (&(*__Pyx_BufPtrStrided1d(int *, __pyx_pybuffernd_rows.rcbuffer->pybuffer.buf, __pyx_t_4, __pyx_pybuffernd_rows.diminfo[0].strides))), (&(*__Pyx_BufPtrStrided1d(int *, __pyx_pybuffernd_cols.rcbuffer->pybuffer.buf, __pyx_t_5, __pyx_pybuffernd_cols.diminfo[0].strides))));
 
-  /* "fem2d/fem2d.pyx":29
- *             np.ndarray[double] data, np.ndarray[int] rows, np.ndarray[int] cols):
- *         self.thisptr.get_stiffness_matrix(&multipliers[0], &data[0], &rows[0], &cols[0])
+  /* "fem2d/fem2d.pyx":40
+ *         self.thisptr.get_stiffness_matrix(&data[0], &rows[0], &cols[0])
+ * 
  *     def get_stiffness_matrix_derivs(             # <<<<<<<<<<<<<<
  *             self, np.ndarray[double] states,
  *             np.ndarray[double] data, np.ndarray[int] rows, np.ndarray[int] cols):
@@ -2399,17 +2841,256 @@ static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_6get_stiffness_matrix_deri
   return __pyx_r;
 }
 
-/* "fem2d/fem2d.pyx":33
+/* "fem2d/fem2d.pyx":44
  *             np.ndarray[double] data, np.ndarray[int] rows, np.ndarray[int] cols):
  *         self.thisptr.get_stiffness_matrix_derivs(&states[0], &data[0], &rows[0], &cols[0])
+ *     def get_stiffness_matrix_derivs(             # <<<<<<<<<<<<<<
+ *             self, np.ndarray[double] states,
+ *             np.ndarray[double] data, np.ndarray[int] rows, np.ndarray[int] cols, bool isNodal):
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5fem2d_5fem2d_11PyFEMSolver_13get_stiffness_matrix_derivs(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_5fem2d_5fem2d_11PyFEMSolver_13get_stiffness_matrix_derivs(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyArrayObject *__pyx_v_states = 0;
+  PyArrayObject *__pyx_v_data = 0;
+  PyArrayObject *__pyx_v_rows = 0;
+  PyArrayObject *__pyx_v_cols = 0;
+  bool __pyx_v_isNodal;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("get_stiffness_matrix_derivs (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_states,&__pyx_n_s_data,&__pyx_n_s_rows,&__pyx_n_s_cols,&__pyx_n_s_isNodal,0};
+    PyObject* values[5] = {0,0,0,0,0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  5: values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
+        case  4: values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
+        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_states)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        case  1:
+        if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_data)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("get_stiffness_matrix_derivs", 1, 5, 5, 1); __PYX_ERR(0, 44, __pyx_L3_error)
+        }
+        case  2:
+        if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_rows)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("get_stiffness_matrix_derivs", 1, 5, 5, 2); __PYX_ERR(0, 44, __pyx_L3_error)
+        }
+        case  3:
+        if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_cols)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("get_stiffness_matrix_derivs", 1, 5, 5, 3); __PYX_ERR(0, 44, __pyx_L3_error)
+        }
+        case  4:
+        if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_isNodal)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("get_stiffness_matrix_derivs", 1, 5, 5, 4); __PYX_ERR(0, 44, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "get_stiffness_matrix_derivs") < 0)) __PYX_ERR(0, 44, __pyx_L3_error)
+      }
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 5) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+      values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+      values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
+      values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
+    }
+    __pyx_v_states = ((PyArrayObject *)values[0]);
+    __pyx_v_data = ((PyArrayObject *)values[1]);
+    __pyx_v_rows = ((PyArrayObject *)values[2]);
+    __pyx_v_cols = ((PyArrayObject *)values[3]);
+    __pyx_v_isNodal = __Pyx_PyObject_IsTrue(values[4]); if (unlikely((__pyx_v_isNodal == ((bool)-1)) && PyErr_Occurred())) __PYX_ERR(0, 46, __pyx_L3_error)
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("get_stiffness_matrix_derivs", 1, 5, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 44, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("fem2d.fem2d.PyFEMSolver.get_stiffness_matrix_derivs", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_states), __pyx_ptype_5numpy_ndarray, 1, "states", 0))) __PYX_ERR(0, 45, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_data), __pyx_ptype_5numpy_ndarray, 1, "data", 0))) __PYX_ERR(0, 46, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_rows), __pyx_ptype_5numpy_ndarray, 1, "rows", 0))) __PYX_ERR(0, 46, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_cols), __pyx_ptype_5numpy_ndarray, 1, "cols", 0))) __PYX_ERR(0, 46, __pyx_L1_error)
+  __pyx_r = __pyx_pf_5fem2d_5fem2d_11PyFEMSolver_12get_stiffness_matrix_derivs(((struct __pyx_obj_5fem2d_5fem2d_PyFEMSolver *)__pyx_v_self), __pyx_v_states, __pyx_v_data, __pyx_v_rows, __pyx_v_cols, __pyx_v_isNodal);
+
+  /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_12get_stiffness_matrix_derivs(struct __pyx_obj_5fem2d_5fem2d_PyFEMSolver *__pyx_v_self, PyArrayObject *__pyx_v_states, PyArrayObject *__pyx_v_data, PyArrayObject *__pyx_v_rows, PyArrayObject *__pyx_v_cols, bool __pyx_v_isNodal) {
+  __Pyx_LocalBuf_ND __pyx_pybuffernd_cols;
+  __Pyx_Buffer __pyx_pybuffer_cols;
+  __Pyx_LocalBuf_ND __pyx_pybuffernd_data;
+  __Pyx_Buffer __pyx_pybuffer_data;
+  __Pyx_LocalBuf_ND __pyx_pybuffernd_rows;
+  __Pyx_Buffer __pyx_pybuffer_rows;
+  __Pyx_LocalBuf_ND __pyx_pybuffernd_states;
+  __Pyx_Buffer __pyx_pybuffer_states;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  Py_ssize_t __pyx_t_1;
+  int __pyx_t_2;
+  Py_ssize_t __pyx_t_3;
+  Py_ssize_t __pyx_t_4;
+  Py_ssize_t __pyx_t_5;
+  __Pyx_RefNannySetupContext("get_stiffness_matrix_derivs", 0);
+  __pyx_pybuffer_states.pybuffer.buf = NULL;
+  __pyx_pybuffer_states.refcount = 0;
+  __pyx_pybuffernd_states.data = NULL;
+  __pyx_pybuffernd_states.rcbuffer = &__pyx_pybuffer_states;
+  __pyx_pybuffer_data.pybuffer.buf = NULL;
+  __pyx_pybuffer_data.refcount = 0;
+  __pyx_pybuffernd_data.data = NULL;
+  __pyx_pybuffernd_data.rcbuffer = &__pyx_pybuffer_data;
+  __pyx_pybuffer_rows.pybuffer.buf = NULL;
+  __pyx_pybuffer_rows.refcount = 0;
+  __pyx_pybuffernd_rows.data = NULL;
+  __pyx_pybuffernd_rows.rcbuffer = &__pyx_pybuffer_rows;
+  __pyx_pybuffer_cols.pybuffer.buf = NULL;
+  __pyx_pybuffer_cols.refcount = 0;
+  __pyx_pybuffernd_cols.data = NULL;
+  __pyx_pybuffernd_cols.rcbuffer = &__pyx_pybuffer_cols;
+  {
+    __Pyx_BufFmt_StackElem __pyx_stack[1];
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_states.rcbuffer->pybuffer, (PyObject*)__pyx_v_states, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 44, __pyx_L1_error)
+  }
+  __pyx_pybuffernd_states.diminfo[0].strides = __pyx_pybuffernd_states.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_states.diminfo[0].shape = __pyx_pybuffernd_states.rcbuffer->pybuffer.shape[0];
+  {
+    __Pyx_BufFmt_StackElem __pyx_stack[1];
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_data.rcbuffer->pybuffer, (PyObject*)__pyx_v_data, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 44, __pyx_L1_error)
+  }
+  __pyx_pybuffernd_data.diminfo[0].strides = __pyx_pybuffernd_data.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_data.diminfo[0].shape = __pyx_pybuffernd_data.rcbuffer->pybuffer.shape[0];
+  {
+    __Pyx_BufFmt_StackElem __pyx_stack[1];
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_rows.rcbuffer->pybuffer, (PyObject*)__pyx_v_rows, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 44, __pyx_L1_error)
+  }
+  __pyx_pybuffernd_rows.diminfo[0].strides = __pyx_pybuffernd_rows.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_rows.diminfo[0].shape = __pyx_pybuffernd_rows.rcbuffer->pybuffer.shape[0];
+  {
+    __Pyx_BufFmt_StackElem __pyx_stack[1];
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_cols.rcbuffer->pybuffer, (PyObject*)__pyx_v_cols, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 44, __pyx_L1_error)
+  }
+  __pyx_pybuffernd_cols.diminfo[0].strides = __pyx_pybuffernd_cols.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_cols.diminfo[0].shape = __pyx_pybuffernd_cols.rcbuffer->pybuffer.shape[0];
+
+  /* "fem2d/fem2d.pyx":47
+ *             self, np.ndarray[double] states,
+ *             np.ndarray[double] data, np.ndarray[int] rows, np.ndarray[int] cols, bool isNodal):
+ *         self.thisptr.get_stiffness_matrix_derivs(&states[0], &data[0], &rows[0], &cols[0], isNodal)             # <<<<<<<<<<<<<<
+ * 
+ *     def get_stiffness_matrix_LSTO(
+ */
+  __pyx_t_1 = 0;
+  __pyx_t_2 = -1;
+  if (__pyx_t_1 < 0) {
+    __pyx_t_1 += __pyx_pybuffernd_states.diminfo[0].shape;
+    if (unlikely(__pyx_t_1 < 0)) __pyx_t_2 = 0;
+  } else if (unlikely(__pyx_t_1 >= __pyx_pybuffernd_states.diminfo[0].shape)) __pyx_t_2 = 0;
+  if (unlikely(__pyx_t_2 != -1)) {
+    __Pyx_RaiseBufferIndexError(__pyx_t_2);
+    __PYX_ERR(0, 47, __pyx_L1_error)
+  }
+  __pyx_t_3 = 0;
+  __pyx_t_2 = -1;
+  if (__pyx_t_3 < 0) {
+    __pyx_t_3 += __pyx_pybuffernd_data.diminfo[0].shape;
+    if (unlikely(__pyx_t_3 < 0)) __pyx_t_2 = 0;
+  } else if (unlikely(__pyx_t_3 >= __pyx_pybuffernd_data.diminfo[0].shape)) __pyx_t_2 = 0;
+  if (unlikely(__pyx_t_2 != -1)) {
+    __Pyx_RaiseBufferIndexError(__pyx_t_2);
+    __PYX_ERR(0, 47, __pyx_L1_error)
+  }
+  __pyx_t_4 = 0;
+  __pyx_t_2 = -1;
+  if (__pyx_t_4 < 0) {
+    __pyx_t_4 += __pyx_pybuffernd_rows.diminfo[0].shape;
+    if (unlikely(__pyx_t_4 < 0)) __pyx_t_2 = 0;
+  } else if (unlikely(__pyx_t_4 >= __pyx_pybuffernd_rows.diminfo[0].shape)) __pyx_t_2 = 0;
+  if (unlikely(__pyx_t_2 != -1)) {
+    __Pyx_RaiseBufferIndexError(__pyx_t_2);
+    __PYX_ERR(0, 47, __pyx_L1_error)
+  }
+  __pyx_t_5 = 0;
+  __pyx_t_2 = -1;
+  if (__pyx_t_5 < 0) {
+    __pyx_t_5 += __pyx_pybuffernd_cols.diminfo[0].shape;
+    if (unlikely(__pyx_t_5 < 0)) __pyx_t_2 = 0;
+  } else if (unlikely(__pyx_t_5 >= __pyx_pybuffernd_cols.diminfo[0].shape)) __pyx_t_2 = 0;
+  if (unlikely(__pyx_t_2 != -1)) {
+    __Pyx_RaiseBufferIndexError(__pyx_t_2);
+    __PYX_ERR(0, 47, __pyx_L1_error)
+  }
+  __pyx_v_self->thisptr->get_stiffness_matrix_derivs((&(*__Pyx_BufPtrStrided1d(double *, __pyx_pybuffernd_states.rcbuffer->pybuffer.buf, __pyx_t_1, __pyx_pybuffernd_states.diminfo[0].strides))), (&(*__Pyx_BufPtrStrided1d(double *, __pyx_pybuffernd_data.rcbuffer->pybuffer.buf, __pyx_t_3, __pyx_pybuffernd_data.diminfo[0].strides))), (&(*__Pyx_BufPtrStrided1d(int *, __pyx_pybuffernd_rows.rcbuffer->pybuffer.buf, __pyx_t_4, __pyx_pybuffernd_rows.diminfo[0].strides))), (&(*__Pyx_BufPtrStrided1d(int *, __pyx_pybuffernd_cols.rcbuffer->pybuffer.buf, __pyx_t_5, __pyx_pybuffernd_cols.diminfo[0].strides))), __pyx_v_isNodal);
+
+  /* "fem2d/fem2d.pyx":44
+ *             np.ndarray[double] data, np.ndarray[int] rows, np.ndarray[int] cols):
+ *         self.thisptr.get_stiffness_matrix_derivs(&states[0], &data[0], &rows[0], &cols[0])
+ *     def get_stiffness_matrix_derivs(             # <<<<<<<<<<<<<<
+ *             self, np.ndarray[double] states,
+ *             np.ndarray[double] data, np.ndarray[int] rows, np.ndarray[int] cols, bool isNodal):
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  { PyObject *__pyx_type, *__pyx_value, *__pyx_tb;
+    __Pyx_PyThreadState_declare
+    __Pyx_PyThreadState_assign
+    __Pyx_ErrFetch(&__pyx_type, &__pyx_value, &__pyx_tb);
+    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_cols.rcbuffer->pybuffer);
+    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_data.rcbuffer->pybuffer);
+    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_rows.rcbuffer->pybuffer);
+    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_states.rcbuffer->pybuffer);
+  __Pyx_ErrRestore(__pyx_type, __pyx_value, __pyx_tb);}
+  __Pyx_AddTraceback("fem2d.fem2d.PyFEMSolver.get_stiffness_matrix_derivs", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  goto __pyx_L2;
+  __pyx_L0:;
+  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_cols.rcbuffer->pybuffer);
+  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_data.rcbuffer->pybuffer);
+  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_rows.rcbuffer->pybuffer);
+  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_states.rcbuffer->pybuffer);
+  __pyx_L2:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "fem2d/fem2d.pyx":49
+ *         self.thisptr.get_stiffness_matrix_derivs(&states[0], &data[0], &rows[0], &cols[0], isNodal)
+ * 
  *     def get_stiffness_matrix_LSTO(             # <<<<<<<<<<<<<<
  *             self, np.ndarray[double] areafraction, np.ndarray[double] data,
  *             np.ndarray[int] rows, np.ndarray[int] cols):
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5fem2d_5fem2d_11PyFEMSolver_9get_stiffness_matrix_LSTO(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_pw_5fem2d_5fem2d_11PyFEMSolver_9get_stiffness_matrix_LSTO(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5fem2d_5fem2d_11PyFEMSolver_15get_stiffness_matrix_LSTO(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_5fem2d_5fem2d_11PyFEMSolver_15get_stiffness_matrix_LSTO(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyArrayObject *__pyx_v_areafraction = 0;
   PyArrayObject *__pyx_v_data = 0;
   PyArrayObject *__pyx_v_rows = 0;
@@ -2439,21 +3120,21 @@ static PyObject *__pyx_pw_5fem2d_5fem2d_11PyFEMSolver_9get_stiffness_matrix_LSTO
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_data)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("get_stiffness_matrix_LSTO", 1, 4, 4, 1); __PYX_ERR(0, 33, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("get_stiffness_matrix_LSTO", 1, 4, 4, 1); __PYX_ERR(0, 49, __pyx_L3_error)
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_rows)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("get_stiffness_matrix_LSTO", 1, 4, 4, 2); __PYX_ERR(0, 33, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("get_stiffness_matrix_LSTO", 1, 4, 4, 2); __PYX_ERR(0, 49, __pyx_L3_error)
         }
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_cols)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("get_stiffness_matrix_LSTO", 1, 4, 4, 3); __PYX_ERR(0, 33, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("get_stiffness_matrix_LSTO", 1, 4, 4, 3); __PYX_ERR(0, 49, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "get_stiffness_matrix_LSTO") < 0)) __PYX_ERR(0, 33, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "get_stiffness_matrix_LSTO") < 0)) __PYX_ERR(0, 49, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 4) {
       goto __pyx_L5_argtuple_error;
@@ -2470,17 +3151,17 @@ static PyObject *__pyx_pw_5fem2d_5fem2d_11PyFEMSolver_9get_stiffness_matrix_LSTO
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("get_stiffness_matrix_LSTO", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 33, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("get_stiffness_matrix_LSTO", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 49, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("fem2d.fem2d.PyFEMSolver.get_stiffness_matrix_LSTO", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_areafraction), __pyx_ptype_5numpy_ndarray, 1, "areafraction", 0))) __PYX_ERR(0, 34, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_data), __pyx_ptype_5numpy_ndarray, 1, "data", 0))) __PYX_ERR(0, 34, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_rows), __pyx_ptype_5numpy_ndarray, 1, "rows", 0))) __PYX_ERR(0, 35, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_cols), __pyx_ptype_5numpy_ndarray, 1, "cols", 0))) __PYX_ERR(0, 35, __pyx_L1_error)
-  __pyx_r = __pyx_pf_5fem2d_5fem2d_11PyFEMSolver_8get_stiffness_matrix_LSTO(((struct __pyx_obj_5fem2d_5fem2d_PyFEMSolver *)__pyx_v_self), __pyx_v_areafraction, __pyx_v_data, __pyx_v_rows, __pyx_v_cols);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_areafraction), __pyx_ptype_5numpy_ndarray, 1, "areafraction", 0))) __PYX_ERR(0, 50, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_data), __pyx_ptype_5numpy_ndarray, 1, "data", 0))) __PYX_ERR(0, 50, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_rows), __pyx_ptype_5numpy_ndarray, 1, "rows", 0))) __PYX_ERR(0, 51, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_cols), __pyx_ptype_5numpy_ndarray, 1, "cols", 0))) __PYX_ERR(0, 51, __pyx_L1_error)
+  __pyx_r = __pyx_pf_5fem2d_5fem2d_11PyFEMSolver_14get_stiffness_matrix_LSTO(((struct __pyx_obj_5fem2d_5fem2d_PyFEMSolver *)__pyx_v_self), __pyx_v_areafraction, __pyx_v_data, __pyx_v_rows, __pyx_v_cols);
 
   /* function exit code */
   goto __pyx_L0;
@@ -2491,7 +3172,7 @@ static PyObject *__pyx_pw_5fem2d_5fem2d_11PyFEMSolver_9get_stiffness_matrix_LSTO
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_8get_stiffness_matrix_LSTO(struct __pyx_obj_5fem2d_5fem2d_PyFEMSolver *__pyx_v_self, PyArrayObject *__pyx_v_areafraction, PyArrayObject *__pyx_v_data, PyArrayObject *__pyx_v_rows, PyArrayObject *__pyx_v_cols) {
+static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_14get_stiffness_matrix_LSTO(struct __pyx_obj_5fem2d_5fem2d_PyFEMSolver *__pyx_v_self, PyArrayObject *__pyx_v_areafraction, PyArrayObject *__pyx_v_data, PyArrayObject *__pyx_v_rows, PyArrayObject *__pyx_v_cols) {
   __Pyx_LocalBuf_ND __pyx_pybuffernd_areafraction;
   __Pyx_Buffer __pyx_pybuffer_areafraction;
   __Pyx_LocalBuf_ND __pyx_pybuffernd_cols;
@@ -2526,26 +3207,26 @@ static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_8get_stiffness_matrix_LSTO
   __pyx_pybuffernd_cols.rcbuffer = &__pyx_pybuffer_cols;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_areafraction.rcbuffer->pybuffer, (PyObject*)__pyx_v_areafraction, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 33, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_areafraction.rcbuffer->pybuffer, (PyObject*)__pyx_v_areafraction, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 49, __pyx_L1_error)
   }
   __pyx_pybuffernd_areafraction.diminfo[0].strides = __pyx_pybuffernd_areafraction.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_areafraction.diminfo[0].shape = __pyx_pybuffernd_areafraction.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_data.rcbuffer->pybuffer, (PyObject*)__pyx_v_data, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 33, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_data.rcbuffer->pybuffer, (PyObject*)__pyx_v_data, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 49, __pyx_L1_error)
   }
   __pyx_pybuffernd_data.diminfo[0].strides = __pyx_pybuffernd_data.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_data.diminfo[0].shape = __pyx_pybuffernd_data.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_rows.rcbuffer->pybuffer, (PyObject*)__pyx_v_rows, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 33, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_rows.rcbuffer->pybuffer, (PyObject*)__pyx_v_rows, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 49, __pyx_L1_error)
   }
   __pyx_pybuffernd_rows.diminfo[0].strides = __pyx_pybuffernd_rows.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_rows.diminfo[0].shape = __pyx_pybuffernd_rows.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_cols.rcbuffer->pybuffer, (PyObject*)__pyx_v_cols, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 33, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_cols.rcbuffer->pybuffer, (PyObject*)__pyx_v_cols, &__Pyx_TypeInfo_int, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 49, __pyx_L1_error)
   }
   __pyx_pybuffernd_cols.diminfo[0].strides = __pyx_pybuffernd_cols.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_cols.diminfo[0].shape = __pyx_pybuffernd_cols.rcbuffer->pybuffer.shape[0];
 
-  /* "fem2d/fem2d.pyx":36
+  /* "fem2d/fem2d.pyx":52
  *             self, np.ndarray[double] areafraction, np.ndarray[double] data,
  *             np.ndarray[int] rows, np.ndarray[int] cols):
  *         self.thisptr.set_area_fractions(&areafraction[0])             # <<<<<<<<<<<<<<
@@ -2560,11 +3241,11 @@ static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_8get_stiffness_matrix_LSTO
   } else if (unlikely(__pyx_t_1 >= __pyx_pybuffernd_areafraction.diminfo[0].shape)) __pyx_t_2 = 0;
   if (unlikely(__pyx_t_2 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_2);
-    __PYX_ERR(0, 36, __pyx_L1_error)
+    __PYX_ERR(0, 52, __pyx_L1_error)
   }
   __pyx_v_self->thisptr->set_area_fractions((&(*__Pyx_BufPtrStrided1d(double *, __pyx_pybuffernd_areafraction.rcbuffer->pybuffer.buf, __pyx_t_1, __pyx_pybuffernd_areafraction.diminfo[0].strides))));
 
-  /* "fem2d/fem2d.pyx":37
+  /* "fem2d/fem2d.pyx":53
  *             np.ndarray[int] rows, np.ndarray[int] cols):
  *         self.thisptr.set_area_fractions(&areafraction[0])
  *         self.thisptr.get_stiffness_matrix(&data[0], &rows[0], &cols[0])             # <<<<<<<<<<<<<<
@@ -2579,7 +3260,7 @@ static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_8get_stiffness_matrix_LSTO
   } else if (unlikely(__pyx_t_3 >= __pyx_pybuffernd_data.diminfo[0].shape)) __pyx_t_2 = 0;
   if (unlikely(__pyx_t_2 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_2);
-    __PYX_ERR(0, 37, __pyx_L1_error)
+    __PYX_ERR(0, 53, __pyx_L1_error)
   }
   __pyx_t_4 = 0;
   __pyx_t_2 = -1;
@@ -2589,7 +3270,7 @@ static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_8get_stiffness_matrix_LSTO
   } else if (unlikely(__pyx_t_4 >= __pyx_pybuffernd_rows.diminfo[0].shape)) __pyx_t_2 = 0;
   if (unlikely(__pyx_t_2 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_2);
-    __PYX_ERR(0, 37, __pyx_L1_error)
+    __PYX_ERR(0, 53, __pyx_L1_error)
   }
   __pyx_t_5 = 0;
   __pyx_t_2 = -1;
@@ -2599,13 +3280,13 @@ static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_8get_stiffness_matrix_LSTO
   } else if (unlikely(__pyx_t_5 >= __pyx_pybuffernd_cols.diminfo[0].shape)) __pyx_t_2 = 0;
   if (unlikely(__pyx_t_2 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_2);
-    __PYX_ERR(0, 37, __pyx_L1_error)
+    __PYX_ERR(0, 53, __pyx_L1_error)
   }
   __pyx_v_self->thisptr->get_stiffness_matrix((&(*__Pyx_BufPtrStrided1d(double *, __pyx_pybuffernd_data.rcbuffer->pybuffer.buf, __pyx_t_3, __pyx_pybuffernd_data.diminfo[0].strides))), (&(*__Pyx_BufPtrStrided1d(int *, __pyx_pybuffernd_rows.rcbuffer->pybuffer.buf, __pyx_t_4, __pyx_pybuffernd_rows.diminfo[0].strides))), (&(*__Pyx_BufPtrStrided1d(int *, __pyx_pybuffernd_cols.rcbuffer->pybuffer.buf, __pyx_t_5, __pyx_pybuffernd_cols.diminfo[0].strides))));
 
-  /* "fem2d/fem2d.pyx":33
- *             np.ndarray[double] data, np.ndarray[int] rows, np.ndarray[int] cols):
- *         self.thisptr.get_stiffness_matrix_derivs(&states[0], &data[0], &rows[0], &cols[0])
+  /* "fem2d/fem2d.pyx":49
+ *         self.thisptr.get_stiffness_matrix_derivs(&states[0], &data[0], &rows[0], &cols[0], isNodal)
+ * 
  *     def get_stiffness_matrix_LSTO(             # <<<<<<<<<<<<<<
  *             self, np.ndarray[double] areafraction, np.ndarray[double] data,
  *             np.ndarray[int] rows, np.ndarray[int] cols):
@@ -2638,7 +3319,7 @@ static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_8get_stiffness_matrix_LSTO
   return __pyx_r;
 }
 
-/* "fem2d/fem2d.pyx":38
+/* "fem2d/fem2d.pyx":54
  *         self.thisptr.set_area_fractions(&areafraction[0])
  *         self.thisptr.get_stiffness_matrix(&data[0], &rows[0], &cols[0])
  *     def get_sensitivity_LSTO(self, np.ndarray[double] u, np.ndarray[double] xpos,             # <<<<<<<<<<<<<<
@@ -2647,8 +3328,8 @@ static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_8get_stiffness_matrix_LSTO
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5fem2d_5fem2d_11PyFEMSolver_11get_sensitivity_LSTO(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_pw_5fem2d_5fem2d_11PyFEMSolver_11get_sensitivity_LSTO(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5fem2d_5fem2d_11PyFEMSolver_17get_sensitivity_LSTO(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_5fem2d_5fem2d_11PyFEMSolver_17get_sensitivity_LSTO(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyArrayObject *__pyx_v_u = 0;
   PyArrayObject *__pyx_v_xpos = 0;
   PyArrayObject *__pyx_v_ypos = 0;
@@ -2678,21 +3359,21 @@ static PyObject *__pyx_pw_5fem2d_5fem2d_11PyFEMSolver_11get_sensitivity_LSTO(PyO
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_xpos)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("get_sensitivity_LSTO", 1, 4, 4, 1); __PYX_ERR(0, 38, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("get_sensitivity_LSTO", 1, 4, 4, 1); __PYX_ERR(0, 54, __pyx_L3_error)
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_ypos)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("get_sensitivity_LSTO", 1, 4, 4, 2); __PYX_ERR(0, 38, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("get_sensitivity_LSTO", 1, 4, 4, 2); __PYX_ERR(0, 54, __pyx_L3_error)
         }
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_sens)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("get_sensitivity_LSTO", 1, 4, 4, 3); __PYX_ERR(0, 38, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("get_sensitivity_LSTO", 1, 4, 4, 3); __PYX_ERR(0, 54, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "get_sensitivity_LSTO") < 0)) __PYX_ERR(0, 38, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "get_sensitivity_LSTO") < 0)) __PYX_ERR(0, 54, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 4) {
       goto __pyx_L5_argtuple_error;
@@ -2709,17 +3390,17 @@ static PyObject *__pyx_pw_5fem2d_5fem2d_11PyFEMSolver_11get_sensitivity_LSTO(PyO
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("get_sensitivity_LSTO", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 38, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("get_sensitivity_LSTO", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 54, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("fem2d.fem2d.PyFEMSolver.get_sensitivity_LSTO", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_u), __pyx_ptype_5numpy_ndarray, 1, "u", 0))) __PYX_ERR(0, 38, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_xpos), __pyx_ptype_5numpy_ndarray, 1, "xpos", 0))) __PYX_ERR(0, 38, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_ypos), __pyx_ptype_5numpy_ndarray, 1, "ypos", 0))) __PYX_ERR(0, 39, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_sens), __pyx_ptype_5numpy_ndarray, 1, "sens", 0))) __PYX_ERR(0, 39, __pyx_L1_error)
-  __pyx_r = __pyx_pf_5fem2d_5fem2d_11PyFEMSolver_10get_sensitivity_LSTO(((struct __pyx_obj_5fem2d_5fem2d_PyFEMSolver *)__pyx_v_self), __pyx_v_u, __pyx_v_xpos, __pyx_v_ypos, __pyx_v_sens);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_u), __pyx_ptype_5numpy_ndarray, 1, "u", 0))) __PYX_ERR(0, 54, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_xpos), __pyx_ptype_5numpy_ndarray, 1, "xpos", 0))) __PYX_ERR(0, 54, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_ypos), __pyx_ptype_5numpy_ndarray, 1, "ypos", 0))) __PYX_ERR(0, 55, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_sens), __pyx_ptype_5numpy_ndarray, 1, "sens", 0))) __PYX_ERR(0, 55, __pyx_L1_error)
+  __pyx_r = __pyx_pf_5fem2d_5fem2d_11PyFEMSolver_16get_sensitivity_LSTO(((struct __pyx_obj_5fem2d_5fem2d_PyFEMSolver *)__pyx_v_self), __pyx_v_u, __pyx_v_xpos, __pyx_v_ypos, __pyx_v_sens);
 
   /* function exit code */
   goto __pyx_L0;
@@ -2730,7 +3411,7 @@ static PyObject *__pyx_pw_5fem2d_5fem2d_11PyFEMSolver_11get_sensitivity_LSTO(PyO
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_10get_sensitivity_LSTO(struct __pyx_obj_5fem2d_5fem2d_PyFEMSolver *__pyx_v_self, PyArrayObject *__pyx_v_u, PyArrayObject *__pyx_v_xpos, PyArrayObject *__pyx_v_ypos, PyArrayObject *__pyx_v_sens) {
+static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_16get_sensitivity_LSTO(struct __pyx_obj_5fem2d_5fem2d_PyFEMSolver *__pyx_v_self, PyArrayObject *__pyx_v_u, PyArrayObject *__pyx_v_xpos, PyArrayObject *__pyx_v_ypos, PyArrayObject *__pyx_v_sens) {
   __Pyx_LocalBuf_ND __pyx_pybuffernd_sens;
   __Pyx_Buffer __pyx_pybuffer_sens;
   __Pyx_LocalBuf_ND __pyx_pybuffernd_u;
@@ -2765,26 +3446,26 @@ static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_10get_sensitivity_LSTO(str
   __pyx_pybuffernd_sens.rcbuffer = &__pyx_pybuffer_sens;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_u.rcbuffer->pybuffer, (PyObject*)__pyx_v_u, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 38, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_u.rcbuffer->pybuffer, (PyObject*)__pyx_v_u, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 54, __pyx_L1_error)
   }
   __pyx_pybuffernd_u.diminfo[0].strides = __pyx_pybuffernd_u.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_u.diminfo[0].shape = __pyx_pybuffernd_u.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_xpos.rcbuffer->pybuffer, (PyObject*)__pyx_v_xpos, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 38, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_xpos.rcbuffer->pybuffer, (PyObject*)__pyx_v_xpos, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 54, __pyx_L1_error)
   }
   __pyx_pybuffernd_xpos.diminfo[0].strides = __pyx_pybuffernd_xpos.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_xpos.diminfo[0].shape = __pyx_pybuffernd_xpos.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_ypos.rcbuffer->pybuffer, (PyObject*)__pyx_v_ypos, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 38, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_ypos.rcbuffer->pybuffer, (PyObject*)__pyx_v_ypos, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 54, __pyx_L1_error)
   }
   __pyx_pybuffernd_ypos.diminfo[0].strides = __pyx_pybuffernd_ypos.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_ypos.diminfo[0].shape = __pyx_pybuffernd_ypos.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_sens.rcbuffer->pybuffer, (PyObject*)__pyx_v_sens, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 38, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_sens.rcbuffer->pybuffer, (PyObject*)__pyx_v_sens, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 54, __pyx_L1_error)
   }
   __pyx_pybuffernd_sens.diminfo[0].strides = __pyx_pybuffernd_sens.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_sens.diminfo[0].shape = __pyx_pybuffernd_sens.rcbuffer->pybuffer.shape[0];
 
-  /* "fem2d/fem2d.pyx":40
+  /* "fem2d/fem2d.pyx":56
  *     def get_sensitivity_LSTO(self, np.ndarray[double] u, np.ndarray[double] xpos,
  *             np.ndarray[double] ypos, np.ndarray[double] sens):
  *         self.thisptr.get_sensitivity_LSTO(&u[0], &xpos[0], &ypos[0], &sens[0])             # <<<<<<<<<<<<<<
@@ -2797,7 +3478,7 @@ static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_10get_sensitivity_LSTO(str
   } else if (unlikely(__pyx_t_1 >= __pyx_pybuffernd_u.diminfo[0].shape)) __pyx_t_2 = 0;
   if (unlikely(__pyx_t_2 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_2);
-    __PYX_ERR(0, 40, __pyx_L1_error)
+    __PYX_ERR(0, 56, __pyx_L1_error)
   }
   __pyx_t_3 = 0;
   __pyx_t_2 = -1;
@@ -2807,7 +3488,7 @@ static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_10get_sensitivity_LSTO(str
   } else if (unlikely(__pyx_t_3 >= __pyx_pybuffernd_xpos.diminfo[0].shape)) __pyx_t_2 = 0;
   if (unlikely(__pyx_t_2 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_2);
-    __PYX_ERR(0, 40, __pyx_L1_error)
+    __PYX_ERR(0, 56, __pyx_L1_error)
   }
   __pyx_t_4 = 0;
   __pyx_t_2 = -1;
@@ -2817,7 +3498,7 @@ static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_10get_sensitivity_LSTO(str
   } else if (unlikely(__pyx_t_4 >= __pyx_pybuffernd_ypos.diminfo[0].shape)) __pyx_t_2 = 0;
   if (unlikely(__pyx_t_2 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_2);
-    __PYX_ERR(0, 40, __pyx_L1_error)
+    __PYX_ERR(0, 56, __pyx_L1_error)
   }
   __pyx_t_5 = 0;
   __pyx_t_2 = -1;
@@ -2827,11 +3508,11 @@ static PyObject *__pyx_pf_5fem2d_5fem2d_11PyFEMSolver_10get_sensitivity_LSTO(str
   } else if (unlikely(__pyx_t_5 >= __pyx_pybuffernd_sens.diminfo[0].shape)) __pyx_t_2 = 0;
   if (unlikely(__pyx_t_2 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_2);
-    __PYX_ERR(0, 40, __pyx_L1_error)
+    __PYX_ERR(0, 56, __pyx_L1_error)
   }
   __pyx_v_self->thisptr->get_sensitivity_LSTO((&(*__Pyx_BufPtrStrided1d(double *, __pyx_pybuffernd_u.rcbuffer->pybuffer.buf, __pyx_t_1, __pyx_pybuffernd_u.diminfo[0].strides))), (&(*__Pyx_BufPtrStrided1d(double *, __pyx_pybuffernd_xpos.rcbuffer->pybuffer.buf, __pyx_t_3, __pyx_pybuffernd_xpos.diminfo[0].strides))), (&(*__Pyx_BufPtrStrided1d(double *, __pyx_pybuffernd_ypos.rcbuffer->pybuffer.buf, __pyx_t_4, __pyx_pybuffernd_ypos.diminfo[0].strides))), (&(*__Pyx_BufPtrStrided1d(double *, __pyx_pybuffernd_sens.rcbuffer->pybuffer.buf, __pyx_t_5, __pyx_pybuffernd_sens.diminfo[0].strides))));
 
-  /* "fem2d/fem2d.pyx":38
+  /* "fem2d/fem2d.pyx":54
  *         self.thisptr.set_area_fractions(&areafraction[0])
  *         self.thisptr.get_stiffness_matrix(&data[0], &rows[0], &cols[0])
  *     def get_sensitivity_LSTO(self, np.ndarray[double] u, np.ndarray[double] xpos,             # <<<<<<<<<<<<<<
@@ -6048,9 +6729,12 @@ static void __pyx_tp_dealloc_5fem2d_5fem2d_PyFEMSolver(PyObject *o) {
 
 static PyMethodDef __pyx_methods_5fem2d_5fem2d_PyFEMSolver[] = {
   {"get_stiffness_matrix", (PyCFunction)__pyx_pw_5fem2d_5fem2d_11PyFEMSolver_5get_stiffness_matrix, METH_VARARGS|METH_KEYWORDS, 0},
-  {"get_stiffness_matrix_derivs", (PyCFunction)__pyx_pw_5fem2d_5fem2d_11PyFEMSolver_7get_stiffness_matrix_derivs, METH_VARARGS|METH_KEYWORDS, 0},
-  {"get_stiffness_matrix_LSTO", (PyCFunction)__pyx_pw_5fem2d_5fem2d_11PyFEMSolver_9get_stiffness_matrix_LSTO, METH_VARARGS|METH_KEYWORDS, 0},
-  {"get_sensitivity_LSTO", (PyCFunction)__pyx_pw_5fem2d_5fem2d_11PyFEMSolver_11get_sensitivity_LSTO, METH_VARARGS|METH_KEYWORDS, 0},
+  {"get_stiffness_matrix", (PyCFunction)__pyx_pw_5fem2d_5fem2d_11PyFEMSolver_7get_stiffness_matrix, METH_VARARGS|METH_KEYWORDS, 0},
+  {"get_stiffness_matrix", (PyCFunction)__pyx_pw_5fem2d_5fem2d_11PyFEMSolver_9get_stiffness_matrix, METH_VARARGS|METH_KEYWORDS, 0},
+  {"get_stiffness_matrix_derivs", (PyCFunction)__pyx_pw_5fem2d_5fem2d_11PyFEMSolver_11get_stiffness_matrix_derivs, METH_VARARGS|METH_KEYWORDS, 0},
+  {"get_stiffness_matrix_derivs", (PyCFunction)__pyx_pw_5fem2d_5fem2d_11PyFEMSolver_13get_stiffness_matrix_derivs, METH_VARARGS|METH_KEYWORDS, 0},
+  {"get_stiffness_matrix_LSTO", (PyCFunction)__pyx_pw_5fem2d_5fem2d_11PyFEMSolver_15get_stiffness_matrix_LSTO, METH_VARARGS|METH_KEYWORDS, 0},
+  {"get_sensitivity_LSTO", (PyCFunction)__pyx_pw_5fem2d_5fem2d_11PyFEMSolver_17get_sensitivity_LSTO, METH_VARARGS|METH_KEYWORDS, 0},
   {0, 0, 0, 0}
 };
 
@@ -6147,6 +6831,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_cols, __pyx_k_cols, sizeof(__pyx_k_cols), 0, 0, 1, 1},
   {&__pyx_n_s_data, __pyx_k_data, sizeof(__pyx_k_data), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
+  {&__pyx_n_s_isNodal, __pyx_k_isNodal, sizeof(__pyx_k_isNodal), 0, 0, 1, 1},
   {&__pyx_n_s_length_x, __pyx_k_length_x, sizeof(__pyx_k_length_x), 0, 0, 1, 1},
   {&__pyx_n_s_length_y, __pyx_k_length_y, sizeof(__pyx_k_length_y), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
@@ -6380,9 +7065,9 @@ PyMODINIT_FUNC PyInit_fem2d(void)
   /*--- Variable export code ---*/
   /*--- Function export code ---*/
   /*--- Type init code ---*/
-  if (PyType_Ready(&__pyx_type_5fem2d_5fem2d_PyFEMSolver) < 0) __PYX_ERR(0, 16, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_5fem2d_5fem2d_PyFEMSolver) < 0) __PYX_ERR(0, 19, __pyx_L1_error)
   __pyx_type_5fem2d_5fem2d_PyFEMSolver.tp_print = 0;
-  if (PyObject_SetAttrString(__pyx_m, "PyFEMSolver", (PyObject *)&__pyx_type_5fem2d_5fem2d_PyFEMSolver) < 0) __PYX_ERR(0, 16, __pyx_L1_error)
+  if (PyObject_SetAttrString(__pyx_m, "PyFEMSolver", (PyObject *)&__pyx_type_5fem2d_5fem2d_PyFEMSolver) < 0) __PYX_ERR(0, 19, __pyx_L1_error)
   __pyx_ptype_5fem2d_5fem2d_PyFEMSolver = &__pyx_type_5fem2d_5fem2d_PyFEMSolver;
   /*--- Type import code ---*/
   __pyx_ptype_7cpython_4type_type = __Pyx_ImportType(__Pyx_BUILTIN_MODULE_NAME, "type", 
@@ -6407,22 +7092,22 @@ PyMODINIT_FUNC PyInit_fem2d(void)
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
-  /* "fem2d/fem2d.pyx":3
- * from libcpp.vector cimport vector
+  /* "fem2d/fem2d.pyx":4
+ * from libcpp cimport bool
  * from cpython cimport array
  * import numpy as np             # <<<<<<<<<<<<<<
  * cimport numpy as np
  * 
  */
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_numpy, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 3, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_numpy, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_1) < 0) __PYX_ERR(0, 3, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_1) < 0) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "fem2d/fem2d.pyx":1
  * from libcpp.vector cimport vector             # <<<<<<<<<<<<<<
+ * from libcpp cimport bool
  * from cpython cimport array
- * import numpy as np
  */
   __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
