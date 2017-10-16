@@ -1011,8 +1011,8 @@ typedef npy_clongdouble __pyx_t_5numpy_clongdouble_t;
  */
 typedef npy_cdouble __pyx_t_5numpy_complex_t;
 
-/* "lsm_classes.pyx":75
- * 
+/* "lsm_classes.pyx":77
+ *         void computePartialDisplacement(vector[int]&, vector[int]&, vector[double]&)
  * 
  * cdef class PyLSMSolver:             # <<<<<<<<<<<<<<
  *     cdef Mesh *meshptr # as we don't have nullary constructor, a pointer must be used
@@ -1028,6 +1028,7 @@ struct __pyx_obj_11lsm_classes_PyLSMSolver {
   int nElem;
   double targetArea;
   int nBpts;
+  int ndvs;
 };
 
 
@@ -1771,6 +1772,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *, cha
 static PyTypeObject *__pyx_ptype_11lsm_classes_PyLSMSolver = 0;
 static PyObject *__pyx_convert_vector_to_py_double(const std::vector<double>  &); /*proto*/
 static std::vector<double>  __pyx_convert_vector_from_py_double(PyObject *); /*proto*/
+static PyObject *__pyx_convert_vector_to_py_int(const std::vector<int>  &); /*proto*/
 static PyObject *__pyx_convert_vector_to_py_unsigned_int(const std::vector<unsigned int>  &); /*proto*/
 static __Pyx_TypeInfo __Pyx_TypeInfo_double = { "double", NULL, sizeof(double), { 0 }, 0, 'R', 0, 0 };
 #define __Pyx_MODULE_NAME "lsm_classes"
@@ -1792,6 +1794,7 @@ static const char __pyx_k_numpy[] = "numpy";
 static const char __pyx_k_range[] = "range";
 static const char __pyx_k_zeros[] = "zeros";
 static const char __pyx_k_import[] = "__import__";
+static const char __pyx_k_asarray[] = "asarray";
 static const char __pyx_k_lambdas[] = "lambdas";
 static const char __pyx_k_minArea[] = "minArea";
 static const char __pyx_k_movelimit[] = "movelimit";
@@ -1820,6 +1823,7 @@ static PyObject *__pyx_kp_u_Non_native_byte_order_not_suppor;
 static PyObject *__pyx_n_s_RuntimeError;
 static PyObject *__pyx_n_s_ValueError;
 static PyObject *__pyx_n_s_abs;
+static PyObject *__pyx_n_s_asarray;
 static PyObject *__pyx_n_s_displacement;
 static PyObject *__pyx_n_s_dtype;
 static PyObject *__pyx_n_s_import;
@@ -1849,14 +1853,16 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_10callback(struct __pyx_ob
 static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_12callback_dp(struct __pyx_obj_11lsm_classes_PyLSMSolver *__pyx_v_self, PyArrayObject *__pyx_v_lambdas, unsigned int __pyx_v_index); /* proto */
 static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_14get_bounds(struct __pyx_obj_11lsm_classes_PyLSMSolver *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_16computeDisplacements(struct __pyx_obj_11lsm_classes_PyLSMSolver *__pyx_v_self, PyArrayObject *__pyx_v_lambdas); /* proto */
-static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_18computeFunction(struct __pyx_obj_11lsm_classes_PyLSMSolver *__pyx_v_self, PyArrayObject *__pyx_v_displacement, int __pyx_v_index); /* proto */
-static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_20computeGradients(struct __pyx_obj_11lsm_classes_PyLSMSolver *__pyx_v_self, PyArrayObject *__pyx_v_lambdas, unsigned int __pyx_v_index); /* proto */
-static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_22postprocess(struct __pyx_obj_11lsm_classes_PyLSMSolver *__pyx_v_self, PyArrayObject *__pyx_v_lambdas); /* proto */
-static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_24computeVelocities(struct __pyx_obj_11lsm_classes_PyLSMSolver *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_26reinitialise(struct __pyx_obj_11lsm_classes_PyLSMSolver *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_28update(struct __pyx_obj_11lsm_classes_PyLSMSolver *__pyx_v_self, double __pyx_v_t); /* proto */
-static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_30del_optim(struct __pyx_obj_11lsm_classes_PyLSMSolver *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_32get_optimPars(struct __pyx_obj_11lsm_classes_PyLSMSolver *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_18computePartialDisplacement(struct __pyx_obj_11lsm_classes_PyLSMSolver *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_20computeFunction(struct __pyx_obj_11lsm_classes_PyLSMSolver *__pyx_v_self, PyArrayObject *__pyx_v_displacement, int __pyx_v_index); /* proto */
+static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_22computePartialFunctions(struct __pyx_obj_11lsm_classes_PyLSMSolver *__pyx_v_self, int __pyx_v_index); /* proto */
+static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_24computeGradients(struct __pyx_obj_11lsm_classes_PyLSMSolver *__pyx_v_self, PyArrayObject *__pyx_v_lambdas, unsigned int __pyx_v_index); /* proto */
+static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_26postprocess(struct __pyx_obj_11lsm_classes_PyLSMSolver *__pyx_v_self, PyArrayObject *__pyx_v_lambdas); /* proto */
+static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_28computeVelocities(struct __pyx_obj_11lsm_classes_PyLSMSolver *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_30reinitialise(struct __pyx_obj_11lsm_classes_PyLSMSolver *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_32update(struct __pyx_obj_11lsm_classes_PyLSMSolver *__pyx_v_self, double __pyx_v_t); /* proto */
+static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_34del_optim(struct __pyx_obj_11lsm_classes_PyLSMSolver *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_36get_optimPars(struct __pyx_obj_11lsm_classes_PyLSMSolver *__pyx_v_self); /* proto */
 static int __pyx_pf_7cpython_5array_5array___getbuffer__(arrayobject *__pyx_v_self, Py_buffer *__pyx_v_info, CYTHON_UNUSED int __pyx_v_flags); /* proto */
 static void __pyx_pf_7cpython_5array_5array_2__releasebuffer__(CYTHON_UNUSED arrayobject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
@@ -1876,7 +1882,7 @@ static PyObject *__pyx_tuple__7;
 static PyObject *__pyx_tuple__8;
 static PyObject *__pyx_tuple__9;
 
-/* "lsm_classes.pyx":87
+/* "lsm_classes.pyx":90
  *     # cdef vector[double] lambdas
  * 
  *     def __cinit__(self, int num_nodes_x, int num_nodes_y, double minArea):             # <<<<<<<<<<<<<<
@@ -1914,16 +1920,16 @@ static int __pyx_pw_11lsm_classes_11PyLSMSolver_1__cinit__(PyObject *__pyx_v_sel
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_num_nodes_y)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 3, 3, 1); __PYX_ERR(0, 87, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 3, 3, 1); __PYX_ERR(0, 90, __pyx_L3_error)
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_minArea)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 3, 3, 2); __PYX_ERR(0, 87, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 3, 3, 2); __PYX_ERR(0, 90, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) __PYX_ERR(0, 87, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) __PYX_ERR(0, 90, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
@@ -1932,13 +1938,13 @@ static int __pyx_pw_11lsm_classes_11PyLSMSolver_1__cinit__(PyObject *__pyx_v_sel
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
       values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
     }
-    __pyx_v_num_nodes_x = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_num_nodes_x == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 87, __pyx_L3_error)
-    __pyx_v_num_nodes_y = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_num_nodes_y == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 87, __pyx_L3_error)
-    __pyx_v_minArea = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_minArea == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 87, __pyx_L3_error)
+    __pyx_v_num_nodes_x = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_num_nodes_x == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 90, __pyx_L3_error)
+    __pyx_v_num_nodes_y = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_num_nodes_y == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 90, __pyx_L3_error)
+    __pyx_v_minArea = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_minArea == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 90, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 87, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 90, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("lsm_classes.PyLSMSolver.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -1963,7 +1969,7 @@ static int __pyx_pf_11lsm_classes_11PyLSMSolver___cinit__(struct __pyx_obj_11lsm
   double __pyx_t_6;
   __Pyx_RefNannySetupContext("__cinit__", 0);
 
-  /* "lsm_classes.pyx":88
+  /* "lsm_classes.pyx":91
  * 
  *     def __cinit__(self, int num_nodes_x, int num_nodes_y, double minArea):
  *         self.meshptr = new Mesh(num_nodes_x-1,num_nodes_y-1,False)             # <<<<<<<<<<<<<<
@@ -1974,11 +1980,11 @@ static int __pyx_pf_11lsm_classes_11PyLSMSolver___cinit__(struct __pyx_obj_11lsm
     __pyx_t_1 = new Mesh((__pyx_v_num_nodes_x - 1), (__pyx_v_num_nodes_y - 1), Py_False);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 88, __pyx_L1_error)
+    __PYX_ERR(0, 91, __pyx_L1_error)
   }
   __pyx_v_self->meshptr = __pyx_t_1;
 
-  /* "lsm_classes.pyx":89
+  /* "lsm_classes.pyx":92
  *     def __cinit__(self, int num_nodes_x, int num_nodes_y, double minArea):
  *         self.meshptr = new Mesh(num_nodes_x-1,num_nodes_y-1,False)
  *         self.levelsetptr = new LevelSet(self.meshptr)             # <<<<<<<<<<<<<<
@@ -1989,11 +1995,11 @@ static int __pyx_pf_11lsm_classes_11PyLSMSolver___cinit__(struct __pyx_obj_11lsm
     __pyx_t_2 = new LevelSet(__pyx_v_self->meshptr);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 89, __pyx_L1_error)
+    __PYX_ERR(0, 92, __pyx_L1_error)
   }
   __pyx_v_self->levelsetptr = __pyx_t_2;
 
-  /* "lsm_classes.pyx":90
+  /* "lsm_classes.pyx":93
  *         self.meshptr = new Mesh(num_nodes_x-1,num_nodes_y-1,False)
  *         self.levelsetptr = new LevelSet(self.meshptr)
  *         self.boundaryptr = new Boundary(self.levelsetptr)             # <<<<<<<<<<<<<<
@@ -2004,11 +2010,11 @@ static int __pyx_pf_11lsm_classes_11PyLSMSolver___cinit__(struct __pyx_obj_11lsm
     __pyx_t_3 = new Boundary(__pyx_v_self->levelsetptr);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 90, __pyx_L1_error)
+    __PYX_ERR(0, 93, __pyx_L1_error)
   }
   __pyx_v_self->boundaryptr = __pyx_t_3;
 
-  /* "lsm_classes.pyx":91
+  /* "lsm_classes.pyx":94
  *         self.levelsetptr = new LevelSet(self.meshptr)
  *         self.boundaryptr = new Boundary(self.levelsetptr)
  *         self.boundaryptr.discretise()             # <<<<<<<<<<<<<<
@@ -2017,19 +2023,19 @@ static int __pyx_pf_11lsm_classes_11PyLSMSolver___cinit__(struct __pyx_obj_11lsm
  */
   __pyx_v_self->boundaryptr->discretise();
 
-  /* "lsm_classes.pyx":93
+  /* "lsm_classes.pyx":96
  *         self.boundaryptr.discretise()
  * 
  *         meshArea = (num_nodes_x-1)*(num_nodes_y-1)             # <<<<<<<<<<<<<<
  *         self.nNode = num_nodes_x * num_nodes_y
  *         self.nElem = (num_nodes_x-1) * (num_nodes_y-1)
  */
-  __pyx_t_4 = __Pyx_PyInt_From_long(((__pyx_v_num_nodes_x - 1) * (__pyx_v_num_nodes_y - 1))); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 93, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_long(((__pyx_v_num_nodes_x - 1) * (__pyx_v_num_nodes_y - 1))); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 96, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_v_meshArea = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "lsm_classes.pyx":94
+  /* "lsm_classes.pyx":97
  * 
  *         meshArea = (num_nodes_x-1)*(num_nodes_y-1)
  *         self.nNode = num_nodes_x * num_nodes_y             # <<<<<<<<<<<<<<
@@ -2038,7 +2044,7 @@ static int __pyx_pf_11lsm_classes_11PyLSMSolver___cinit__(struct __pyx_obj_11lsm
  */
   __pyx_v_self->nNode = (__pyx_v_num_nodes_x * __pyx_v_num_nodes_y);
 
-  /* "lsm_classes.pyx":95
+  /* "lsm_classes.pyx":98
  *         meshArea = (num_nodes_x-1)*(num_nodes_y-1)
  *         self.nNode = num_nodes_x * num_nodes_y
  *         self.nElem = (num_nodes_x-1) * (num_nodes_y-1)             # <<<<<<<<<<<<<<
@@ -2047,23 +2053,23 @@ static int __pyx_pf_11lsm_classes_11PyLSMSolver___cinit__(struct __pyx_obj_11lsm
  */
   __pyx_v_self->nElem = ((__pyx_v_num_nodes_x - 1) * (__pyx_v_num_nodes_y - 1));
 
-  /* "lsm_classes.pyx":96
+  /* "lsm_classes.pyx":99
  *         self.nNode = num_nodes_x * num_nodes_y
  *         self.nElem = (num_nodes_x-1) * (num_nodes_y-1)
  *         self.targetArea = meshArea*minArea             # <<<<<<<<<<<<<<
  * 
  *     def __dealloc__(self):
  */
-  __pyx_t_4 = PyFloat_FromDouble(__pyx_v_minArea); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 96, __pyx_L1_error)
+  __pyx_t_4 = PyFloat_FromDouble(__pyx_v_minArea); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 99, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = PyNumber_Multiply(__pyx_v_meshArea, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 96, __pyx_L1_error)
+  __pyx_t_5 = PyNumber_Multiply(__pyx_v_meshArea, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 99, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_6 = __pyx_PyFloat_AsDouble(__pyx_t_5); if (unlikely((__pyx_t_6 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 96, __pyx_L1_error)
+  __pyx_t_6 = __pyx_PyFloat_AsDouble(__pyx_t_5); if (unlikely((__pyx_t_6 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 99, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_v_self->targetArea = __pyx_t_6;
 
-  /* "lsm_classes.pyx":87
+  /* "lsm_classes.pyx":90
  *     # cdef vector[double] lambdas
  * 
  *     def __cinit__(self, int num_nodes_x, int num_nodes_y, double minArea):             # <<<<<<<<<<<<<<
@@ -2085,7 +2091,7 @@ static int __pyx_pf_11lsm_classes_11PyLSMSolver___cinit__(struct __pyx_obj_11lsm
   return __pyx_r;
 }
 
-/* "lsm_classes.pyx":98
+/* "lsm_classes.pyx":101
  *         self.targetArea = meshArea*minArea
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -2108,7 +2114,7 @@ static void __pyx_pf_11lsm_classes_11PyLSMSolver_2__dealloc__(struct __pyx_obj_1
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__", 0);
 
-  /* "lsm_classes.pyx":99
+  /* "lsm_classes.pyx":102
  * 
  *     def __dealloc__(self):
  *         del self.meshptr             # <<<<<<<<<<<<<<
@@ -2117,7 +2123,7 @@ static void __pyx_pf_11lsm_classes_11PyLSMSolver_2__dealloc__(struct __pyx_obj_1
  */
   delete __pyx_v_self->meshptr;
 
-  /* "lsm_classes.pyx":100
+  /* "lsm_classes.pyx":103
  *     def __dealloc__(self):
  *         del self.meshptr
  *         del self.levelsetptr             # <<<<<<<<<<<<<<
@@ -2126,7 +2132,7 @@ static void __pyx_pf_11lsm_classes_11PyLSMSolver_2__dealloc__(struct __pyx_obj_1
  */
   delete __pyx_v_self->levelsetptr;
 
-  /* "lsm_classes.pyx":101
+  /* "lsm_classes.pyx":104
  *         del self.meshptr
  *         del self.levelsetptr
  *         del self.boundaryptr             # <<<<<<<<<<<<<<
@@ -2135,7 +2141,7 @@ static void __pyx_pf_11lsm_classes_11PyLSMSolver_2__dealloc__(struct __pyx_obj_1
  */
   delete __pyx_v_self->boundaryptr;
 
-  /* "lsm_classes.pyx":102
+  /* "lsm_classes.pyx":105
  *         del self.levelsetptr
  *         del self.boundaryptr
  *         del self.optimiseptr             # <<<<<<<<<<<<<<
@@ -2144,7 +2150,7 @@ static void __pyx_pf_11lsm_classes_11PyLSMSolver_2__dealloc__(struct __pyx_obj_1
  */
   delete __pyx_v_self->optimiseptr;
 
-  /* "lsm_classes.pyx":98
+  /* "lsm_classes.pyx":101
  *         self.targetArea = meshArea*minArea
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -2156,7 +2162,7 @@ static void __pyx_pf_11lsm_classes_11PyLSMSolver_2__dealloc__(struct __pyx_obj_1
   __Pyx_RefNannyFinishContext();
 }
 
-/* "lsm_classes.pyx":104
+/* "lsm_classes.pyx":107
  *         del self.optimiseptr
  * 
  *     def discretize(self):             # <<<<<<<<<<<<<<
@@ -2195,7 +2201,7 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_4discretize(struct __pyx_o
   PyObject *__pyx_t_9 = NULL;
   __Pyx_RefNannySetupContext("discretize", 0);
 
-  /* "lsm_classes.pyx":105
+  /* "lsm_classes.pyx":108
  * 
  *     def discretize(self):
  *         self.boundaryptr.discretise()             # <<<<<<<<<<<<<<
@@ -2204,7 +2210,7 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_4discretize(struct __pyx_o
  */
   __pyx_v_self->boundaryptr->discretise();
 
-  /* "lsm_classes.pyx":106
+  /* "lsm_classes.pyx":109
  *     def discretize(self):
  *         self.boundaryptr.discretise()
  *         self.boundaryptr.computeAreaFractions()             # <<<<<<<<<<<<<<
@@ -2213,27 +2219,27 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_4discretize(struct __pyx_o
  */
   __pyx_v_self->boundaryptr->computeAreaFractions();
 
-  /* "lsm_classes.pyx":107
+  /* "lsm_classes.pyx":110
  *         self.boundaryptr.discretise()
  *         self.boundaryptr.computeAreaFractions()
  *         areafraction = np.ndarray(self.nElem)             # <<<<<<<<<<<<<<
  *         self.nBpts = self.boundaryptr.nPoints
  *         for ii in range(0,self.nElem):
  */
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->nElem); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 107, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->nElem); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 110, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 107, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 110, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1);
   __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5numpy_ndarray), __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 107, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5numpy_ndarray), __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 110, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_areafraction = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "lsm_classes.pyx":108
+  /* "lsm_classes.pyx":111
  *         self.boundaryptr.computeAreaFractions()
  *         areafraction = np.ndarray(self.nElem)
  *         self.nBpts = self.boundaryptr.nPoints             # <<<<<<<<<<<<<<
@@ -2243,7 +2249,7 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_4discretize(struct __pyx_o
   __pyx_t_3 = __pyx_v_self->boundaryptr->nPoints;
   __pyx_v_self->nBpts = __pyx_t_3;
 
-  /* "lsm_classes.pyx":109
+  /* "lsm_classes.pyx":112
  *         areafraction = np.ndarray(self.nElem)
  *         self.nBpts = self.boundaryptr.nPoints
  *         for ii in range(0,self.nElem):             # <<<<<<<<<<<<<<
@@ -2254,43 +2260,43 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_4discretize(struct __pyx_o
   for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_4; __pyx_t_5+=1) {
     __pyx_v_ii = __pyx_t_5;
 
-    /* "lsm_classes.pyx":110
+    /* "lsm_classes.pyx":113
  *         self.nBpts = self.boundaryptr.nPoints
  *         for ii in range(0,self.nElem):
  *             areafraction[ii] = self.meshptr.elements[ii].area             # <<<<<<<<<<<<<<
  *             if areafraction[ii] < 1e-3:
  *                 areafraction[ii] = 1e-3
  */
-    __pyx_t_1 = PyFloat_FromDouble((__pyx_v_self->meshptr->elements[__pyx_v_ii]).area); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 110, __pyx_L1_error)
+    __pyx_t_1 = PyFloat_FromDouble((__pyx_v_self->meshptr->elements[__pyx_v_ii]).area); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 113, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    if (unlikely(__Pyx_SetItemInt(__pyx_v_areafraction, __pyx_v_ii, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 1, 1) < 0)) __PYX_ERR(0, 110, __pyx_L1_error)
+    if (unlikely(__Pyx_SetItemInt(__pyx_v_areafraction, __pyx_v_ii, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 1, 1) < 0)) __PYX_ERR(0, 113, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "lsm_classes.pyx":111
+    /* "lsm_classes.pyx":114
  *         for ii in range(0,self.nElem):
  *             areafraction[ii] = self.meshptr.elements[ii].area
  *             if areafraction[ii] < 1e-3:             # <<<<<<<<<<<<<<
  *                 areafraction[ii] = 1e-3
  * 
  */
-    __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_areafraction, __pyx_v_ii, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 111, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_areafraction, __pyx_v_ii, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 114, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_2 = PyObject_RichCompare(__pyx_t_1, __pyx_float_1eneg_3, Py_LT); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 111, __pyx_L1_error)
+    __pyx_t_2 = PyObject_RichCompare(__pyx_t_1, __pyx_float_1eneg_3, Py_LT); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 114, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 111, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 114, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     if (__pyx_t_6) {
 
-      /* "lsm_classes.pyx":112
+      /* "lsm_classes.pyx":115
  *             areafraction[ii] = self.meshptr.elements[ii].area
  *             if areafraction[ii] < 1e-3:
  *                 areafraction[ii] = 1e-3             # <<<<<<<<<<<<<<
  * 
  *         bpts_xy = np.ndarray((self.nBpts,2))
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_areafraction, __pyx_v_ii, __pyx_float_1eneg_3, long, 1, __Pyx_PyInt_From_long, 0, 1, 1) < 0)) __PYX_ERR(0, 112, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_areafraction, __pyx_v_ii, __pyx_float_1eneg_3, long, 1, __Pyx_PyInt_From_long, 0, 1, 1) < 0)) __PYX_ERR(0, 115, __pyx_L1_error)
 
-      /* "lsm_classes.pyx":111
+      /* "lsm_classes.pyx":114
  *         for ii in range(0,self.nElem):
  *             areafraction[ii] = self.meshptr.elements[ii].area
  *             if areafraction[ii] < 1e-3:             # <<<<<<<<<<<<<<
@@ -2300,16 +2306,16 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_4discretize(struct __pyx_o
     }
   }
 
-  /* "lsm_classes.pyx":114
+  /* "lsm_classes.pyx":117
  *                 areafraction[ii] = 1e-3
  * 
  *         bpts_xy = np.ndarray((self.nBpts,2))             # <<<<<<<<<<<<<<
  *         segLength = np.zeros(self.nBpts)
  * 
  */
-  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_self->nBpts); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 114, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_self->nBpts); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 117, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 114, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 117, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_2);
@@ -2317,30 +2323,30 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_4discretize(struct __pyx_o
   __Pyx_GIVEREF(__pyx_int_2);
   PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_int_2);
   __pyx_t_2 = 0;
-  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 114, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 117, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1);
   __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5numpy_ndarray), __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 114, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5numpy_ndarray), __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 117, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_bpts_xy = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "lsm_classes.pyx":115
+  /* "lsm_classes.pyx":118
  * 
  *         bpts_xy = np.ndarray((self.nBpts,2))
  *         segLength = np.zeros(self.nBpts)             # <<<<<<<<<<<<<<
  * 
  *         for ii in range(0, self.boundaryptr.nPoints):
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 115, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 118, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_zeros); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 115, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_zeros); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 118, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_self->nBpts); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 115, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_self->nBpts); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 118, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_8 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_7))) {
@@ -2353,14 +2359,14 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_4discretize(struct __pyx_o
     }
   }
   if (!__pyx_t_8) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 115, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 118, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_7)) {
       PyObject *__pyx_temp[2] = {__pyx_t_8, __pyx_t_2};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 115, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 118, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -2369,20 +2375,20 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_4discretize(struct __pyx_o
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_7)) {
       PyObject *__pyx_temp[2] = {__pyx_t_8, __pyx_t_2};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 115, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 118, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     } else
     #endif
     {
-      __pyx_t_9 = PyTuple_New(1+1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 115, __pyx_L1_error)
+      __pyx_t_9 = PyTuple_New(1+1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 118, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_GIVEREF(__pyx_t_8); PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_8); __pyx_t_8 = NULL;
       __Pyx_GIVEREF(__pyx_t_2);
       PyTuple_SET_ITEM(__pyx_t_9, 0+1, __pyx_t_2);
       __pyx_t_2 = 0;
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_9, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 115, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_9, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 118, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     }
@@ -2391,7 +2397,7 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_4discretize(struct __pyx_o
   __pyx_v_segLength = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "lsm_classes.pyx":117
+  /* "lsm_classes.pyx":120
  *         segLength = np.zeros(self.nBpts)
  * 
  *         for ii in range(0, self.boundaryptr.nPoints):             # <<<<<<<<<<<<<<
@@ -2402,18 +2408,18 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_4discretize(struct __pyx_o
   for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_3; __pyx_t_5+=1) {
     __pyx_v_ii = __pyx_t_5;
 
-    /* "lsm_classes.pyx":118
+    /* "lsm_classes.pyx":121
  * 
  *         for ii in range(0, self.boundaryptr.nPoints):
  *             bpts_xy[ii,0] = self.boundaryptr.points[ii].coord.x             # <<<<<<<<<<<<<<
  *             bpts_xy[ii,1] = self.boundaryptr.points[ii].coord.y
  *             segLength[ii] = self.boundaryptr.points[ii].length
  */
-    __pyx_t_1 = PyFloat_FromDouble((__pyx_v_self->boundaryptr->points[__pyx_v_ii]).coord.x); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 118, __pyx_L1_error)
+    __pyx_t_1 = PyFloat_FromDouble((__pyx_v_self->boundaryptr->points[__pyx_v_ii]).coord.x); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 121, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_7 = __Pyx_PyInt_From_long(__pyx_v_ii); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 118, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyInt_From_long(__pyx_v_ii); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 121, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_9 = PyTuple_New(2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 118, __pyx_L1_error)
+    __pyx_t_9 = PyTuple_New(2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 121, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_GIVEREF(__pyx_t_7);
     PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_7);
@@ -2421,22 +2427,22 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_4discretize(struct __pyx_o
     __Pyx_GIVEREF(__pyx_int_0);
     PyTuple_SET_ITEM(__pyx_t_9, 1, __pyx_int_0);
     __pyx_t_7 = 0;
-    if (unlikely(PyObject_SetItem(__pyx_v_bpts_xy, __pyx_t_9, __pyx_t_1) < 0)) __PYX_ERR(0, 118, __pyx_L1_error)
+    if (unlikely(PyObject_SetItem(__pyx_v_bpts_xy, __pyx_t_9, __pyx_t_1) < 0)) __PYX_ERR(0, 121, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "lsm_classes.pyx":119
+    /* "lsm_classes.pyx":122
  *         for ii in range(0, self.boundaryptr.nPoints):
  *             bpts_xy[ii,0] = self.boundaryptr.points[ii].coord.x
  *             bpts_xy[ii,1] = self.boundaryptr.points[ii].coord.y             # <<<<<<<<<<<<<<
  *             segLength[ii] = self.boundaryptr.points[ii].length
  * 
  */
-    __pyx_t_1 = PyFloat_FromDouble((__pyx_v_self->boundaryptr->points[__pyx_v_ii]).coord.y); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 119, __pyx_L1_error)
+    __pyx_t_1 = PyFloat_FromDouble((__pyx_v_self->boundaryptr->points[__pyx_v_ii]).coord.y); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 122, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_9 = __Pyx_PyInt_From_long(__pyx_v_ii); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 119, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyInt_From_long(__pyx_v_ii); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 122, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
-    __pyx_t_7 = PyTuple_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 119, __pyx_L1_error)
+    __pyx_t_7 = PyTuple_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 122, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_GIVEREF(__pyx_t_9);
     PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_9);
@@ -2444,24 +2450,24 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_4discretize(struct __pyx_o
     __Pyx_GIVEREF(__pyx_int_1);
     PyTuple_SET_ITEM(__pyx_t_7, 1, __pyx_int_1);
     __pyx_t_9 = 0;
-    if (unlikely(PyObject_SetItem(__pyx_v_bpts_xy, __pyx_t_7, __pyx_t_1) < 0)) __PYX_ERR(0, 119, __pyx_L1_error)
+    if (unlikely(PyObject_SetItem(__pyx_v_bpts_xy, __pyx_t_7, __pyx_t_1) < 0)) __PYX_ERR(0, 122, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "lsm_classes.pyx":120
+    /* "lsm_classes.pyx":123
  *             bpts_xy[ii,0] = self.boundaryptr.points[ii].coord.x
  *             bpts_xy[ii,1] = self.boundaryptr.points[ii].coord.y
  *             segLength[ii] = self.boundaryptr.points[ii].length             # <<<<<<<<<<<<<<
  * 
  *         return (bpts_xy, areafraction, segLength)
  */
-    __pyx_t_1 = PyFloat_FromDouble((__pyx_v_self->boundaryptr->points[__pyx_v_ii]).length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 120, __pyx_L1_error)
+    __pyx_t_1 = PyFloat_FromDouble((__pyx_v_self->boundaryptr->points[__pyx_v_ii]).length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 123, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    if (unlikely(__Pyx_SetItemInt(__pyx_v_segLength, __pyx_v_ii, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 1, 1) < 0)) __PYX_ERR(0, 120, __pyx_L1_error)
+    if (unlikely(__Pyx_SetItemInt(__pyx_v_segLength, __pyx_v_ii, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 1, 1) < 0)) __PYX_ERR(0, 123, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
 
-  /* "lsm_classes.pyx":122
+  /* "lsm_classes.pyx":125
  *             segLength[ii] = self.boundaryptr.points[ii].length
  * 
  *         return (bpts_xy, areafraction, segLength)             # <<<<<<<<<<<<<<
@@ -2469,7 +2475,7 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_4discretize(struct __pyx_o
  *     # this is a temporary fix =======================================
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyTuple_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 122, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 125, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_v_bpts_xy);
   __Pyx_GIVEREF(__pyx_v_bpts_xy);
@@ -2484,7 +2490,7 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_4discretize(struct __pyx_o
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "lsm_classes.pyx":104
+  /* "lsm_classes.pyx":107
  *         del self.optimiseptr
  * 
  *     def discretize(self):             # <<<<<<<<<<<<<<
@@ -2510,7 +2516,7 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_4discretize(struct __pyx_o
   return __pyx_r;
 }
 
-/* "lsm_classes.pyx":125
+/* "lsm_classes.pyx":128
  * 
  *     # this is a temporary fix =======================================
  *     def preprocess(self, np.ndarray[double] lambdas,             # <<<<<<<<<<<<<<
@@ -2548,16 +2554,16 @@ static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_7preprocess(PyObject *__py
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_movelimit)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("preprocess", 1, 3, 3, 1); __PYX_ERR(0, 125, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("preprocess", 1, 3, 3, 1); __PYX_ERR(0, 128, __pyx_L3_error)
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_BptsSensitivity)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("preprocess", 1, 3, 3, 2); __PYX_ERR(0, 125, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("preprocess", 1, 3, 3, 2); __PYX_ERR(0, 128, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "preprocess") < 0)) __PYX_ERR(0, 125, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "preprocess") < 0)) __PYX_ERR(0, 128, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
@@ -2567,19 +2573,19 @@ static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_7preprocess(PyObject *__py
       values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
     }
     __pyx_v_lambdas = ((PyArrayObject *)values[0]);
-    __pyx_v_movelimit = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_movelimit == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 126, __pyx_L3_error)
+    __pyx_v_movelimit = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_movelimit == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 129, __pyx_L3_error)
     __pyx_v_BptsSensitivity = ((PyArrayObject *)values[2]);
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("preprocess", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 125, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("preprocess", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 128, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("lsm_classes.PyLSMSolver.preprocess", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_lambdas), __pyx_ptype_5numpy_ndarray, 1, "lambdas", 0))) __PYX_ERR(0, 125, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_BptsSensitivity), __pyx_ptype_5numpy_ndarray, 1, "BptsSensitivity", 0))) __PYX_ERR(0, 126, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_lambdas), __pyx_ptype_5numpy_ndarray, 1, "lambdas", 0))) __PYX_ERR(0, 128, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_BptsSensitivity), __pyx_ptype_5numpy_ndarray, 1, "BptsSensitivity", 0))) __PYX_ERR(0, 129, __pyx_L1_error)
   __pyx_r = __pyx_pf_11lsm_classes_11PyLSMSolver_6preprocess(((struct __pyx_obj_11lsm_classes_PyLSMSolver *)__pyx_v_self), __pyx_v_lambdas, __pyx_v_movelimit, __pyx_v_BptsSensitivity);
 
   /* function exit code */
@@ -2627,16 +2633,16 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_6preprocess(struct __pyx_o
   __pyx_pybuffernd_BptsSensitivity.rcbuffer = &__pyx_pybuffer_BptsSensitivity;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_lambdas.rcbuffer->pybuffer, (PyObject*)__pyx_v_lambdas, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES| PyBUF_WRITABLE, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 125, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_lambdas.rcbuffer->pybuffer, (PyObject*)__pyx_v_lambdas, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES| PyBUF_WRITABLE, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 128, __pyx_L1_error)
   }
   __pyx_pybuffernd_lambdas.diminfo[0].strides = __pyx_pybuffernd_lambdas.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_lambdas.diminfo[0].shape = __pyx_pybuffernd_lambdas.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_BptsSensitivity.rcbuffer->pybuffer, (PyObject*)__pyx_v_BptsSensitivity, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 125, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_BptsSensitivity.rcbuffer->pybuffer, (PyObject*)__pyx_v_BptsSensitivity, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 128, __pyx_L1_error)
   }
   __pyx_pybuffernd_BptsSensitivity.diminfo[0].strides = __pyx_pybuffernd_BptsSensitivity.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_BptsSensitivity.diminfo[0].shape = __pyx_pybuffernd_BptsSensitivity.rcbuffer->pybuffer.shape[0];
 
-  /* "lsm_classes.pyx":132
+  /* "lsm_classes.pyx":135
  *         # self. lambdas = lambdas
  * 
  *         for ii in range(0, self.boundaryptr.nPoints):             # <<<<<<<<<<<<<<
@@ -2647,7 +2653,7 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_6preprocess(struct __pyx_o
   for (__pyx_t_2 = 0; __pyx_t_2 < __pyx_t_1; __pyx_t_2+=1) {
     __pyx_v_ii = __pyx_t_2;
 
-    /* "lsm_classes.pyx":133
+    /* "lsm_classes.pyx":136
  * 
  *         for ii in range(0, self.boundaryptr.nPoints):
  *             self.boundaryptr.points[ii].sensitivities[0] = BptsSensitivity[ii]             # <<<<<<<<<<<<<<
@@ -2662,11 +2668,11 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_6preprocess(struct __pyx_o
     } else if (unlikely(__pyx_t_3 >= __pyx_pybuffernd_BptsSensitivity.diminfo[0].shape)) __pyx_t_4 = 0;
     if (unlikely(__pyx_t_4 != -1)) {
       __Pyx_RaiseBufferIndexError(__pyx_t_4);
-      __PYX_ERR(0, 133, __pyx_L1_error)
+      __PYX_ERR(0, 136, __pyx_L1_error)
     }
     ((__pyx_v_self->boundaryptr->points[__pyx_v_ii]).sensitivities[0]) = (*__Pyx_BufPtrStrided1d(double *, __pyx_pybuffernd_BptsSensitivity.rcbuffer->pybuffer.buf, __pyx_t_3, __pyx_pybuffernd_BptsSensitivity.diminfo[0].strides));
 
-    /* "lsm_classes.pyx":134
+    /* "lsm_classes.pyx":137
  *         for ii in range(0, self.boundaryptr.nPoints):
  *             self.boundaryptr.points[ii].sensitivities[0] = BptsSensitivity[ii]
  *             self.boundaryptr.points[ii].sensitivities[1] = -1.0             # <<<<<<<<<<<<<<
@@ -2676,12 +2682,12 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_6preprocess(struct __pyx_o
     ((__pyx_v_self->boundaryptr->points[__pyx_v_ii]).sensitivities[1]) = -1.0;
   }
 
-  /* "lsm_classes.pyx":137
+  /* "lsm_classes.pyx":140
  * 
  *         cdef vector[double] lambda_v
  *         lambda_v.push_back(lambdas[0])             # <<<<<<<<<<<<<<
  *         lambda_v.push_back(lambdas[1])
- * 
+ *         self.ndvs = 2
  */
   __pyx_t_5 = 0;
   __pyx_t_4 = -1;
@@ -2691,20 +2697,20 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_6preprocess(struct __pyx_o
   } else if (unlikely(__pyx_t_5 >= __pyx_pybuffernd_lambdas.diminfo[0].shape)) __pyx_t_4 = 0;
   if (unlikely(__pyx_t_4 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_4);
-    __PYX_ERR(0, 137, __pyx_L1_error)
+    __PYX_ERR(0, 140, __pyx_L1_error)
   }
   try {
     __pyx_v_lambda_v.push_back((*__Pyx_BufPtrStrided1d(double *, __pyx_pybuffernd_lambdas.rcbuffer->pybuffer.buf, __pyx_t_5, __pyx_pybuffernd_lambdas.diminfo[0].strides)));
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 137, __pyx_L1_error)
+    __PYX_ERR(0, 140, __pyx_L1_error)
   }
 
-  /* "lsm_classes.pyx":138
+  /* "lsm_classes.pyx":141
  *         cdef vector[double] lambda_v
  *         lambda_v.push_back(lambdas[0])
  *         lambda_v.push_back(lambdas[1])             # <<<<<<<<<<<<<<
- * 
+ *         self.ndvs = 2
  *         cdef vector[double] constraintDistances
  */
   __pyx_t_6 = 1;
@@ -2715,17 +2721,26 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_6preprocess(struct __pyx_o
   } else if (unlikely(__pyx_t_6 >= __pyx_pybuffernd_lambdas.diminfo[0].shape)) __pyx_t_4 = 0;
   if (unlikely(__pyx_t_4 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_4);
-    __PYX_ERR(0, 138, __pyx_L1_error)
+    __PYX_ERR(0, 141, __pyx_L1_error)
   }
   try {
     __pyx_v_lambda_v.push_back((*__Pyx_BufPtrStrided1d(double *, __pyx_pybuffernd_lambdas.rcbuffer->pybuffer.buf, __pyx_t_6, __pyx_pybuffernd_lambdas.diminfo[0].strides)));
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 138, __pyx_L1_error)
+    __PYX_ERR(0, 141, __pyx_L1_error)
   }
 
-  /* "lsm_classes.pyx":141
- * 
+  /* "lsm_classes.pyx":142
+ *         lambda_v.push_back(lambdas[0])
+ *         lambda_v.push_back(lambdas[1])
+ *         self.ndvs = 2             # <<<<<<<<<<<<<<
+ *         cdef vector[double] constraintDistances
+ *         constraintDistances.push_back(self.targetArea-self.boundaryptr.area)
+ */
+  __pyx_v_self->ndvs = 2;
+
+  /* "lsm_classes.pyx":144
+ *         self.ndvs = 2
  *         cdef vector[double] constraintDistances
  *         constraintDistances.push_back(self.targetArea-self.boundaryptr.area)             # <<<<<<<<<<<<<<
  *         # print (self.targetArea, self.boundaryptr.area, constraintDistances)
@@ -2735,22 +2750,22 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_6preprocess(struct __pyx_o
     __pyx_v_constraintDistances.push_back((__pyx_v_self->targetArea - __pyx_v_self->boundaryptr->area));
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 141, __pyx_L1_error)
+    __PYX_ERR(0, 144, __pyx_L1_error)
   }
 
-  /* "lsm_classes.pyx":145
+  /* "lsm_classes.pyx":148
  * 
  *         self.optimiseptr = new Optimise(
  *             self.boundaryptr.points, constraintDistances, lambda_v, np.abs(lambda_v[0]), movelimit)             # <<<<<<<<<<<<<<
  * 
  *         self.optimiseptr.computeConstraintDistances()
  */
-  __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 145, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 148, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_abs); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 145, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_abs); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 148, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_t_8 = PyFloat_FromDouble((__pyx_v_lambda_v[0])); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 145, __pyx_L1_error)
+  __pyx_t_8 = PyFloat_FromDouble((__pyx_v_lambda_v[0])); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 148, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __pyx_t_10 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_9))) {
@@ -2763,14 +2778,14 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_6preprocess(struct __pyx_o
     }
   }
   if (!__pyx_t_10) {
-    __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 145, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 148, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_GOTREF(__pyx_t_7);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_9)) {
       PyObject *__pyx_temp[2] = {__pyx_t_10, __pyx_t_8};
-      __pyx_t_7 = __Pyx_PyFunction_FastCall(__pyx_t_9, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 145, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyFunction_FastCall(__pyx_t_9, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 148, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -2779,29 +2794,29 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_6preprocess(struct __pyx_o
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_9)) {
       PyObject *__pyx_temp[2] = {__pyx_t_10, __pyx_t_8};
-      __pyx_t_7 = __Pyx_PyCFunction_FastCall(__pyx_t_9, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 145, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyCFunction_FastCall(__pyx_t_9, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 148, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     } else
     #endif
     {
-      __pyx_t_11 = PyTuple_New(1+1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 145, __pyx_L1_error)
+      __pyx_t_11 = PyTuple_New(1+1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 148, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_11);
       __Pyx_GIVEREF(__pyx_t_10); PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_10); __pyx_t_10 = NULL;
       __Pyx_GIVEREF(__pyx_t_8);
       PyTuple_SET_ITEM(__pyx_t_11, 0+1, __pyx_t_8);
       __pyx_t_8 = 0;
-      __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_t_11, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 145, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_t_11, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 148, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-  __pyx_t_12 = __pyx_PyFloat_AsDouble(__pyx_t_7); if (unlikely((__pyx_t_12 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 145, __pyx_L1_error)
+  __pyx_t_12 = __pyx_PyFloat_AsDouble(__pyx_t_7); if (unlikely((__pyx_t_12 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 148, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "lsm_classes.pyx":144
+  /* "lsm_classes.pyx":147
  *         # print (self.targetArea, self.boundaryptr.area, constraintDistances)
  * 
  *         self.optimiseptr = new Optimise(             # <<<<<<<<<<<<<<
@@ -2812,11 +2827,11 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_6preprocess(struct __pyx_o
     __pyx_t_13 = new Optimise(__pyx_v_self->boundaryptr->points, __pyx_v_constraintDistances, __pyx_v_lambda_v, __pyx_t_12, __pyx_v_movelimit);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 144, __pyx_L1_error)
+    __PYX_ERR(0, 147, __pyx_L1_error)
   }
   __pyx_v_self->optimiseptr = __pyx_t_13;
 
-  /* "lsm_classes.pyx":147
+  /* "lsm_classes.pyx":150
  *             self.boundaryptr.points, constraintDistances, lambda_v, np.abs(lambda_v[0]), movelimit)
  * 
  *         self.optimiseptr.computeConstraintDistances()             # <<<<<<<<<<<<<<
@@ -2825,7 +2840,7 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_6preprocess(struct __pyx_o
  */
   __pyx_v_self->optimiseptr->computeConstraintDistances();
 
-  /* "lsm_classes.pyx":151
+  /* "lsm_classes.pyx":154
  *         # // Initializing index map making all constraints to be active.
  *         # // Compute the scale factors for the objective and constraints.
  *         self.optimiseptr.computeScaleFactors()             # <<<<<<<<<<<<<<
@@ -2834,7 +2849,7 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_6preprocess(struct __pyx_o
  */
   __pyx_v_self->optimiseptr->computeScaleFactors();
 
-  /* "lsm_classes.pyx":154
+  /* "lsm_classes.pyx":157
  * 
  *         # // Compute the lambda limits.
  *         self.optimiseptr.computeLambdaLimits()             # <<<<<<<<<<<<<<
@@ -2843,7 +2858,7 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_6preprocess(struct __pyx_o
  */
   __pyx_v_self->optimiseptr->computeLambdaLimits();
 
-  /* "lsm_classes.pyx":160
+  /* "lsm_classes.pyx":163
  *         #self.optimiseptr.computeConstraintDistances()
  * 
  *         lambdas[0] = self.optimiseptr.lambdas[0]             # <<<<<<<<<<<<<<
@@ -2858,11 +2873,11 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_6preprocess(struct __pyx_o
   } else if (unlikely(__pyx_t_14 >= __pyx_pybuffernd_lambdas.diminfo[0].shape)) __pyx_t_4 = 0;
   if (unlikely(__pyx_t_4 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_4);
-    __PYX_ERR(0, 160, __pyx_L1_error)
+    __PYX_ERR(0, 163, __pyx_L1_error)
   }
   *__Pyx_BufPtrStrided1d(double *, __pyx_pybuffernd_lambdas.rcbuffer->pybuffer.buf, __pyx_t_14, __pyx_pybuffernd_lambdas.diminfo[0].strides) = (__pyx_v_self->optimiseptr->lambdas[0]);
 
-  /* "lsm_classes.pyx":161
+  /* "lsm_classes.pyx":164
  * 
  *         lambdas[0] = self.optimiseptr.lambdas[0]
  *         lambdas[1] = self.optimiseptr.lambdas[1]             # <<<<<<<<<<<<<<
@@ -2877,11 +2892,11 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_6preprocess(struct __pyx_o
   } else if (unlikely(__pyx_t_15 >= __pyx_pybuffernd_lambdas.diminfo[0].shape)) __pyx_t_4 = 0;
   if (unlikely(__pyx_t_4 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_4);
-    __PYX_ERR(0, 161, __pyx_L1_error)
+    __PYX_ERR(0, 164, __pyx_L1_error)
   }
   *__Pyx_BufPtrStrided1d(double *, __pyx_pybuffernd_lambdas.rcbuffer->pybuffer.buf, __pyx_t_15, __pyx_pybuffernd_lambdas.diminfo[0].strides) = (__pyx_v_self->optimiseptr->lambdas[1]);
 
-  /* "lsm_classes.pyx":162
+  /* "lsm_classes.pyx":165
  *         lambdas[0] = self.optimiseptr.lambdas[0]
  *         lambdas[1] = self.optimiseptr.lambdas[1]
  *         return lambdas             # <<<<<<<<<<<<<<
@@ -2893,7 +2908,7 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_6preprocess(struct __pyx_o
   __pyx_r = ((PyObject *)__pyx_v_lambdas);
   goto __pyx_L0;
 
-  /* "lsm_classes.pyx":125
+  /* "lsm_classes.pyx":128
  * 
  *     # this is a temporary fix =======================================
  *     def preprocess(self, np.ndarray[double] lambdas,             # <<<<<<<<<<<<<<
@@ -2927,7 +2942,7 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_6preprocess(struct __pyx_o
   return __pyx_r;
 }
 
-/* "lsm_classes.pyx":167
+/* "lsm_classes.pyx":170
  *     #     return (self.optimiseptr.constraintDistances, self.optimiseptr.constraintDistancesScaled )
  * 
  *     def get_phi(self):             # <<<<<<<<<<<<<<
@@ -2954,7 +2969,7 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_8get_phi(struct __pyx_obj_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("get_phi", 0);
 
-  /* "lsm_classes.pyx":168
+  /* "lsm_classes.pyx":171
  * 
  *     def get_phi(self):
  *         return self.levelsetptr.signedDistance             # <<<<<<<<<<<<<<
@@ -2962,13 +2977,13 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_8get_phi(struct __pyx_obj_
  *     def callback(self, np.ndarray[double] lambdas, unsigned int index):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_convert_vector_to_py_double(__pyx_v_self->levelsetptr->signedDistance); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 168, __pyx_L1_error)
+  __pyx_t_1 = __pyx_convert_vector_to_py_double(__pyx_v_self->levelsetptr->signedDistance); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 171, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "lsm_classes.pyx":167
+  /* "lsm_classes.pyx":170
  *     #     return (self.optimiseptr.constraintDistances, self.optimiseptr.constraintDistancesScaled )
  * 
  *     def get_phi(self):             # <<<<<<<<<<<<<<
@@ -2987,7 +3002,7 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_8get_phi(struct __pyx_obj_
   return __pyx_r;
 }
 
-/* "lsm_classes.pyx":170
+/* "lsm_classes.pyx":173
  *         return self.levelsetptr.signedDistance
  * 
  *     def callback(self, np.ndarray[double] lambdas, unsigned int index):             # <<<<<<<<<<<<<<
@@ -3023,11 +3038,11 @@ static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_11callback(PyObject *__pyx
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_index)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("callback", 1, 2, 2, 1); __PYX_ERR(0, 170, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("callback", 1, 2, 2, 1); __PYX_ERR(0, 173, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "callback") < 0)) __PYX_ERR(0, 170, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "callback") < 0)) __PYX_ERR(0, 173, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -3036,17 +3051,17 @@ static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_11callback(PyObject *__pyx
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
     __pyx_v_lambdas = ((PyArrayObject *)values[0]);
-    __pyx_v_index = __Pyx_PyInt_As_unsigned_int(values[1]); if (unlikely((__pyx_v_index == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 170, __pyx_L3_error)
+    __pyx_v_index = __Pyx_PyInt_As_unsigned_int(values[1]); if (unlikely((__pyx_v_index == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 173, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("callback", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 170, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("callback", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 173, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("lsm_classes.PyLSMSolver.callback", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_lambdas), __pyx_ptype_5numpy_ndarray, 1, "lambdas", 0))) __PYX_ERR(0, 170, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_lambdas), __pyx_ptype_5numpy_ndarray, 1, "lambdas", 0))) __PYX_ERR(0, 173, __pyx_L1_error)
   __pyx_r = __pyx_pf_11lsm_classes_11PyLSMSolver_10callback(((struct __pyx_obj_11lsm_classes_PyLSMSolver *)__pyx_v_self), __pyx_v_lambdas, __pyx_v_index);
 
   /* function exit code */
@@ -3076,11 +3091,11 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_10callback(struct __pyx_ob
   __pyx_pybuffernd_lambdas.rcbuffer = &__pyx_pybuffer_lambdas;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_lambdas.rcbuffer->pybuffer, (PyObject*)__pyx_v_lambdas, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 170, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_lambdas.rcbuffer->pybuffer, (PyObject*)__pyx_v_lambdas, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 173, __pyx_L1_error)
   }
   __pyx_pybuffernd_lambdas.diminfo[0].strides = __pyx_pybuffernd_lambdas.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_lambdas.diminfo[0].shape = __pyx_pybuffernd_lambdas.rcbuffer->pybuffer.shape[0];
 
-  /* "lsm_classes.pyx":172
+  /* "lsm_classes.pyx":175
  *     def callback(self, np.ndarray[double] lambdas, unsigned int index):
  *         cdef vector[double] lambda_v
  *         lambda_v.push_back(lambdas[0])             # <<<<<<<<<<<<<<
@@ -3095,16 +3110,16 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_10callback(struct __pyx_ob
   } else if (unlikely(__pyx_t_1 >= __pyx_pybuffernd_lambdas.diminfo[0].shape)) __pyx_t_2 = 0;
   if (unlikely(__pyx_t_2 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_2);
-    __PYX_ERR(0, 172, __pyx_L1_error)
+    __PYX_ERR(0, 175, __pyx_L1_error)
   }
   try {
     __pyx_v_lambda_v.push_back((*__Pyx_BufPtrStrided1d(double *, __pyx_pybuffernd_lambdas.rcbuffer->pybuffer.buf, __pyx_t_1, __pyx_pybuffernd_lambdas.diminfo[0].strides)));
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 172, __pyx_L1_error)
+    __PYX_ERR(0, 175, __pyx_L1_error)
   }
 
-  /* "lsm_classes.pyx":173
+  /* "lsm_classes.pyx":176
  *         cdef vector[double] lambda_v
  *         lambda_v.push_back(lambdas[0])
  *         lambda_v.push_back(lambdas[1])             # <<<<<<<<<<<<<<
@@ -3119,16 +3134,16 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_10callback(struct __pyx_ob
   } else if (unlikely(__pyx_t_3 >= __pyx_pybuffernd_lambdas.diminfo[0].shape)) __pyx_t_2 = 0;
   if (unlikely(__pyx_t_2 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_2);
-    __PYX_ERR(0, 173, __pyx_L1_error)
+    __PYX_ERR(0, 176, __pyx_L1_error)
   }
   try {
     __pyx_v_lambda_v.push_back((*__Pyx_BufPtrStrided1d(double *, __pyx_pybuffernd_lambdas.rcbuffer->pybuffer.buf, __pyx_t_3, __pyx_pybuffernd_lambdas.diminfo[0].strides)));
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 173, __pyx_L1_error)
+    __PYX_ERR(0, 176, __pyx_L1_error)
   }
 
-  /* "lsm_classes.pyx":175
+  /* "lsm_classes.pyx":178
  *         lambda_v.push_back(lambdas[1])
  *         cdef vector[double] vector__double__
  *         return self.optimiseptr.callback(lambda_v, vector__double__, index)             # <<<<<<<<<<<<<<
@@ -3136,13 +3151,13 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_10callback(struct __pyx_ob
  *     def callback_dp(self, np.ndarray[double] lambdas, unsigned int index):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_4 = PyFloat_FromDouble(__pyx_v_self->optimiseptr->callback(__pyx_v_lambda_v, __pyx_v_vector__double__, __pyx_v_index)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 175, __pyx_L1_error)
+  __pyx_t_4 = PyFloat_FromDouble(__pyx_v_self->optimiseptr->callback(__pyx_v_lambda_v, __pyx_v_vector__double__, __pyx_v_index)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 178, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_r = __pyx_t_4;
   __pyx_t_4 = 0;
   goto __pyx_L0;
 
-  /* "lsm_classes.pyx":170
+  /* "lsm_classes.pyx":173
  *         return self.levelsetptr.signedDistance
  * 
  *     def callback(self, np.ndarray[double] lambdas, unsigned int index):             # <<<<<<<<<<<<<<
@@ -3170,7 +3185,7 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_10callback(struct __pyx_ob
   return __pyx_r;
 }
 
-/* "lsm_classes.pyx":177
+/* "lsm_classes.pyx":180
  *         return self.optimiseptr.callback(lambda_v, vector__double__, index)
  * 
  *     def callback_dp(self, np.ndarray[double] lambdas, unsigned int index):             # <<<<<<<<<<<<<<
@@ -3206,11 +3221,11 @@ static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_13callback_dp(PyObject *__
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_index)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("callback_dp", 1, 2, 2, 1); __PYX_ERR(0, 177, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("callback_dp", 1, 2, 2, 1); __PYX_ERR(0, 180, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "callback_dp") < 0)) __PYX_ERR(0, 177, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "callback_dp") < 0)) __PYX_ERR(0, 180, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -3219,17 +3234,17 @@ static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_13callback_dp(PyObject *__
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
     __pyx_v_lambdas = ((PyArrayObject *)values[0]);
-    __pyx_v_index = __Pyx_PyInt_As_unsigned_int(values[1]); if (unlikely((__pyx_v_index == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 177, __pyx_L3_error)
+    __pyx_v_index = __Pyx_PyInt_As_unsigned_int(values[1]); if (unlikely((__pyx_v_index == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 180, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("callback_dp", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 177, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("callback_dp", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 180, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("lsm_classes.PyLSMSolver.callback_dp", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_lambdas), __pyx_ptype_5numpy_ndarray, 1, "lambdas", 0))) __PYX_ERR(0, 177, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_lambdas), __pyx_ptype_5numpy_ndarray, 1, "lambdas", 0))) __PYX_ERR(0, 180, __pyx_L1_error)
   __pyx_r = __pyx_pf_11lsm_classes_11PyLSMSolver_12callback_dp(((struct __pyx_obj_11lsm_classes_PyLSMSolver *)__pyx_v_self), __pyx_v_lambdas, __pyx_v_index);
 
   /* function exit code */
@@ -3257,21 +3272,21 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_12callback_dp(struct __pyx
   __pyx_pybuffernd_lambdas.rcbuffer = &__pyx_pybuffer_lambdas;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_lambdas.rcbuffer->pybuffer, (PyObject*)__pyx_v_lambdas, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 177, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_lambdas.rcbuffer->pybuffer, (PyObject*)__pyx_v_lambdas, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 180, __pyx_L1_error)
   }
   __pyx_pybuffernd_lambdas.diminfo[0].strides = __pyx_pybuffernd_lambdas.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_lambdas.diminfo[0].shape = __pyx_pybuffernd_lambdas.rcbuffer->pybuffer.shape[0];
 
-  /* "lsm_classes.pyx":178
+  /* "lsm_classes.pyx":181
  * 
  *     def callback_dp(self, np.ndarray[double] lambdas, unsigned int index):
  *         self.optimiseptr.computeDisplacements(lambdas)             # <<<<<<<<<<<<<<
  *         return self.optimiseptr.computeFunction(index), self.optimiseptr.displacements
  * 
  */
-  __pyx_t_1 = __pyx_convert_vector_from_py_double(((PyObject *)__pyx_v_lambdas)); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 178, __pyx_L1_error)
+  __pyx_t_1 = __pyx_convert_vector_from_py_double(((PyObject *)__pyx_v_lambdas)); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 181, __pyx_L1_error)
   __pyx_v_self->optimiseptr->computeDisplacements(__pyx_t_1);
 
-  /* "lsm_classes.pyx":179
+  /* "lsm_classes.pyx":182
  *     def callback_dp(self, np.ndarray[double] lambdas, unsigned int index):
  *         self.optimiseptr.computeDisplacements(lambdas)
  *         return self.optimiseptr.computeFunction(index), self.optimiseptr.displacements             # <<<<<<<<<<<<<<
@@ -3279,11 +3294,11 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_12callback_dp(struct __pyx
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_self->optimiseptr->computeFunction(__pyx_v_index)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 179, __pyx_L1_error)
+  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_self->optimiseptr->computeFunction(__pyx_v_index)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 182, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __pyx_convert_vector_to_py_double(__pyx_v_self->optimiseptr->displacements); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 179, __pyx_L1_error)
+  __pyx_t_3 = __pyx_convert_vector_to_py_double(__pyx_v_self->optimiseptr->displacements); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 182, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 179, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 182, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_2);
@@ -3295,7 +3310,7 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_12callback_dp(struct __pyx
   __pyx_t_4 = 0;
   goto __pyx_L0;
 
-  /* "lsm_classes.pyx":177
+  /* "lsm_classes.pyx":180
  *         return self.optimiseptr.callback(lambda_v, vector__double__, index)
  * 
  *     def callback_dp(self, np.ndarray[double] lambdas, unsigned int index):             # <<<<<<<<<<<<<<
@@ -3325,7 +3340,7 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_12callback_dp(struct __pyx
   return __pyx_r;
 }
 
-/* "lsm_classes.pyx":182
+/* "lsm_classes.pyx":185
  * 
  * 
  *     def get_bounds(self):             # <<<<<<<<<<<<<<
@@ -3354,7 +3369,7 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_14get_bounds(struct __pyx_
   PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("get_bounds", 0);
 
-  /* "lsm_classes.pyx":183
+  /* "lsm_classes.pyx":186
  * 
  *     def get_bounds(self):
  *         return (self.optimiseptr.positiveLambdaLimits, self.optimiseptr.negativeLambdaLimits)             # <<<<<<<<<<<<<<
@@ -3362,11 +3377,11 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_14get_bounds(struct __pyx_
  *     def computeDisplacements(self, np.ndarray[double] lambdas):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_convert_vector_to_py_double(__pyx_v_self->optimiseptr->positiveLambdaLimits); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 183, __pyx_L1_error)
+  __pyx_t_1 = __pyx_convert_vector_to_py_double(__pyx_v_self->optimiseptr->positiveLambdaLimits); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 186, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __pyx_convert_vector_to_py_double(__pyx_v_self->optimiseptr->negativeLambdaLimits); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 183, __pyx_L1_error)
+  __pyx_t_2 = __pyx_convert_vector_to_py_double(__pyx_v_self->optimiseptr->negativeLambdaLimits); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 186, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 183, __pyx_L1_error)
+  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 186, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1);
@@ -3378,7 +3393,7 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_14get_bounds(struct __pyx_
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "lsm_classes.pyx":182
+  /* "lsm_classes.pyx":185
  * 
  * 
  *     def get_bounds(self):             # <<<<<<<<<<<<<<
@@ -3399,7 +3414,7 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_14get_bounds(struct __pyx_
   return __pyx_r;
 }
 
-/* "lsm_classes.pyx":185
+/* "lsm_classes.pyx":188
  *         return (self.optimiseptr.positiveLambdaLimits, self.optimiseptr.negativeLambdaLimits)
  * 
  *     def computeDisplacements(self, np.ndarray[double] lambdas):             # <<<<<<<<<<<<<<
@@ -3413,7 +3428,7 @@ static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_17computeDisplacements(PyO
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("computeDisplacements (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_lambdas), __pyx_ptype_5numpy_ndarray, 1, "lambdas", 0))) __PYX_ERR(0, 185, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_lambdas), __pyx_ptype_5numpy_ndarray, 1, "lambdas", 0))) __PYX_ERR(0, 188, __pyx_L1_error)
   __pyx_r = __pyx_pf_11lsm_classes_11PyLSMSolver_16computeDisplacements(((struct __pyx_obj_11lsm_classes_PyLSMSolver *)__pyx_v_self), ((PyArrayObject *)__pyx_v_lambdas));
 
   /* function exit code */
@@ -3439,35 +3454,35 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_16computeDisplacements(str
   __pyx_pybuffernd_lambdas.rcbuffer = &__pyx_pybuffer_lambdas;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_lambdas.rcbuffer->pybuffer, (PyObject*)__pyx_v_lambdas, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 185, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_lambdas.rcbuffer->pybuffer, (PyObject*)__pyx_v_lambdas, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 188, __pyx_L1_error)
   }
   __pyx_pybuffernd_lambdas.diminfo[0].strides = __pyx_pybuffernd_lambdas.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_lambdas.diminfo[0].shape = __pyx_pybuffernd_lambdas.rcbuffer->pybuffer.shape[0];
 
-  /* "lsm_classes.pyx":186
+  /* "lsm_classes.pyx":189
  * 
  *     def computeDisplacements(self, np.ndarray[double] lambdas):
  *         self.optimiseptr.computeDisplacements(lambdas)             # <<<<<<<<<<<<<<
  *         return self.optimiseptr.displacements
  * 
  */
-  __pyx_t_1 = __pyx_convert_vector_from_py_double(((PyObject *)__pyx_v_lambdas)); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 186, __pyx_L1_error)
+  __pyx_t_1 = __pyx_convert_vector_from_py_double(((PyObject *)__pyx_v_lambdas)); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 189, __pyx_L1_error)
   __pyx_v_self->optimiseptr->computeDisplacements(__pyx_t_1);
 
-  /* "lsm_classes.pyx":187
+  /* "lsm_classes.pyx":190
  *     def computeDisplacements(self, np.ndarray[double] lambdas):
  *         self.optimiseptr.computeDisplacements(lambdas)
  *         return self.optimiseptr.displacements             # <<<<<<<<<<<<<<
  * 
- *     def computeFunction(self,np.ndarray[double] displacement, int index):
+ *     def computePartialDisplacement(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __pyx_convert_vector_to_py_double(__pyx_v_self->optimiseptr->displacements); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 187, __pyx_L1_error)
+  __pyx_t_2 = __pyx_convert_vector_to_py_double(__pyx_v_self->optimiseptr->displacements); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 190, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "lsm_classes.pyx":185
+  /* "lsm_classes.pyx":188
  *         return (self.optimiseptr.positiveLambdaLimits, self.optimiseptr.negativeLambdaLimits)
  * 
  *     def computeDisplacements(self, np.ndarray[double] lambdas):             # <<<<<<<<<<<<<<
@@ -3495,17 +3510,110 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_16computeDisplacements(str
   return __pyx_r;
 }
 
-/* "lsm_classes.pyx":189
+/* "lsm_classes.pyx":192
  *         return self.optimiseptr.displacements
  * 
- *     def computeFunction(self,np.ndarray[double] displacement, int index):             # <<<<<<<<<<<<<<
- *         f1 = self.optimiseptr.computeFunction(index)
- *         f2 = self.optimiseptr.computeFunction(displacement, index)
+ *     def computePartialDisplacement(self):             # <<<<<<<<<<<<<<
+ *         # rows=np.zeros(self.nBpts * self.ndvs, dtype=int)
+ *         # cols=np.zeros(self.nBpts * self.ndvs, dtype=int)
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_19computeFunction(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_19computeFunction(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_19computePartialDisplacement(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_19computePartialDisplacement(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("computePartialDisplacement (wrapper)", 0);
+  __pyx_r = __pyx_pf_11lsm_classes_11PyLSMSolver_18computePartialDisplacement(((struct __pyx_obj_11lsm_classes_PyLSMSolver *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_18computePartialDisplacement(struct __pyx_obj_11lsm_classes_PyLSMSolver *__pyx_v_self) {
+  std::vector<int>  __pyx_v_rows;
+  std::vector<int>  __pyx_v_cols;
+  std::vector<double>  __pyx_v_data;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  __Pyx_RefNannySetupContext("computePartialDisplacement", 0);
+
+  /* "lsm_classes.pyx":199
+ *         cdef vector[int] cols
+ *         cdef vector[double] data
+ *         self.optimiseptr.computePartialDisplacement(rows, cols, data)             # <<<<<<<<<<<<<<
+ *         return (rows, cols, data)
+ * 
+ */
+  __pyx_v_self->optimiseptr->computePartialDisplacement(__pyx_v_rows, __pyx_v_cols, __pyx_v_data);
+
+  /* "lsm_classes.pyx":200
+ *         cdef vector[double] data
+ *         self.optimiseptr.computePartialDisplacement(rows, cols, data)
+ *         return (rows, cols, data)             # <<<<<<<<<<<<<<
+ * 
+ *     def computeFunction(self,np.ndarray[double] displacement, int index):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __pyx_convert_vector_to_py_int(__pyx_v_rows); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 200, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __pyx_convert_vector_to_py_int(__pyx_v_cols); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 200, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = __pyx_convert_vector_to_py_double(__pyx_v_data); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 200, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_4 = PyTuple_New(3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 200, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_GIVEREF(__pyx_t_1);
+  PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_2);
+  PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_2);
+  __Pyx_GIVEREF(__pyx_t_3);
+  PyTuple_SET_ITEM(__pyx_t_4, 2, __pyx_t_3);
+  __pyx_t_1 = 0;
+  __pyx_t_2 = 0;
+  __pyx_t_3 = 0;
+  __pyx_r = __pyx_t_4;
+  __pyx_t_4 = 0;
+  goto __pyx_L0;
+
+  /* "lsm_classes.pyx":192
+ *         return self.optimiseptr.displacements
+ * 
+ *     def computePartialDisplacement(self):             # <<<<<<<<<<<<<<
+ *         # rows=np.zeros(self.nBpts * self.ndvs, dtype=int)
+ *         # cols=np.zeros(self.nBpts * self.ndvs, dtype=int)
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_AddTraceback("lsm_classes.PyLSMSolver.computePartialDisplacement", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "lsm_classes.pyx":202
+ *         return (rows, cols, data)
+ * 
+ *     def computeFunction(self,np.ndarray[double] displacement, int index):             # <<<<<<<<<<<<<<
+ *         # f1 = self.optimiseptr.computeFunction(index)  # f1 = f verified
+ *         f = self.optimiseptr.computeFunction(displacement, index)
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_21computeFunction(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_21computeFunction(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyArrayObject *__pyx_v_displacement = 0;
   int __pyx_v_index;
   PyObject *__pyx_r = 0;
@@ -3531,11 +3639,11 @@ static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_19computeFunction(PyObject
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_index)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("computeFunction", 1, 2, 2, 1); __PYX_ERR(0, 189, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("computeFunction", 1, 2, 2, 1); __PYX_ERR(0, 202, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "computeFunction") < 0)) __PYX_ERR(0, 189, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "computeFunction") < 0)) __PYX_ERR(0, 202, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -3544,18 +3652,18 @@ static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_19computeFunction(PyObject
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
     __pyx_v_displacement = ((PyArrayObject *)values[0]);
-    __pyx_v_index = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_index == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 189, __pyx_L3_error)
+    __pyx_v_index = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_index == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 202, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("computeFunction", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 189, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("computeFunction", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 202, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("lsm_classes.PyLSMSolver.computeFunction", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_displacement), __pyx_ptype_5numpy_ndarray, 1, "displacement", 0))) __PYX_ERR(0, 189, __pyx_L1_error)
-  __pyx_r = __pyx_pf_11lsm_classes_11PyLSMSolver_18computeFunction(((struct __pyx_obj_11lsm_classes_PyLSMSolver *)__pyx_v_self), __pyx_v_displacement, __pyx_v_index);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_displacement), __pyx_ptype_5numpy_ndarray, 1, "displacement", 0))) __PYX_ERR(0, 202, __pyx_L1_error)
+  __pyx_r = __pyx_pf_11lsm_classes_11PyLSMSolver_20computeFunction(((struct __pyx_obj_11lsm_classes_PyLSMSolver *)__pyx_v_self), __pyx_v_displacement, __pyx_v_index);
 
   /* function exit code */
   goto __pyx_L0;
@@ -3566,17 +3674,14 @@ static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_19computeFunction(PyObject
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_18computeFunction(struct __pyx_obj_11lsm_classes_PyLSMSolver *__pyx_v_self, PyArrayObject *__pyx_v_displacement, int __pyx_v_index) {
-  double __pyx_v_f1;
-  double __pyx_v_f2;
+static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_20computeFunction(struct __pyx_obj_11lsm_classes_PyLSMSolver *__pyx_v_self, PyArrayObject *__pyx_v_displacement, int __pyx_v_index) {
+  double __pyx_v_f;
   __Pyx_LocalBuf_ND __pyx_pybuffernd_displacement;
   __Pyx_Buffer __pyx_pybuffer_displacement;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   std::vector<double>  __pyx_t_1;
   PyObject *__pyx_t_2 = NULL;
-  PyObject *__pyx_t_3 = NULL;
-  PyObject *__pyx_t_4 = NULL;
   __Pyx_RefNannySetupContext("computeFunction", 0);
   __pyx_pybuffer_displacement.pybuffer.buf = NULL;
   __pyx_pybuffer_displacement.refcount = 0;
@@ -3584,66 +3689,45 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_18computeFunction(struct _
   __pyx_pybuffernd_displacement.rcbuffer = &__pyx_pybuffer_displacement;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_displacement.rcbuffer->pybuffer, (PyObject*)__pyx_v_displacement, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 189, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_displacement.rcbuffer->pybuffer, (PyObject*)__pyx_v_displacement, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 202, __pyx_L1_error)
   }
   __pyx_pybuffernd_displacement.diminfo[0].strides = __pyx_pybuffernd_displacement.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_displacement.diminfo[0].shape = __pyx_pybuffernd_displacement.rcbuffer->pybuffer.shape[0];
 
-  /* "lsm_classes.pyx":190
- * 
+  /* "lsm_classes.pyx":204
  *     def computeFunction(self,np.ndarray[double] displacement, int index):
- *         f1 = self.optimiseptr.computeFunction(index)             # <<<<<<<<<<<<<<
- *         f2 = self.optimiseptr.computeFunction(displacement, index)
- *         return (f1, f2)
- */
-  __pyx_v_f1 = __pyx_v_self->optimiseptr->computeFunction(__pyx_v_index);
-
-  /* "lsm_classes.pyx":191
- *     def computeFunction(self,np.ndarray[double] displacement, int index):
- *         f1 = self.optimiseptr.computeFunction(index)
- *         f2 = self.optimiseptr.computeFunction(displacement, index)             # <<<<<<<<<<<<<<
- *         return (f1, f2)
+ *         # f1 = self.optimiseptr.computeFunction(index)  # f1 = f verified
+ *         f = self.optimiseptr.computeFunction(displacement, index)             # <<<<<<<<<<<<<<
+ *         return f # (f1, f)
  * 
  */
-  __pyx_t_1 = __pyx_convert_vector_from_py_double(((PyObject *)__pyx_v_displacement)); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 191, __pyx_L1_error)
-  __pyx_v_f2 = __pyx_v_self->optimiseptr->computeFunction(__pyx_t_1, __pyx_v_index);
+  __pyx_t_1 = __pyx_convert_vector_from_py_double(((PyObject *)__pyx_v_displacement)); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 204, __pyx_L1_error)
+  __pyx_v_f = __pyx_v_self->optimiseptr->computeFunction(__pyx_t_1, __pyx_v_index);
 
-  /* "lsm_classes.pyx":192
- *         f1 = self.optimiseptr.computeFunction(index)
- *         f2 = self.optimiseptr.computeFunction(displacement, index)
- *         return (f1, f2)             # <<<<<<<<<<<<<<
+  /* "lsm_classes.pyx":205
+ *         # f1 = self.optimiseptr.computeFunction(index)  # f1 = f verified
+ *         f = self.optimiseptr.computeFunction(displacement, index)
+ *         return f # (f1, f)             # <<<<<<<<<<<<<<
  * 
- *     # def computeFunction(self, int index):
+ *     def computePartialFunctions(self, int index):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_f1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 192, __pyx_L1_error)
+  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_f); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 205, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyFloat_FromDouble(__pyx_v_f2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 192, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 192, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_GIVEREF(__pyx_t_2);
-  PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_2);
-  __Pyx_GIVEREF(__pyx_t_3);
-  PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_3);
+  __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
-  __pyx_t_3 = 0;
-  __pyx_r = __pyx_t_4;
-  __pyx_t_4 = 0;
   goto __pyx_L0;
 
-  /* "lsm_classes.pyx":189
- *         return self.optimiseptr.displacements
+  /* "lsm_classes.pyx":202
+ *         return (rows, cols, data)
  * 
  *     def computeFunction(self,np.ndarray[double] displacement, int index):             # <<<<<<<<<<<<<<
- *         f1 = self.optimiseptr.computeFunction(index)
- *         f2 = self.optimiseptr.computeFunction(displacement, index)
+ *         # f1 = self.optimiseptr.computeFunction(index)  # f1 = f verified
+ *         f = self.optimiseptr.computeFunction(displacement, index)
  */
 
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_XDECREF(__pyx_t_4);
   { PyObject *__pyx_type, *__pyx_value, *__pyx_tb;
     __Pyx_PyThreadState_declare
     __Pyx_PyThreadState_assign
@@ -3661,7 +3745,146 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_18computeFunction(struct _
   return __pyx_r;
 }
 
-/* "lsm_classes.pyx":197
+/* "lsm_classes.pyx":207
+ *         return f # (f1, f)
+ * 
+ *     def computePartialFunctions(self, int index):             # <<<<<<<<<<<<<<
+ *         delf = self.optimiseptr.computePartialFunction(index)
+ *         return np.asarray(delf)
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_23computePartialFunctions(PyObject *__pyx_v_self, PyObject *__pyx_arg_index); /*proto*/
+static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_23computePartialFunctions(PyObject *__pyx_v_self, PyObject *__pyx_arg_index) {
+  int __pyx_v_index;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("computePartialFunctions (wrapper)", 0);
+  assert(__pyx_arg_index); {
+    __pyx_v_index = __Pyx_PyInt_As_int(__pyx_arg_index); if (unlikely((__pyx_v_index == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 207, __pyx_L3_error)
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("lsm_classes.PyLSMSolver.computePartialFunctions", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_11lsm_classes_11PyLSMSolver_22computePartialFunctions(((struct __pyx_obj_11lsm_classes_PyLSMSolver *)__pyx_v_self), ((int)__pyx_v_index));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_22computePartialFunctions(struct __pyx_obj_11lsm_classes_PyLSMSolver *__pyx_v_self, int __pyx_v_index) {
+  std::vector<double>  __pyx_v_delf;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  PyObject *__pyx_t_5 = NULL;
+  __Pyx_RefNannySetupContext("computePartialFunctions", 0);
+
+  /* "lsm_classes.pyx":208
+ * 
+ *     def computePartialFunctions(self, int index):
+ *         delf = self.optimiseptr.computePartialFunction(index)             # <<<<<<<<<<<<<<
+ *         return np.asarray(delf)
+ * 
+ */
+  __pyx_v_delf = __pyx_v_self->optimiseptr->computePartialFunction(__pyx_v_index);
+
+  /* "lsm_classes.pyx":209
+ *     def computePartialFunctions(self, int index):
+ *         delf = self.optimiseptr.computePartialFunction(index)
+ *         return np.asarray(delf)             # <<<<<<<<<<<<<<
+ * 
+ *     # def computeFunction(self, int index):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 209, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_asarray); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 209, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __pyx_convert_vector_to_py_double(__pyx_v_delf); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 209, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_4 = NULL;
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_3);
+    if (likely(__pyx_t_4)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+      __Pyx_INCREF(__pyx_t_4);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_3, function);
+    }
+  }
+  if (!__pyx_t_4) {
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 209, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_GOTREF(__pyx_t_1);
+  } else {
+    #if CYTHON_FAST_PYCALL
+    if (PyFunction_Check(__pyx_t_3)) {
+      PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_t_2};
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 209, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    } else
+    #endif
+    #if CYTHON_FAST_PYCCALL
+    if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
+      PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_t_2};
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 209, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    } else
+    #endif
+    {
+      __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 209, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_4); __pyx_t_4 = NULL;
+      __Pyx_GIVEREF(__pyx_t_2);
+      PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_t_2);
+      __pyx_t_2 = 0;
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 209, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    }
+  }
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "lsm_classes.pyx":207
+ *         return f # (f1, f)
+ * 
+ *     def computePartialFunctions(self, int index):             # <<<<<<<<<<<<<<
+ *         delf = self.optimiseptr.computePartialFunction(index)
+ *         return np.asarray(delf)
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_AddTraceback("lsm_classes.PyLSMSolver.computePartialFunctions", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "lsm_classes.pyx":214
  *     #     return self.optimiseptr.computeFunction(index)
  * 
  *     def computeGradients(self, np.ndarray[double] lambdas,unsigned int index):             # <<<<<<<<<<<<<<
@@ -3670,8 +3893,8 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_18computeFunction(struct _
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_21computeGradients(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_21computeGradients(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_25computeGradients(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_25computeGradients(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyArrayObject *__pyx_v_lambdas = 0;
   unsigned int __pyx_v_index;
   PyObject *__pyx_r = 0;
@@ -3697,11 +3920,11 @@ static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_21computeGradients(PyObjec
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_index)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("computeGradients", 1, 2, 2, 1); __PYX_ERR(0, 197, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("computeGradients", 1, 2, 2, 1); __PYX_ERR(0, 214, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "computeGradients") < 0)) __PYX_ERR(0, 197, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "computeGradients") < 0)) __PYX_ERR(0, 214, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -3710,18 +3933,18 @@ static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_21computeGradients(PyObjec
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
     __pyx_v_lambdas = ((PyArrayObject *)values[0]);
-    __pyx_v_index = __Pyx_PyInt_As_unsigned_int(values[1]); if (unlikely((__pyx_v_index == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 197, __pyx_L3_error)
+    __pyx_v_index = __Pyx_PyInt_As_unsigned_int(values[1]); if (unlikely((__pyx_v_index == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 214, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("computeGradients", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 197, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("computeGradients", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 214, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("lsm_classes.PyLSMSolver.computeGradients", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_lambdas), __pyx_ptype_5numpy_ndarray, 1, "lambdas", 0))) __PYX_ERR(0, 197, __pyx_L1_error)
-  __pyx_r = __pyx_pf_11lsm_classes_11PyLSMSolver_20computeGradients(((struct __pyx_obj_11lsm_classes_PyLSMSolver *)__pyx_v_self), __pyx_v_lambdas, __pyx_v_index);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_lambdas), __pyx_ptype_5numpy_ndarray, 1, "lambdas", 0))) __PYX_ERR(0, 214, __pyx_L1_error)
+  __pyx_r = __pyx_pf_11lsm_classes_11PyLSMSolver_24computeGradients(((struct __pyx_obj_11lsm_classes_PyLSMSolver *)__pyx_v_self), __pyx_v_lambdas, __pyx_v_index);
 
   /* function exit code */
   goto __pyx_L0;
@@ -3732,7 +3955,7 @@ static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_21computeGradients(PyObjec
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_20computeGradients(struct __pyx_obj_11lsm_classes_PyLSMSolver *__pyx_v_self, PyArrayObject *__pyx_v_lambdas, unsigned int __pyx_v_index) {
+static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_24computeGradients(struct __pyx_obj_11lsm_classes_PyLSMSolver *__pyx_v_self, PyArrayObject *__pyx_v_lambdas, unsigned int __pyx_v_index) {
   npy_intp __pyx_v_ndvs;
   PyObject *__pyx_v_gradient = NULL;
   __Pyx_LocalBuf_ND __pyx_pybuffernd_lambdas;
@@ -3751,11 +3974,11 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_20computeGradients(struct 
   __pyx_pybuffernd_lambdas.rcbuffer = &__pyx_pybuffer_lambdas;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_lambdas.rcbuffer->pybuffer, (PyObject*)__pyx_v_lambdas, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 197, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_lambdas.rcbuffer->pybuffer, (PyObject*)__pyx_v_lambdas, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 214, __pyx_L1_error)
   }
   __pyx_pybuffernd_lambdas.diminfo[0].strides = __pyx_pybuffernd_lambdas.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_lambdas.diminfo[0].shape = __pyx_pybuffernd_lambdas.rcbuffer->pybuffer.shape[0];
 
-  /* "lsm_classes.pyx":198
+  /* "lsm_classes.pyx":215
  * 
  *     def computeGradients(self, np.ndarray[double] lambdas,unsigned int index):
  *         ndvs = lambdas.shape[0]             # <<<<<<<<<<<<<<
@@ -3764,42 +3987,42 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_20computeGradients(struct 
  */
   __pyx_v_ndvs = (__pyx_v_lambdas->dimensions[0]);
 
-  /* "lsm_classes.pyx":199
+  /* "lsm_classes.pyx":216
  *     def computeGradients(self, np.ndarray[double] lambdas,unsigned int index):
  *         ndvs = lambdas.shape[0]
  *         gradient = np.ndarray(ndvs,dtype=float)             # <<<<<<<<<<<<<<
  *         self.optimiseptr.computeGradients(lambdas, gradient, index)
  *         return gradient
  */
-  __pyx_t_1 = __Pyx_PyInt_From_Py_intptr_t(__pyx_v_ndvs); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 199, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_Py_intptr_t(__pyx_v_ndvs); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 216, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 199, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 216, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1);
   __pyx_t_1 = 0;
-  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 199, __pyx_L1_error)
+  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 216, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, ((PyObject *)(&PyFloat_Type))) < 0) __PYX_ERR(0, 199, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5numpy_ndarray), __pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 199, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, ((PyObject *)(&PyFloat_Type))) < 0) __PYX_ERR(0, 216, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5numpy_ndarray), __pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 216, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_gradient = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "lsm_classes.pyx":200
+  /* "lsm_classes.pyx":217
  *         ndvs = lambdas.shape[0]
  *         gradient = np.ndarray(ndvs,dtype=float)
  *         self.optimiseptr.computeGradients(lambdas, gradient, index)             # <<<<<<<<<<<<<<
  *         return gradient
  * 
  */
-  __pyx_t_4 = __pyx_convert_vector_from_py_double(((PyObject *)__pyx_v_lambdas)); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 200, __pyx_L1_error)
-  __pyx_t_5 = __pyx_convert_vector_from_py_double(__pyx_v_gradient); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 200, __pyx_L1_error)
+  __pyx_t_4 = __pyx_convert_vector_from_py_double(((PyObject *)__pyx_v_lambdas)); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 217, __pyx_L1_error)
+  __pyx_t_5 = __pyx_convert_vector_from_py_double(__pyx_v_gradient); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 217, __pyx_L1_error)
   __pyx_v_self->optimiseptr->computeGradients(__pyx_t_4, __pyx_t_5, __pyx_v_index);
 
-  /* "lsm_classes.pyx":201
+  /* "lsm_classes.pyx":218
  *         gradient = np.ndarray(ndvs,dtype=float)
  *         self.optimiseptr.computeGradients(lambdas, gradient, index)
  *         return gradient             # <<<<<<<<<<<<<<
@@ -3811,7 +4034,7 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_20computeGradients(struct 
   __pyx_r = __pyx_v_gradient;
   goto __pyx_L0;
 
-  /* "lsm_classes.pyx":197
+  /* "lsm_classes.pyx":214
  *     #     return self.optimiseptr.computeFunction(index)
  * 
  *     def computeGradients(self, np.ndarray[double] lambdas,unsigned int index):             # <<<<<<<<<<<<<<
@@ -3842,7 +4065,7 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_20computeGradients(struct 
   return __pyx_r;
 }
 
-/* "lsm_classes.pyx":203
+/* "lsm_classes.pyx":220
  *         return gradient
  * 
  *     def postprocess(self,np.ndarray[double] lambdas):             # <<<<<<<<<<<<<<
@@ -3851,13 +4074,13 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_20computeGradients(struct 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_23postprocess(PyObject *__pyx_v_self, PyObject *__pyx_v_lambdas); /*proto*/
-static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_23postprocess(PyObject *__pyx_v_self, PyObject *__pyx_v_lambdas) {
+static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_27postprocess(PyObject *__pyx_v_self, PyObject *__pyx_v_lambdas); /*proto*/
+static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_27postprocess(PyObject *__pyx_v_self, PyObject *__pyx_v_lambdas) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("postprocess (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_lambdas), __pyx_ptype_5numpy_ndarray, 1, "lambdas", 0))) __PYX_ERR(0, 203, __pyx_L1_error)
-  __pyx_r = __pyx_pf_11lsm_classes_11PyLSMSolver_22postprocess(((struct __pyx_obj_11lsm_classes_PyLSMSolver *)__pyx_v_self), ((PyArrayObject *)__pyx_v_lambdas));
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_lambdas), __pyx_ptype_5numpy_ndarray, 1, "lambdas", 0))) __PYX_ERR(0, 220, __pyx_L1_error)
+  __pyx_r = __pyx_pf_11lsm_classes_11PyLSMSolver_26postprocess(((struct __pyx_obj_11lsm_classes_PyLSMSolver *)__pyx_v_self), ((PyArrayObject *)__pyx_v_lambdas));
 
   /* function exit code */
   goto __pyx_L0;
@@ -3868,7 +4091,7 @@ static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_23postprocess(PyObject *__
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_22postprocess(struct __pyx_obj_11lsm_classes_PyLSMSolver *__pyx_v_self, PyArrayObject *__pyx_v_lambdas) {
+static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_26postprocess(struct __pyx_obj_11lsm_classes_PyLSMSolver *__pyx_v_self, PyArrayObject *__pyx_v_lambdas) {
   std::vector<double>  __pyx_v_lambdas_v;
   long __pyx_v_ii;
   double __pyx_v_timeStep;
@@ -3892,21 +4115,21 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_22postprocess(struct __pyx
   __pyx_pybuffernd_lambdas.rcbuffer = &__pyx_pybuffer_lambdas;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_lambdas.rcbuffer->pybuffer, (PyObject*)__pyx_v_lambdas, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES| PyBUF_WRITABLE, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 203, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_lambdas.rcbuffer->pybuffer, (PyObject*)__pyx_v_lambdas, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES| PyBUF_WRITABLE, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 220, __pyx_L1_error)
   }
   __pyx_pybuffernd_lambdas.diminfo[0].strides = __pyx_pybuffernd_lambdas.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_lambdas.diminfo[0].shape = __pyx_pybuffernd_lambdas.rcbuffer->pybuffer.shape[0];
 
-  /* "lsm_classes.pyx":208
+  /* "lsm_classes.pyx":225
  *         # lambda_v.push_back(lambdas[0])
  *         # lambda_v.push_back(lambdas[1])
  *         self.optimiseptr.computeDisplacements(lambdas)             # <<<<<<<<<<<<<<
  * 
  *         # return gradient
  */
-  __pyx_t_1 = __pyx_convert_vector_from_py_double(((PyObject *)__pyx_v_lambdas)); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 208, __pyx_L1_error)
+  __pyx_t_1 = __pyx_convert_vector_from_py_double(((PyObject *)__pyx_v_lambdas)); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 225, __pyx_L1_error)
   __pyx_v_self->optimiseptr->computeDisplacements(__pyx_t_1);
 
-  /* "lsm_classes.pyx":214
+  /* "lsm_classes.pyx":231
  *         # # // Rescale the displacements and lambda values (if necessary).
  *         cdef vector[double] lambdas_v
  *         lambdas_v.push_back(lambdas[0])             # <<<<<<<<<<<<<<
@@ -3921,16 +4144,16 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_22postprocess(struct __pyx
   } else if (unlikely(__pyx_t_2 >= __pyx_pybuffernd_lambdas.diminfo[0].shape)) __pyx_t_3 = 0;
   if (unlikely(__pyx_t_3 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_3);
-    __PYX_ERR(0, 214, __pyx_L1_error)
+    __PYX_ERR(0, 231, __pyx_L1_error)
   }
   try {
     __pyx_v_lambdas_v.push_back((*__Pyx_BufPtrStrided1d(double *, __pyx_pybuffernd_lambdas.rcbuffer->pybuffer.buf, __pyx_t_2, __pyx_pybuffernd_lambdas.diminfo[0].strides)));
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 214, __pyx_L1_error)
+    __PYX_ERR(0, 231, __pyx_L1_error)
   }
 
-  /* "lsm_classes.pyx":215
+  /* "lsm_classes.pyx":232
  *         cdef vector[double] lambdas_v
  *         lambdas_v.push_back(lambdas[0])
  *         lambdas_v.push_back(lambdas[1])             # <<<<<<<<<<<<<<
@@ -3945,16 +4168,16 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_22postprocess(struct __pyx
   } else if (unlikely(__pyx_t_4 >= __pyx_pybuffernd_lambdas.diminfo[0].shape)) __pyx_t_3 = 0;
   if (unlikely(__pyx_t_3 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_3);
-    __PYX_ERR(0, 215, __pyx_L1_error)
+    __PYX_ERR(0, 232, __pyx_L1_error)
   }
   try {
     __pyx_v_lambdas_v.push_back((*__Pyx_BufPtrStrided1d(double *, __pyx_pybuffernd_lambdas.rcbuffer->pybuffer.buf, __pyx_t_4, __pyx_pybuffernd_lambdas.diminfo[0].strides)));
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 215, __pyx_L1_error)
+    __PYX_ERR(0, 232, __pyx_L1_error)
   }
 
-  /* "lsm_classes.pyx":217
+  /* "lsm_classes.pyx":234
  *         lambdas_v.push_back(lambdas[1])
  * 
  *         self.optimiseptr.rescaleDisplacements(lambdas_v) #QUEST. stdvector <> ndarray             # <<<<<<<<<<<<<<
@@ -3963,7 +4186,7 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_22postprocess(struct __pyx
  */
   __pyx_v_self->optimiseptr->rescaleDisplacements(__pyx_v_lambdas_v);
 
-  /* "lsm_classes.pyx":219
+  /* "lsm_classes.pyx":236
  *         self.optimiseptr.rescaleDisplacements(lambdas_v) #QUEST. stdvector <> ndarray
  *         # # // Calculate the unscaled lambda values.
  *         for ii in range(0,2):             # <<<<<<<<<<<<<<
@@ -3973,7 +4196,7 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_22postprocess(struct __pyx
   for (__pyx_t_5 = 0; __pyx_t_5 < 2; __pyx_t_5+=1) {
     __pyx_v_ii = __pyx_t_5;
 
-    /* "lsm_classes.pyx":220
+    /* "lsm_classes.pyx":237
  *         # # // Calculate the unscaled lambda values.
  *         for ii in range(0,2):
  *             lambdas_v[ii] *= self.optimiseptr.scaleFactors[ii]             # <<<<<<<<<<<<<<
@@ -3984,7 +4207,7 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_22postprocess(struct __pyx
     (__pyx_v_lambdas_v[__pyx_t_6]) = ((__pyx_v_lambdas_v[__pyx_t_6]) * (__pyx_v_self->optimiseptr->scaleFactors[__pyx_v_ii]));
   }
 
-  /* "lsm_classes.pyx":223
+  /* "lsm_classes.pyx":240
  * 
  *         # # // Effective time step.
  *         timeStep = -(lambdas_v[0])             # <<<<<<<<<<<<<<
@@ -3993,7 +4216,7 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_22postprocess(struct __pyx
  */
   __pyx_v_timeStep = (-(__pyx_v_lambdas_v[0]));
 
-  /* "lsm_classes.pyx":225
+  /* "lsm_classes.pyx":242
  *         timeStep = -(lambdas_v[0])
  *         # # // Calculate boundary point velocities.
  *         for ii in range(0, self.nBpts):             # <<<<<<<<<<<<<<
@@ -4004,7 +4227,7 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_22postprocess(struct __pyx
   for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_3; __pyx_t_5+=1) {
     __pyx_v_ii = __pyx_t_5;
 
-    /* "lsm_classes.pyx":226
+    /* "lsm_classes.pyx":243
  *         # # // Calculate boundary point velocities.
  *         for ii in range(0, self.nBpts):
  *             self.boundaryptr.points[ii].velocity = self.optimiseptr.displacements[ii] / timeStep             # <<<<<<<<<<<<<<
@@ -4014,12 +4237,12 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_22postprocess(struct __pyx
     __pyx_t_7 = (__pyx_v_self->optimiseptr->displacements[__pyx_v_ii]);
     if (unlikely(__pyx_v_timeStep == 0)) {
       PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-      __PYX_ERR(0, 226, __pyx_L1_error)
+      __PYX_ERR(0, 243, __pyx_L1_error)
     }
     (__pyx_v_self->boundaryptr->points[__pyx_v_ii]).velocity = (__pyx_t_7 / __pyx_v_timeStep);
   }
 
-  /* "lsm_classes.pyx":231
+  /* "lsm_classes.pyx":248
  *         # return self.boundaryptr.points # ERROR: pointer issue
  *         # ======================================================================================
  *         lambdas[0] = lambdas_v[0]             # <<<<<<<<<<<<<<
@@ -4034,11 +4257,11 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_22postprocess(struct __pyx
   } else if (unlikely(__pyx_t_8 >= __pyx_pybuffernd_lambdas.diminfo[0].shape)) __pyx_t_3 = 0;
   if (unlikely(__pyx_t_3 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_3);
-    __PYX_ERR(0, 231, __pyx_L1_error)
+    __PYX_ERR(0, 248, __pyx_L1_error)
   }
   *__Pyx_BufPtrStrided1d(double *, __pyx_pybuffernd_lambdas.rcbuffer->pybuffer.buf, __pyx_t_8, __pyx_pybuffernd_lambdas.diminfo[0].strides) = (__pyx_v_lambdas_v[0]);
 
-  /* "lsm_classes.pyx":232
+  /* "lsm_classes.pyx":249
  *         # ======================================================================================
  *         lambdas[0] = lambdas_v[0]
  *         lambdas[1] = lambdas_v[1]             # <<<<<<<<<<<<<<
@@ -4053,11 +4276,11 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_22postprocess(struct __pyx
   } else if (unlikely(__pyx_t_9 >= __pyx_pybuffernd_lambdas.diminfo[0].shape)) __pyx_t_3 = 0;
   if (unlikely(__pyx_t_3 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_3);
-    __PYX_ERR(0, 232, __pyx_L1_error)
+    __PYX_ERR(0, 249, __pyx_L1_error)
   }
   *__Pyx_BufPtrStrided1d(double *, __pyx_pybuffernd_lambdas.rcbuffer->pybuffer.buf, __pyx_t_9, __pyx_pybuffernd_lambdas.diminfo[0].strides) = (__pyx_v_lambdas_v[1]);
 
-  /* "lsm_classes.pyx":234
+  /* "lsm_classes.pyx":251
  *         lambdas[1] = lambdas_v[1]
  * 
  *         return lambdas             # <<<<<<<<<<<<<<
@@ -4069,7 +4292,7 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_22postprocess(struct __pyx
   __pyx_r = ((PyObject *)__pyx_v_lambdas);
   goto __pyx_L0;
 
-  /* "lsm_classes.pyx":203
+  /* "lsm_classes.pyx":220
  *         return gradient
  * 
  *     def postprocess(self,np.ndarray[double] lambdas):             # <<<<<<<<<<<<<<
@@ -4096,7 +4319,7 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_22postprocess(struct __pyx
   return __pyx_r;
 }
 
-/* "lsm_classes.pyx":235
+/* "lsm_classes.pyx":252
  * 
  *         return lambdas
  *     def computeVelocities(self):             # <<<<<<<<<<<<<<
@@ -4105,25 +4328,25 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_22postprocess(struct __pyx
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_25computeVelocities(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_25computeVelocities(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_29computeVelocities(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_29computeVelocities(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("computeVelocities (wrapper)", 0);
-  __pyx_r = __pyx_pf_11lsm_classes_11PyLSMSolver_24computeVelocities(((struct __pyx_obj_11lsm_classes_PyLSMSolver *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11lsm_classes_11PyLSMSolver_28computeVelocities(((struct __pyx_obj_11lsm_classes_PyLSMSolver *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_24computeVelocities(struct __pyx_obj_11lsm_classes_PyLSMSolver *__pyx_v_self) {
+static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_28computeVelocities(struct __pyx_obj_11lsm_classes_PyLSMSolver *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("computeVelocities", 0);
 
-  /* "lsm_classes.pyx":236
+  /* "lsm_classes.pyx":253
  *         return lambdas
  *     def computeVelocities(self):
  *         self.levelsetptr.computeVelocities(self.boundaryptr.points)             # <<<<<<<<<<<<<<
@@ -4132,7 +4355,7 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_24computeVelocities(struct
  */
   __pyx_v_self->levelsetptr->computeVelocities(__pyx_v_self->boundaryptr->points);
 
-  /* "lsm_classes.pyx":237
+  /* "lsm_classes.pyx":254
  *     def computeVelocities(self):
  *         self.levelsetptr.computeVelocities(self.boundaryptr.points)
  *         self.levelsetptr.computeGradients()             # <<<<<<<<<<<<<<
@@ -4141,7 +4364,7 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_24computeVelocities(struct
  */
   __pyx_v_self->levelsetptr->computeGradients();
 
-  /* "lsm_classes.pyx":238
+  /* "lsm_classes.pyx":255
  *         self.levelsetptr.computeVelocities(self.boundaryptr.points)
  *         self.levelsetptr.computeGradients()
  *         return self.levelsetptr.velocity             # <<<<<<<<<<<<<<
@@ -4149,13 +4372,13 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_24computeVelocities(struct
  *     def reinitialise(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_convert_vector_to_py_double(__pyx_v_self->levelsetptr->velocity); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 238, __pyx_L1_error)
+  __pyx_t_1 = __pyx_convert_vector_to_py_double(__pyx_v_self->levelsetptr->velocity); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 255, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "lsm_classes.pyx":235
+  /* "lsm_classes.pyx":252
  * 
  *         return lambdas
  *     def computeVelocities(self):             # <<<<<<<<<<<<<<
@@ -4174,7 +4397,7 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_24computeVelocities(struct
   return __pyx_r;
 }
 
-/* "lsm_classes.pyx":240
+/* "lsm_classes.pyx":257
  *         return self.levelsetptr.velocity
  * 
  *     def reinitialise(self):             # <<<<<<<<<<<<<<
@@ -4183,25 +4406,25 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_24computeVelocities(struct
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_27reinitialise(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_27reinitialise(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_31reinitialise(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_31reinitialise(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("reinitialise (wrapper)", 0);
-  __pyx_r = __pyx_pf_11lsm_classes_11PyLSMSolver_26reinitialise(((struct __pyx_obj_11lsm_classes_PyLSMSolver *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11lsm_classes_11PyLSMSolver_30reinitialise(((struct __pyx_obj_11lsm_classes_PyLSMSolver *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_26reinitialise(struct __pyx_obj_11lsm_classes_PyLSMSolver *__pyx_v_self) {
+static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_30reinitialise(struct __pyx_obj_11lsm_classes_PyLSMSolver *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("reinitialise", 0);
 
-  /* "lsm_classes.pyx":241
+  /* "lsm_classes.pyx":258
  * 
  *     def reinitialise(self):
  *         self.levelsetptr.reinitialise()             # <<<<<<<<<<<<<<
@@ -4210,7 +4433,7 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_26reinitialise(struct __py
  */
   __pyx_v_self->levelsetptr->reinitialise();
 
-  /* "lsm_classes.pyx":242
+  /* "lsm_classes.pyx":259
  *     def reinitialise(self):
  *         self.levelsetptr.reinitialise()
  *         return self.levelsetptr.signedDistance             # <<<<<<<<<<<<<<
@@ -4218,13 +4441,13 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_26reinitialise(struct __py
  *     def update(self,double t):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_convert_vector_to_py_double(__pyx_v_self->levelsetptr->signedDistance); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 242, __pyx_L1_error)
+  __pyx_t_1 = __pyx_convert_vector_to_py_double(__pyx_v_self->levelsetptr->signedDistance); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 259, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "lsm_classes.pyx":240
+  /* "lsm_classes.pyx":257
  *         return self.levelsetptr.velocity
  * 
  *     def reinitialise(self):             # <<<<<<<<<<<<<<
@@ -4243,7 +4466,7 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_26reinitialise(struct __py
   return __pyx_r;
 }
 
-/* "lsm_classes.pyx":244
+/* "lsm_classes.pyx":261
  *         return self.levelsetptr.signedDistance
  * 
  *     def update(self,double t):             # <<<<<<<<<<<<<<
@@ -4252,14 +4475,14 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_26reinitialise(struct __py
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_29update(PyObject *__pyx_v_self, PyObject *__pyx_arg_t); /*proto*/
-static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_29update(PyObject *__pyx_v_self, PyObject *__pyx_arg_t) {
+static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_33update(PyObject *__pyx_v_self, PyObject *__pyx_arg_t); /*proto*/
+static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_33update(PyObject *__pyx_v_self, PyObject *__pyx_arg_t) {
   double __pyx_v_t;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("update (wrapper)", 0);
   assert(__pyx_arg_t); {
-    __pyx_v_t = __pyx_PyFloat_AsDouble(__pyx_arg_t); if (unlikely((__pyx_v_t == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 244, __pyx_L3_error)
+    __pyx_v_t = __pyx_PyFloat_AsDouble(__pyx_arg_t); if (unlikely((__pyx_v_t == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 261, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -4267,20 +4490,20 @@ static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_29update(PyObject *__pyx_v
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_11lsm_classes_11PyLSMSolver_28update(((struct __pyx_obj_11lsm_classes_PyLSMSolver *)__pyx_v_self), ((double)__pyx_v_t));
+  __pyx_r = __pyx_pf_11lsm_classes_11PyLSMSolver_32update(((struct __pyx_obj_11lsm_classes_PyLSMSolver *)__pyx_v_self), ((double)__pyx_v_t));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_28update(struct __pyx_obj_11lsm_classes_PyLSMSolver *__pyx_v_self, double __pyx_v_t) {
+static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_32update(struct __pyx_obj_11lsm_classes_PyLSMSolver *__pyx_v_self, double __pyx_v_t) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("update", 0);
 
-  /* "lsm_classes.pyx":245
+  /* "lsm_classes.pyx":262
  * 
  *     def update(self,double t):
  *         self.levelsetptr.update(t)             # <<<<<<<<<<<<<<
@@ -4289,7 +4512,7 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_28update(struct __pyx_obj_
  */
   __pyx_v_self->levelsetptr->update(__pyx_v_t);
 
-  /* "lsm_classes.pyx":247
+  /* "lsm_classes.pyx":264
  *         self.levelsetptr.update(t)
  * 
  *         return self.levelsetptr.signedDistance             # <<<<<<<<<<<<<<
@@ -4297,13 +4520,13 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_28update(struct __pyx_obj_
  *     def del_optim(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_convert_vector_to_py_double(__pyx_v_self->levelsetptr->signedDistance); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 247, __pyx_L1_error)
+  __pyx_t_1 = __pyx_convert_vector_to_py_double(__pyx_v_self->levelsetptr->signedDistance); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 264, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "lsm_classes.pyx":244
+  /* "lsm_classes.pyx":261
  *         return self.levelsetptr.signedDistance
  * 
  *     def update(self,double t):             # <<<<<<<<<<<<<<
@@ -4322,7 +4545,7 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_28update(struct __pyx_obj_
   return __pyx_r;
 }
 
-/* "lsm_classes.pyx":249
+/* "lsm_classes.pyx":266
  *         return self.levelsetptr.signedDistance
  * 
  *     def del_optim(self):             # <<<<<<<<<<<<<<
@@ -4331,24 +4554,24 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_28update(struct __pyx_obj_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_31del_optim(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_31del_optim(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_35del_optim(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_35del_optim(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("del_optim (wrapper)", 0);
-  __pyx_r = __pyx_pf_11lsm_classes_11PyLSMSolver_30del_optim(((struct __pyx_obj_11lsm_classes_PyLSMSolver *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11lsm_classes_11PyLSMSolver_34del_optim(((struct __pyx_obj_11lsm_classes_PyLSMSolver *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_30del_optim(struct __pyx_obj_11lsm_classes_PyLSMSolver *__pyx_v_self) {
+static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_34del_optim(struct __pyx_obj_11lsm_classes_PyLSMSolver *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("del_optim", 0);
 
-  /* "lsm_classes.pyx":250
+  /* "lsm_classes.pyx":267
  * 
  *     def del_optim(self):
  *         del self.optimiseptr             # <<<<<<<<<<<<<<
@@ -4357,7 +4580,7 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_30del_optim(struct __pyx_o
  */
   delete __pyx_v_self->optimiseptr;
 
-  /* "lsm_classes.pyx":249
+  /* "lsm_classes.pyx":266
  *         return self.levelsetptr.signedDistance
  * 
  *     def del_optim(self):             # <<<<<<<<<<<<<<
@@ -4372,7 +4595,7 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_30del_optim(struct __pyx_o
   return __pyx_r;
 }
 
-/* "lsm_classes.pyx":252
+/* "lsm_classes.pyx":269
  *         del self.optimiseptr
  * 
  *     def get_optimPars(self):             # <<<<<<<<<<<<<<
@@ -4381,19 +4604,19 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_30del_optim(struct __pyx_o
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_33get_optimPars(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_33get_optimPars(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_37get_optimPars(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_11lsm_classes_11PyLSMSolver_37get_optimPars(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("get_optimPars (wrapper)", 0);
-  __pyx_r = __pyx_pf_11lsm_classes_11PyLSMSolver_32get_optimPars(((struct __pyx_obj_11lsm_classes_PyLSMSolver *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11lsm_classes_11PyLSMSolver_36get_optimPars(((struct __pyx_obj_11lsm_classes_PyLSMSolver *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_32get_optimPars(struct __pyx_obj_11lsm_classes_PyLSMSolver *__pyx_v_self) {
+static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_36get_optimPars(struct __pyx_obj_11lsm_classes_PyLSMSolver *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -4403,22 +4626,22 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_32get_optimPars(struct __p
   PyObject *__pyx_t_5 = NULL;
   __Pyx_RefNannySetupContext("get_optimPars", 0);
 
-  /* "lsm_classes.pyx":253
+  /* "lsm_classes.pyx":270
  * 
  *     def get_optimPars(self):
  *         return (self.optimiseptr.scaleFactors, self.optimiseptr.constraintDistancesScaled, self.optimiseptr.indexMap, self.optimiseptr.displacements)             # <<<<<<<<<<<<<<
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_convert_vector_to_py_double(__pyx_v_self->optimiseptr->scaleFactors); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 253, __pyx_L1_error)
+  __pyx_t_1 = __pyx_convert_vector_to_py_double(__pyx_v_self->optimiseptr->scaleFactors); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 270, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __pyx_convert_vector_to_py_double(__pyx_v_self->optimiseptr->constraintDistancesScaled); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 253, __pyx_L1_error)
+  __pyx_t_2 = __pyx_convert_vector_to_py_double(__pyx_v_self->optimiseptr->constraintDistancesScaled); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 270, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __pyx_convert_vector_to_py_unsigned_int(__pyx_v_self->optimiseptr->indexMap); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 253, __pyx_L1_error)
+  __pyx_t_3 = __pyx_convert_vector_to_py_unsigned_int(__pyx_v_self->optimiseptr->indexMap); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 270, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __pyx_convert_vector_to_py_double(__pyx_v_self->optimiseptr->displacements); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 253, __pyx_L1_error)
+  __pyx_t_4 = __pyx_convert_vector_to_py_double(__pyx_v_self->optimiseptr->displacements); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 270, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = PyTuple_New(4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 253, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 270, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_1);
@@ -4436,7 +4659,7 @@ static PyObject *__pyx_pf_11lsm_classes_11PyLSMSolver_32get_optimPars(struct __p
   __pyx_t_5 = 0;
   goto __pyx_L0;
 
-  /* "lsm_classes.pyx":252
+  /* "lsm_classes.pyx":269
  *         del self.optimiseptr
  * 
  *     def get_optimPars(self):             # <<<<<<<<<<<<<<
@@ -7787,11 +8010,63 @@ static std::vector<double>  __pyx_convert_vector_from_py_double(PyObject *__pyx_
 
 /* "vector.to_py":67
  * 
- * @cname("__pyx_convert_vector_to_py_unsigned_int")
- * cdef object __pyx_convert_vector_to_py_unsigned_int(vector[X]& v):             # <<<<<<<<<<<<<<
+ * @cname("__pyx_convert_vector_to_py_int")
+ * cdef object __pyx_convert_vector_to_py_int(vector[X]& v):             # <<<<<<<<<<<<<<
  *     return [X_to_py(v[i]) for i in range(v.size())]
  * 
  */
+
+static PyObject *__pyx_convert_vector_to_py_int(const std::vector<int>  &__pyx_v_v) {
+  size_t __pyx_v_i;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  size_t __pyx_t_2;
+  size_t __pyx_t_3;
+  PyObject *__pyx_t_4 = NULL;
+  __Pyx_RefNannySetupContext("__pyx_convert_vector_to_py_int", 0);
+
+  /* "vector.to_py":68
+ * @cname("__pyx_convert_vector_to_py_int")
+ * cdef object __pyx_convert_vector_to_py_int(vector[X]& v):
+ *     return [X_to_py(v[i]) for i in range(v.size())]             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(3, 68, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __pyx_v_v.size();
+  for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
+    __pyx_v_i = __pyx_t_3;
+    __pyx_t_4 = __Pyx_PyInt_From_int((__pyx_v_v[__pyx_v_i])); if (unlikely(!__pyx_t_4)) __PYX_ERR(3, 68, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_4))) __PYX_ERR(3, 68, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  }
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "vector.to_py":67
+ * 
+ * @cname("__pyx_convert_vector_to_py_int")
+ * cdef object __pyx_convert_vector_to_py_int(vector[X]& v):             # <<<<<<<<<<<<<<
+ *     return [X_to_py(v[i]) for i in range(v.size())]
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_AddTraceback("vector.to_py.__pyx_convert_vector_to_py_int", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
 
 static PyObject *__pyx_convert_vector_to_py_unsigned_int(const std::vector<unsigned int>  &__pyx_v_v) {
   size_t __pyx_v_i;
@@ -7885,14 +8160,16 @@ static PyMethodDef __pyx_methods_11lsm_classes_PyLSMSolver[] = {
   {"callback_dp", (PyCFunction)__pyx_pw_11lsm_classes_11PyLSMSolver_13callback_dp, METH_VARARGS|METH_KEYWORDS, 0},
   {"get_bounds", (PyCFunction)__pyx_pw_11lsm_classes_11PyLSMSolver_15get_bounds, METH_NOARGS, 0},
   {"computeDisplacements", (PyCFunction)__pyx_pw_11lsm_classes_11PyLSMSolver_17computeDisplacements, METH_O, 0},
-  {"computeFunction", (PyCFunction)__pyx_pw_11lsm_classes_11PyLSMSolver_19computeFunction, METH_VARARGS|METH_KEYWORDS, 0},
-  {"computeGradients", (PyCFunction)__pyx_pw_11lsm_classes_11PyLSMSolver_21computeGradients, METH_VARARGS|METH_KEYWORDS, 0},
-  {"postprocess", (PyCFunction)__pyx_pw_11lsm_classes_11PyLSMSolver_23postprocess, METH_O, 0},
-  {"computeVelocities", (PyCFunction)__pyx_pw_11lsm_classes_11PyLSMSolver_25computeVelocities, METH_NOARGS, 0},
-  {"reinitialise", (PyCFunction)__pyx_pw_11lsm_classes_11PyLSMSolver_27reinitialise, METH_NOARGS, 0},
-  {"update", (PyCFunction)__pyx_pw_11lsm_classes_11PyLSMSolver_29update, METH_O, 0},
-  {"del_optim", (PyCFunction)__pyx_pw_11lsm_classes_11PyLSMSolver_31del_optim, METH_NOARGS, 0},
-  {"get_optimPars", (PyCFunction)__pyx_pw_11lsm_classes_11PyLSMSolver_33get_optimPars, METH_NOARGS, 0},
+  {"computePartialDisplacement", (PyCFunction)__pyx_pw_11lsm_classes_11PyLSMSolver_19computePartialDisplacement, METH_NOARGS, 0},
+  {"computeFunction", (PyCFunction)__pyx_pw_11lsm_classes_11PyLSMSolver_21computeFunction, METH_VARARGS|METH_KEYWORDS, 0},
+  {"computePartialFunctions", (PyCFunction)__pyx_pw_11lsm_classes_11PyLSMSolver_23computePartialFunctions, METH_O, 0},
+  {"computeGradients", (PyCFunction)__pyx_pw_11lsm_classes_11PyLSMSolver_25computeGradients, METH_VARARGS|METH_KEYWORDS, 0},
+  {"postprocess", (PyCFunction)__pyx_pw_11lsm_classes_11PyLSMSolver_27postprocess, METH_O, 0},
+  {"computeVelocities", (PyCFunction)__pyx_pw_11lsm_classes_11PyLSMSolver_29computeVelocities, METH_NOARGS, 0},
+  {"reinitialise", (PyCFunction)__pyx_pw_11lsm_classes_11PyLSMSolver_31reinitialise, METH_NOARGS, 0},
+  {"update", (PyCFunction)__pyx_pw_11lsm_classes_11PyLSMSolver_33update, METH_O, 0},
+  {"del_optim", (PyCFunction)__pyx_pw_11lsm_classes_11PyLSMSolver_35del_optim, METH_NOARGS, 0},
+  {"get_optimPars", (PyCFunction)__pyx_pw_11lsm_classes_11PyLSMSolver_37get_optimPars, METH_NOARGS, 0},
   {0, 0, 0, 0}
 };
 
@@ -7986,6 +8263,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_RuntimeError, __pyx_k_RuntimeError, sizeof(__pyx_k_RuntimeError), 0, 0, 1, 1},
   {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
   {&__pyx_n_s_abs, __pyx_k_abs, sizeof(__pyx_k_abs), 0, 0, 1, 1},
+  {&__pyx_n_s_asarray, __pyx_k_asarray, sizeof(__pyx_k_asarray), 0, 0, 1, 1},
   {&__pyx_n_s_displacement, __pyx_k_displacement, sizeof(__pyx_k_displacement), 0, 0, 1, 1},
   {&__pyx_n_s_dtype, __pyx_k_dtype, sizeof(__pyx_k_dtype), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
@@ -8009,7 +8287,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 109, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 112, __pyx_L1_error)
   __pyx_builtin_MemoryError = __Pyx_GetBuiltinName(__pyx_n_s_MemoryError); if (!__pyx_builtin_MemoryError) __PYX_ERR(1, 107, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(2, 218, __pyx_L1_error)
   __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(2, 799, __pyx_L1_error)
@@ -8221,9 +8499,9 @@ PyMODINIT_FUNC PyInit_lsm_classes(void)
   /*--- Variable export code ---*/
   /*--- Function export code ---*/
   /*--- Type init code ---*/
-  if (PyType_Ready(&__pyx_type_11lsm_classes_PyLSMSolver) < 0) __PYX_ERR(0, 75, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_11lsm_classes_PyLSMSolver) < 0) __PYX_ERR(0, 77, __pyx_L1_error)
   __pyx_type_11lsm_classes_PyLSMSolver.tp_print = 0;
-  if (PyObject_SetAttrString(__pyx_m, "PyLSMSolver", (PyObject *)&__pyx_type_11lsm_classes_PyLSMSolver) < 0) __PYX_ERR(0, 75, __pyx_L1_error)
+  if (PyObject_SetAttrString(__pyx_m, "PyLSMSolver", (PyObject *)&__pyx_type_11lsm_classes_PyLSMSolver) < 0) __PYX_ERR(0, 77, __pyx_L1_error)
   __pyx_ptype_11lsm_classes_PyLSMSolver = &__pyx_type_11lsm_classes_PyLSMSolver;
   /*--- Type import code ---*/
   __pyx_ptype_7cpython_4type_type = __Pyx_ImportType(__Pyx_BUILTIN_MODULE_NAME, "type", 

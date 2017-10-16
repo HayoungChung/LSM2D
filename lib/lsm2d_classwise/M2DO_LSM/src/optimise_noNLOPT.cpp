@@ -87,8 +87,8 @@ double Optimise::callback(const std::vector<double>& lambda, std::vector<double>
     computeDisplacements(lambda);   
     
     // Compute the gradients.
-    // if (!gradient.empty())
-    //     computeGradients(lambda, gradient, index);
+    if (!gradient.empty())
+        computeGradients(lambda, gradient, index);
 
     // Return the function value.
     return computeFunction(index);
@@ -568,6 +568,78 @@ void Optimise::computeDisplacements(const std::vector<double>& lambda)
     }
 }
 
+void Optimise::computePartialDisplacement(std::vector<int>& rows, std::vector<int>& cols, 
+    std::vector<double>& data, const std::vector<double>& lambda)
+{
+    rows.resize(nPoints * (nConstraints+1), 0);
+    cols.resize(nPoints * (nConstraints+1), 0);
+    data.resize(nPoints * (nConstraints+1), 0.0);
+
+    int cnt = 0; 
+    // Loop over all boundary points.
+    for (unsigned int i=0;i<nPoints;i++)
+    {
+        rows[cnt] = i;
+        cols[cnt] = 0;
+        // Don't consider fixed points.
+        if (!boundaryPoints[i].isFixed)
+        {
+            int cnt_cols = 0;            
+            // Reset side limit flag.
+            isSideLimit[i] = false;
+
+            // Initialise component for objective.
+            data[cnt] = scaleFactors[0] * boundaryPoints[i].sensitivities[0];
+            
+            // std::cout << "(" << i << "): " << displacements[i] << "\n";
+            // Add components for active constraints.
+            for (unsigned int j=1;j<nConstraints+1;j++)
+            {
+                // Remap the sensitivity index: active --> original
+                unsigned int k = indexMap[j];
+
+                // Update displacement vector.
+                rows[cnt+j] = i;
+                cols[cnt+j] = j;
+                data[cnt+j] = scaleFactors[j] * boundaryPoints[i].sensitivities[k];
+            }
+
+            // Check side limits if point lies close to domain boundary.
+            if (boundaryPoints[i].isDomain)
+            {
+                // Apply side limit.
+                if (displacements[i] < boundaryPoints[i].negativeLimit)
+                {
+                    // displacements[i] = boundaryPoints[i].negativeLimit;
+                    data[cnt] = 0.0;
+                    for (unsigned int j=1;j<nConstraints+1;j++){
+                        data[cnt+j] = 0.0;
+                    }
+                    isSideLimit[i] = true;
+                }
+            }
+
+            // If capping displacements is selected.
+            if (isCapped)
+            {
+                // Capping displacements when they violate the CFL condition.
+                if (displacements[i] > maxDisplacement)
+                {   
+                    data[cnt] = 0.0;
+                    for (unsigned int j=1;j<nConstraints+1;j++){
+                        data[cnt+j] = 0.0;
+                    }
+                    // displacements[i] = maxDisplacement;
+                }
+            } 
+            // return partialD;  
+            cnt += 1+nConstraints;
+            
+        }
+    }
+}
+
+
 // // HAC: added for gradient computation /// WIP
 // void Optimise::computeGradDisplacements(std::vector<double>& data, std::vector<int>& row, std::vector<int>& col)
 // {
@@ -665,6 +737,27 @@ double Optimise::computeFunction(std::vector<double>& displacement_cython, unsig
 
     if (index == 0) return func;
     else return (func - (scaleFactors[index] * constraintDistancesScaled[index - 1]));
+}
+
+std::vector<double>  Optimise::computePartialFunction(unsigned int index)
+{
+    // This method assumes that displacements have already been calculated.
+
+    // Remap the sensitivity index: active --> original
+    unsigned int j = indexMap[index];
+
+    // Initialise function.
+    std::vector<double> func(nPoints, 0.0);
+
+    // Integrate function over boundary points.
+    for (unsigned int i=0;i<nPoints;i++)
+    {
+        // Don't consider fixed points.
+        if (!boundaryPoints[i].isFixed)
+            func[i] += (scaleFactors[index] * boundaryPoints[i].sensitivities[j] * boundaryPoints[i].length);
+    }
+
+    return func;
 }
 
 void Optimise::computeGradients(const std::vector<double>& lambda, std::vector<double>& gradient, unsigned int index)

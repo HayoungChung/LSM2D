@@ -107,12 +107,17 @@ public:
      */
     void computeDisplacements(const std::vector<double>&);
 
+    void computePartialDisplacement(std::vector<int>&, std::vector<int>&, std::vector<double>&);
+    
+
     //! Compute the change in the objective or constraint functions.
     /*! \param index
             Function index, 0 = objective, 1, 2, 3, ... = constraints.
      */
     double computeFunction(unsigned int);
     double computeFunction(std::vector<double>&, unsigned int);
+    
+    std::vector<double> computePartialFunction(unsigned int);
     
 
     //! Compute the gradient of the objective or constraint functions.

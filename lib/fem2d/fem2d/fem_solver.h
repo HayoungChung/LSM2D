@@ -15,7 +15,7 @@ public:
   void get_stiffness_matrix(double* multipliers, double* data, int* rows, int* cols);
   void get_stiffness_matrix(double* data, int* rows, int* cols);
   void get_stiffness_matrix_derivs(double* states, double* data, int* rows, int* cols);
-  void set_area_fractions(double* areafraction);
+  void set_area_fractions(const double* areafraction);
   void get_sensitivity_LSTO(double* u, double* xpos, double* ypos, double* sens);
 
 private:

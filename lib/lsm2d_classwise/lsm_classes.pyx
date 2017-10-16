@@ -71,6 +71,8 @@ cdef extern from "optimise_noNLOPT.h":
 
         double callback(const vector[double]&, vector[double]&, unsigned int)
 
+        vector[double] computePartialFunction(unsigned int)
+        void computePartialDisplacement(vector[int]&, vector[int]&, vector[double]&)
 
 cdef class PyLSMSolver:
     cdef Mesh *meshptr # as we don't have nullary constructor, a pointer must be used
@@ -81,6 +83,7 @@ cdef class PyLSMSolver:
     cdef int nElem 
     cdef double targetArea
     cdef int nBpts
+    cdef int ndvs
     # cdef vector[BoundaryPoint]
     # cdef vector[double] lambdas
 
@@ -119,7 +122,7 @@ cdef class PyLSMSolver:
             bpts_xy[ii,1] = self.boundaryptr.points[ii].coord.y
             segLength[ii] = self.boundaryptr.points[ii].length
 
-        return (bpts_xy, areafraction, segLength) 
+        return (bpts_xy, areafraction, segLength)
         
     # this is a temporary fix =======================================
     def preprocess(self, np.ndarray[double] lambdas, 
@@ -136,7 +139,7 @@ cdef class PyLSMSolver:
         cdef vector[double] lambda_v
         lambda_v.push_back(lambdas[0])
         lambda_v.push_back(lambdas[1])
-
+        self.ndvs = 2
         cdef vector[double] constraintDistances 
         constraintDistances.push_back(self.targetArea-self.boundaryptr.area)
         # print (self.targetArea, self.boundaryptr.area, constraintDistances)
@@ -186,10 +189,24 @@ cdef class PyLSMSolver:
         self.optimiseptr.computeDisplacements(lambdas)
         return self.optimiseptr.displacements
 
+    def computePartialDisplacement(self):
+        # rows=np.zeros(self.nBpts * self.ndvs, dtype=int)
+        # cols=np.zeros(self.nBpts * self.ndvs, dtype=int)
+        # data=np.zeros(self.nBpts * self.ndvs, dtype=float)
+        cdef vector[int] rows
+        cdef vector[int] cols
+        cdef vector[double] data
+        self.optimiseptr.computePartialDisplacement(rows, cols, data)
+        return (rows, cols, data)
+
     def computeFunction(self,np.ndarray[double] displacement, int index):
-        f1 = self.optimiseptr.computeFunction(index)    
-        f2 = self.optimiseptr.computeFunction(displacement, index)    
-        return (f1, f2)
+        # f1 = self.optimiseptr.computeFunction(index)  # f1 = f verified
+        f = self.optimiseptr.computeFunction(displacement, index)    
+        return f # (f1, f)
+
+    def computePartialFunctions(self, int index):
+        delf = self.optimiseptr.computePartialFunction(index)
+        return np.asarray(delf)
 
     # def computeFunction(self, int index):
     #     return self.optimiseptr.computeFunction(index)
