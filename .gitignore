@@ -3,6 +3,7 @@
 *.txt
 
 *.js
+*.o
 *.so
 *.pyc
 *.html
